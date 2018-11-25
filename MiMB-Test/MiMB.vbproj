@@ -26,7 +26,7 @@
     <SupportUrl>http://www.harliq.net/mimb</SupportUrl>
     <ErrorReportUrl>https://discordapp.com/channels/276075310116765696/324772056203788288</ErrorReportUrl>
     <ProductName>Mission Impossible MetaBuilder</ProductName>
-    <PublisherName>Harli Q - Jonelle</PublisherName>
+    <PublisherName>Harli B</PublisherName>
     <ApplicationRevision>5</ApplicationRevision>
     <ApplicationVersion>1.0.0.5</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -73,10 +73,11 @@
     <ApplicationIcon>mimb_icon_.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>0187C04B5319622F08C615C7AD347FD155768827</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>634585E6886246ACB9B13125BA32DAA1E713A3C5</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>MiMB_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>
+    </ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -89,6 +90,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>MiMB.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -206,6 +210,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="MiMB-Alpha_TemporaryKey.pfx" />
+    <None Include="MiMB.pfx" />
+    <None Include="MiMB_1_TemporaryKey.pfx" />
+    <None Include="MiMB_2_TemporaryKey.pfx" />
     <None Include="MiMB_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest">
       <SubType>Designer</SubType>
