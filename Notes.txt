@@ -1,0 +1,21 @@
+5/30/17 Notes:
+This is a super early Alpha release.  This is just to get a handle on interface, suggestions (not that I will listen :p) etc..
+EXE is a Debug version.
+Works on Win10, may work on Win 7 with correct .net framework (ver 4.0 or higher) but have not tested it
+
+Several things don't work:
+You can only add a few conditions, and actions. (More to come)
+You can only have one rule per state Example: Any and All Conditions and Actions (Hopefully)
+Rules don't sort yet by Meta State in alphabetical order, you will have to do this manually (Feature coming)
+For some reason, loading, saving an XML deletes the last row (still tracking that one down)
+Sometimes after loading a saved XML, you are unable to add rules (Just found that one)
+
+Things that work:
+Export Meta does work, however I have only tested it a few times under basic conditions.
+Save XML does work, but last rule is not being saved
+Loading works, but again, last rule is not loading into datatable
+You can save default directories for saving XML and exporting Meta Files in the Tools --> Options Menu
+
+
+
+

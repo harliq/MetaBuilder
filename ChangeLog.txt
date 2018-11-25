@@ -1,0 +1,21 @@
+MiMB Changelog
+
+Ver 0.0.3.3
+Loading XML File now populates Meta States ComboBox
+
+
+Ver 0.0.3.1
+Converted Create MetaState Inputbox to a Dialog
+Added Logic to not accept blank Meta names
+Added Help About Screen
+Added Options Form - Can set default Directorys for XML Save and Meta Exports
+Added Insert Row Function
+
+
+Ver 0.0.2.1
+Removed Coded for static Meta Exports
+Added Logic when selecting Never/All Condition Types
+Added Logic when selecting None/All Action Types
+
+Ver 0.0.1.1 - Alpha 
+The Beginning  Lots of Bugs
