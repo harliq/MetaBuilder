@@ -13,7 +13,7 @@
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>E:\Dropbox\MiMB\1.0.0.5\</PublishUrl>
+    <PublishUrl>E:\Dropbox\MiMB\1.0.0.7\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -27,8 +27,8 @@
     <ErrorReportUrl>https://discordapp.com/channels/276075310116765696/324772056203788288</ErrorReportUrl>
     <ProductName>Mission Impossible MetaBuilder</ProductName>
     <PublisherName>Harli B</PublisherName>
-    <ApplicationRevision>5</ApplicationRevision>
-    <ApplicationVersion>1.0.0.5</ApplicationVersion>
+    <ApplicationRevision>7</ApplicationRevision>
+    <ApplicationVersion>1.0.0.7</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -73,11 +73,10 @@
     <ApplicationIcon>mimb_icon_.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>634585E6886246ACB9B13125BA32DAA1E713A3C5</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>C8DAB11F5AA85566730EC4B95D4FE6F13A020919</ManifestCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>
-    </ManifestKeyFile>
+    <ManifestKeyFile>MiMB_3_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
@@ -92,7 +91,8 @@
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>MiMB.pfx</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -209,11 +209,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="MiMB-Alpha_TemporaryKey.pfx" />
-    <None Include="MiMB.pfx" />
-    <None Include="MiMB_1_TemporaryKey.pfx" />
-    <None Include="MiMB_2_TemporaryKey.pfx" />
-    <None Include="MiMB_TemporaryKey.pfx" />
     <None Include="My Project\app.manifest">
       <SubType>Designer</SubType>
     </None>

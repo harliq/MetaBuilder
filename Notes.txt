@@ -1,4 +1,107 @@
-5/30/17 Notes:
+1.0.0.7
+11/25/2018
+Added Misc things, and added source & notes to Github
+
+1.0.0.2
+8/27/2017
+I fixed an issue with ActionType Multiple was editing/saving changes to datatable.
+I also forgot to turn off the debug window for Meta export.  This is now Off
+I am including my Single Char portal bot XML.  You can make your changes to it easily then export it to meta format.  It should be fairly easy to understand what changes to make, but I will make a write up for it eventually.
+One thing to note, some of the Condtion Types and Action Types are named different than in VTank (example the Action Type ALL in Vtank, is named Multiple in MiMB).  There is a reason for this, but mainly because that is what Virindi really calls it in her Enums. I did the same, but just not converting it for sake of the editor.
+
+
+1.0.0.0
+8/26/2017
+Misson Impossible:Meta Builder Official Release
+FINALLY!!  It has been a journey, and it might be for nothing, but this project is done.  There maybe a few things that need to fixed here and there, but should be fairly stable.  If you find anything, let me know.
+
+Everything should be working.  
+
+0.9.0.2
+8/24/2017
+I fixed issue with nav routes sometimes not exporting correctly.  This was a bit easier to track down than I first thought.  I actually ended up just changing the way I was counting the chars for that string.  I have tested it 6 times, with different nav files, and blank nav files.  More testing will be needed, but I think I got it.
+
+0.9.0.0
+8/24/2017
+Another Milestone.  Support for all Conditions are in (Finally), and for Action Types (Execpt Metaviews, which will probably never happen, hardly used).  While they are not yet being exported, they should now save. (I thought they did in 0.7.5.2 but not correctly, and tables did not populate correctly either)
+
+**Additions**
+Any, All & Not Condition types and Mulitple Action Types are in, and now work as intended. They don't export, but now save correctly.
+When Exporting, If a Nav File isn't found, it will show message "File not found" & the name of nav file missing, and skip that nav file.
+Added Create State to Action Multiple Form.
+Added Create State to Action Type if Set Meta State, or Call Meta State is selected.  This makes it easier than creating one in Condition Section and then choosing in Action Type.
+Other Small fixes/corrections.
+
+**Limitations**
+For now (and the forseeable future), ANY/ALL, Multiple & Not Types will only support going one level deep.  In VTank Editor, you can actually have infinite nesting for those types. (Example, you could put an Any Condition inside of an Any condition, and put another Any condition inside of that one, and so on and so on).
+
+**Known issues**
+There is an intermittent problem when exporting a nav route with just a single point, or very large nav routes with a few hundred points.  Not sure why yet, and going to take some long testing to figure it out.  It doesn't happen all the time though.
+
+**What's Next?**
+Last Major Part is enabling Export of ANY/ALL, NOT, and Multiple Types.  Once that is done, MiMB will go into Release Candidate.  After those bugs are worked out, then I can finally start on Addon Features (perhaps meta generating wizards, existing meta imports, etc).  I really have no idea how long it's going to take to figure out the this last bit of exporting.  It gets a little complicated, and takes a bunch of testing.  Currently I don't have as much free time to work on it, but trying my best. I want this project finished.  An outside Meta Editor has never existed, and pretty much thought to be impossible.  Quite a few thought it would never come to be (myself included sometimes). Even though it is super late in the game, she makes an apperance :).
+
+
+
+0.7.5.2
+8/10/2017
+Condtions Any/All are in with some limitations.  Currently you can only go 1 table deep.  Meaning if you add an Any/All type under an existing Any/All type, you will not be able to edit or add to those. This is possible under VT, but not in MiMB(I may add it, or not.  Its not used a ton, but could be handy in certain areas)
+Also aligned forms more, cleaned up a few things, and misc minor details.
+Fixed Meta Export where it was only showing the first 15 Meta Rules (was using wrong property to count rules)
+Fixed MetaState List not clearing when new file being created.
+
+0.6.2.2
+8/09/2017
+Added New File option support
+Various bug fixes (see changelog), some  minor visual changes/menu changes.
+Also added underlying framework for the Any/All Conditions and Actions.  See Changelog for more details.
+
+0.5.0.0
+8/02/2017
+Nav Routes are In.  You can embed them via a .nav file you have saved from VT.  Basically the same way you would do it inside VT, however you are selecting a .nav file, and at export time, it reads the Nav file and directly writes it to the meta.
+
+
+0.4.2.2
+8/01/2017
+You will now be asked if you want to save your work when exiting the program, if you haven't saved your work. (Thanks Scribbles)
+Added More Watchdogs, Return from Call Actions, and Persiet Seconds in state Conditions. 
+I changed the amount of space the rule table has.  This is add more room for Conditions and Actions, as it was getting cramped, and need the room for what comes next.   
+The easy stuff is done,  Now the hard stuff starts.  This will probably be the last release until it is completed, and everything works. (unless there is something somone requets or testing). 
+
+
+
+0.4.0.0
+7/30/17
+Tired so this is short.
+This update makes finally enables MiMB to create somewhat complex metas now. (I am working on the ANY/ALL types, just complicated)
+I have tested Export quite a bit, and seems to be stable so far. I rewrote a good portion of it, and it appears to be working as intended
+While I have tried to make things look pretty close to ingame editor, some of the wording and naming is different, although it should read easier.
+Fields are not set as to integer or strings, so you can input chars in fields that should be numbers. This will crash your meta.  I may update this later, but for now watch what you are inputing
+Don't forget to click the update or save button before you click another rule. It does not save your changes until you update or create the rule. (Not sure if I should give a warning, autosave update the rule or leave it alone.  Need input here)
+Posting this and going to bed.  Tired.
+
+0.1.5.1
+7/25/17 Notes:
+Big Release. 
+Most things are working.  
+Meta Export is working
+Rules appear to be working as intended.
+Most Conditions and Action Types are working
+You have to click SAVE/UPDATE in order for the rule to save.  If you don't it will not save changes when moving to another rule.
+You can create multiple rules with the same conditions actions by clicking create as many times as you want the duplicate rule.
+Conditions NOT working are Any, All, NOT, Seconds in State Persiet Great Than, Client Dialog Popup.
+Actions NOT working are All,Embedded Nav Route, Return From Call, Watchdogs, and VT Opt Get and Set.
+I am sure there are things I missed, but I was able to make a meta, and it exported correctly.  So will just have to test and find out.
+I think it goes with out saying, BECAREFUL.  I would suggest using a different default directory for exporting meta's.
+Side note, don't worry about blank rules, I automatically filter them out. The one at the bottom has to stay for now  (Don't ask why.)
+You can save default directories for saving XML and exporting Meta Files in the Tools --> Options Menu
+This is a Debug compiled runtime.  
+
+
+
+
+6/1/17 Notes:
+
 This is a super early Alpha release.  This is just to get a handle on interface, suggestions (not that I will listen :p) etc..
 EXE is a Debug version.
 Works on Win10, may work on Win 7 with correct .net framework (ver 4.0 or higher) but have not tested it
@@ -6,7 +109,6 @@ Works on Win10, may work on Win 7 with correct .net framework (ver 4.0 or higher
 Several things don't work:
 You can only add a few conditions, and actions. (More to come)
 You can only have one rule per state Example: Any and All Conditions and Actions (Hopefully)
-Rules don't sort yet by Meta State in alphabetical order, you will have to do this manually (Feature coming)
 For some reason, loading, saving an XML deletes the last row (still tracking that one down)
 Sometimes after loading a saved XML, you are unable to add rules (Just found that one)
 
@@ -14,8 +116,4 @@ Things that work:
 Export Meta does work, however I have only tested it a few times under basic conditions.
 Save XML does work, but last rule is not being saved
 Loading works, but again, last rule is not loading into datatable
-You can save default directories for saving XML and exporting Meta Files in the Tools --> Options Menu
-
-
-
 
