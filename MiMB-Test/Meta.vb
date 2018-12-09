@@ -24,7 +24,7 @@
             Dim tState As String = "s"
             Dim CTypeTable As Integer = 0  'This is to flag if Condition Type uses a Record Table. No record table=0, Single=1, Double=3, Multiple Table=3, Triple =4  Used to call correct Functions, Init as 0
             Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
-            'Dim cdType As MetaConditionTypeID
+            Dim sRecordOneAdataType As String = "" ' to determine the AdataType - Example e=Expression, n=Name
             'Dim cdType As Condition
             'Dim never As String
 
@@ -135,10 +135,12 @@
                     ATypeTable = 1
                     tempmeta = tempmeta + i + "7" + vbCrLf
                     tAD = "s"
+                    sRecordOneAdataType = "e"
                 Case "ChatWithExpression"
                     ATypeTable = 1
                     tempmeta = tempmeta + i + "8" + vbCrLf
                     tAD = "s"
+                    sRecordOneAdataType = "e"
                 Case "WatchdogSet"
                     ATypeTable = 3
                     tempmeta = tempmeta + i + "9" + vbCrLf
@@ -153,6 +155,17 @@
                     ATypeTable = 2
                     tempmeta = tempmeta + i + "12" + vbCrLf
                     tAD = "s"
+                Case "CreateView"
+                    ATypeTable = 7
+                    tempmeta = tempmeta + i + "13" + vbCrLf
+                    'tAD = "s"
+                Case "DestroyView"
+                    ATypeTable = 1
+                    tempmeta = tempmeta + i + "14" + vbCrLf
+                    sRecordOneAdataType = "n"
+                Case "DestroyAllViews"
+                    ATypeTable = 0
+                    tempmeta = tempmeta + i + "15" + vbCrLf
                 Case Else
                     MessageBox.Show("Out of Range - Meta Export Action Type")
 
@@ -170,7 +183,7 @@
                     End If
 
                 Case 1 ' Single Record Table
-                    tempmeta = tempmeta & SingleExport(r.Cells(2).Value & vbCrLf)
+                    tempmeta = tempmeta & SingleExport(r.Cells(2).Value & vbCrLf, sRecordOneAdataType)
                 Case 2 ' Double Record Table
                     tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
                 Case 3 'Any/All/Not Sub Table
@@ -198,17 +211,19 @@
                 Case 0
                     tempmeta = tempmeta & ATypeZeroExport(r.Cells(3).Value & vbCrLf)      'Uses Table but zero records (Watchdog Clear)
                 Case 1
-                    tempmeta = tempmeta & SingleExport(r.Cells(3).Value & vbCrLf)  'Table 1 record
+                    tempmeta = tempmeta & SingleExport(r.Cells(3).Value & vbCrLf, sRecordOneAdataType)  'Table 1 record
                 Case 2
                     tempmeta = tempmeta & ATypeDoubleExport(r.Cells(3).Value & vbCrLf)  'Table 2 records (Gets/Set VT Options
                 Case 3
                     tempmeta = tempmeta & ATypeTripleExport(r.Cells(3).Value & vbCrLf)  'Table 3 records (WatchDog Set)
-                Case 4  'Nav Routes
+                Case 4  'Nav Routes 
                     tempmeta = tempmeta & NavRoute(r.Cells(3).Value, "a")
                 Case 5 'Multiple
                     tempmeta = tempmeta & ATMultiple(r.Cells(3).Value.ToString, r.Cells(1).Value.ToString) '& vbCrLf
                 Case 6 'Normal Stuff
                     tempmeta = tempmeta & tAD & vbCrLf & r.Cells(3).Value & vbCrLf
+                Case 7
+                    tempmeta = tempmeta & ATypeCreateViewExport(r.Cells(3).Value & vbCrLf)  'Table 3 records (WatchDog Set)
                 Case Else
                     MsgBox("Out Of Range - Meta.MetaExport- Case ATypeTable")
             End Select
@@ -314,12 +329,12 @@
 
     End Function
 
-    Function SingleExport(Rule As String) As String
+    Function SingleExport(Rule As String, RecordOneADataType As String) As String 'RecordOneAdataType - e=Expression, n=name
 
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "1"
         Dim ExportData As String = "s"  'starting off with Variable as string 
 
-        ExportData = ExportData & vbCrLf & "e" & vbCrLf & "s" & vbCrLf & Rule  ' next part, e = expression, and s = var type of name (string)
+        ExportData = ExportData & vbCrLf & RecordOneADataType & vbCrLf & "s" & vbCrLf & Rule  ' next part, e = expression, and s = var type of name (string)
 
         Rule = TableHeader & vbCrLf & ExportData
         Return (Rule)
@@ -327,7 +342,7 @@
 
     End Function
 
-    Function ATypeDoubleExport(Rule As String) As String
+    Function ATypeDoubleExport(Rule As String) As String ' RecordOneAdataType - 
 
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "2"
         Dim ExportData As String
@@ -342,6 +357,8 @@
         Return (Rule)
 
     End Function
+
+
     Function ATypeTripleExport(Rule As String) As String ' For AT WatchDog Set Only
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "3"
         Dim ExportData As String
@@ -351,6 +368,26 @@
 
         StringSplit = Split(Rule, ";")
         ExportData = ExportData & vbCrLf & "s" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "r" & vbCrLf & "d" & vbCrLf & StringSplit(1).ToString & vbCrLf & "s" & vbCrLf & "t" & vbCrLf & "d" & vbCrLf & StringSplit(2).ToString ' next part, o = option, and s = var type of name (string)
+        Rule = TableHeader & vbCrLf & ExportData
+
+        Return (Rule)
+
+    End Function
+
+    Function ATypeCreateViewExport(Rule As String) As String
+
+        Dim CharCountAdjustment As Integer = 11
+        Dim TestCharCountString As String = ""
+        Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "2"
+        Dim ExportData As String
+        Dim StringSplit() As String
+
+
+        ExportData = "s" ' This is always a string
+
+        StringSplit = Split(Rule, ";")
+        TestCharCountString = StringSplit(1).ToString
+        ExportData = ExportData & vbCrLf & "n" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "x" & vbCrLf & "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & StringSplit(1).ToString ' next part, o = option, and s = var type of name (string)
         Rule = TableHeader & vbCrLf & ExportData
 
         Return (Rule)
@@ -598,7 +635,7 @@
                 End If
 
             Case 1 ' Single Record Table
-                tempmeta = tempmeta & SingleExport(CTypeData & vbCrLf)
+                tempmeta = tempmeta & SingleExport(CTypeData & vbCrLf, "")
             Case 2 ' Double Record Table
                 tempmeta = tempmeta & CTypeDoubleExport(CTypeData, CTypeString) & vbCrLf
             Case 3 'Any/All/Not Sub Table
@@ -727,7 +764,7 @@
             Case 0
                 tempmeta = tempmeta & ATypeZeroExport(ATypeData & vbCrLf)      'Uses Table but zero records (Watchdog Clear)
             Case 1
-                tempmeta = tempmeta & SingleExport(ATypeData & vbCrLf)  'Table 1 record
+                tempmeta = tempmeta & SingleExport(ATypeData & vbCrLf, "")  'Table 1 record
             Case 2
                 tempmeta = tempmeta & ATypeDoubleExport(ATypeData & vbCrLf)  'Table 2 records (Gets/Set VT Options
             Case 3

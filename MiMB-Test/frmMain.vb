@@ -302,9 +302,10 @@ Public Class frmMain
                 AData = MultipleString
             Case 9
                 AData = Parse.CombineThreeVal(txtBoxAData.Text, txtBoxAData2.Text, txtBoxAData3.Text)
-            Case 11, 12
+            Case 11, 12, 13
                 AData = Parse.CombineTwoVal(txtBoxAData.Text, txtBoxAData2.Text, "a")
-
+                ' Case 13
+                '     AData = Parse.CombineTwoVal(txtBoxAData.Text, txtBoxAData2.Text, "a")
             Case Else
                 AData = txtBoxAData.Text
         End Select
@@ -812,6 +813,8 @@ Public Class frmMain
                 Case "GetVTOption"
                     ATypeTable = 2
                 Case "SetVTOption"
+                    ATypeTable = 2
+                Case "CreateView"
                     ATypeTable = 2
                 Case Else
                     'MessageBox.Show("Out of Range - Meta Export Action Type")
