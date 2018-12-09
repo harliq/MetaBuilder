@@ -1,4 +1,8 @@
 MiMB Changelog
+1.1.0.0
+12/09/2018
+Added MetaView menus support.  
+
 1.0.0.7
 11/25/2018
 Added: Started to add support for editing metas directly, Added new many new methods since last update, added website to about screen and source to Github.
