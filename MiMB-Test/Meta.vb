@@ -708,6 +708,7 @@
         Dim tAD As String = "i"
         Dim tempmeta As String = ""
         Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
+        Dim sADataVaribleType As String
 
         Select Case (ATypeString)  ' Action Types
             Case "None"
@@ -734,10 +735,12 @@
                 ATypeTable = 1
                 tempmeta = tempmeta + i + "7" + vbCrLf
                 tAD = "s"
+                sADataVaribleType = "e"
             Case "ChatWithExpression"
                 ATypeTable = 1
                 tempmeta = tempmeta + i + "8" + vbCrLf
                 tAD = "s"
+                sADataVaribleType = "e"
             Case "WatchdogSet"
                 ATypeTable = 3
                 tempmeta = tempmeta + i + "9" + vbCrLf
@@ -752,8 +755,20 @@
                 ATypeTable = 2
                 tempmeta = tempmeta + i + "12" + vbCrLf
                 tAD = "s"
+            Case "CreateView"
+                ATypeTable = 7
+                tempmeta = tempmeta + i + "13" + vbCrLf
+                tAD = "s"
+            Case "DestroyView"
+                ATypeTable = 1
+                tempmeta = tempmeta + i + "14" + vbCrLf
+                tAD = "s"
+                sADataVaribleType = "n"
+            Case "DestroyAllViews"
+                ATypeTable = 0
+                tempmeta = tempmeta + i + "15" + vbCrLf
             Case Else
-                MessageBox.Show("Out of Range - Meta Export Action Type")
+                MessageBox.Show("Out of Range - Function = Meta.ActionTypeEncode")
 
         End Select
 
@@ -764,7 +779,7 @@
             Case 0
                 tempmeta = tempmeta & ATypeZeroExport(ATypeData & vbCrLf)      'Uses Table but zero records (Watchdog Clear)
             Case 1
-                tempmeta = tempmeta & SingleExport(ATypeData & vbCrLf, "")  'Table 1 record
+                tempmeta = tempmeta & SingleExport(ATypeData & vbCrLf, sADataVaribleType)  'Table 1 record
             Case 2
                 tempmeta = tempmeta & ATypeDoubleExport(ATypeData & vbCrLf)  'Table 2 records (Gets/Set VT Options
             Case 3
@@ -775,6 +790,8 @@
 
             Case 6 'Normal Stuff
                 tempmeta = tempmeta & tAD & vbCrLf & ATypeData & vbCrLf
+            Case 7
+                tempmeta = tempmeta & ATypeCreateViewExport(ATypeData & vbCrLf)  'Table 3 records (WatchDog Set)
             Case Else
                 MsgBox("Out Of Range - Meta.MetaExport- Case ATypeTable")
         End Select

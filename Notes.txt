@@ -1,3 +1,7 @@
+1.1.1.5
+12/09/2018
+Fixed export parts for Any/Multiple that I broke when adding MetaViews.  Also added MetaViews to Multiple ActionTypes (forgot to do that Earlier).  Added sAdataVaribleType to multiple Meta Export Function.  Also cleaned up function.
+
 1.1.0.0
 12/09/2018
 Added MetaView menus support, added functions for meta export, simplified table 1 meta export, added varible sRecordOneAdataType to work with simplified meta export on table 1. Tested and working.

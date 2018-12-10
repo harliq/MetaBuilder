@@ -1,4 +1,8 @@
 MiMB Changelog
+1.1.1.5
+12/09/2018
+Fixed export parts for Any/Multiple that I broke when adding MetaViews.  Also added MetaViews to Multiple ActionTypes (forgot to do that Earlier).
+
 1.1.0.0
 12/09/2018
 Added MetaView menus support.  

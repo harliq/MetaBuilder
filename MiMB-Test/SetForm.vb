@@ -367,7 +367,7 @@
             Case "13", "CreateView"
                 SetForm.ATDoubleRule()
                 frmMain.lblAData.Text = "Name of View"
-                frmMain.lblAdata2.Text = "XML Data"
+                frmMain.lblAdata2.Text = "Raw XML Data"
             Case "14", "DestroyView"
                 SetForm.ATSingleRule()
                 frmMain.lblAData.Text = "Name of View to Destroy"

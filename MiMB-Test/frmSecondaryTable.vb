@@ -30,7 +30,7 @@
         cBoxMetaState.Visible = False
         btnEmbedNav.Visible = False
         btnCreateMetaState.Visible = False
-
+        dgvMultiple.Visible = False
         TextBox1.Visible = False
         TextBox2.Visible = False
         TextBox3.Visible = False
@@ -147,6 +147,15 @@
                     FormTwoRule()
                     lblTextOne.Text = "Item"
                     lblTextTwo.Text = "Number"
+                Case 13
+                    FormTwoRule()
+                    lblTextOne.Text = "Name of View"
+                    lblTextTwo.Text = "Raw XML Data"
+                Case 14
+                    FormOneRule()
+                    lblTextOne.Text = "Name of View to Destroy"
+                Case 15
+
             End Select
 
         Else
@@ -239,6 +248,16 @@
                 FormTwoRule()
                 lblTextOne.Text = "Item"
                 lblTextTwo.Text = "Number"
+            Case 13
+                FormTwoRule()
+                lblTextOne.Text = "Name of View"
+                lblTextTwo.Text = "Raw XML Data"
+            Case 14
+                FormOneRule()
+                lblTextOne.Text = "Name of View to Destroy"
+            Case 15
+
+
         End Select
     End Sub
 
@@ -286,4 +305,6 @@
 
         metaDialog.Dispose()
     End Sub
+
+
 End Class

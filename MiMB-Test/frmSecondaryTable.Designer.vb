@@ -39,6 +39,8 @@ Partial Class frmSecondaryTable
         Me.cBoxMetaState = New System.Windows.Forms.ComboBox()
         Me.ofdSecondaryTable = New System.Windows.Forms.OpenFileDialog()
         Me.btnCreateMetaState = New System.Windows.Forms.Button()
+        Me.dgvMultiple = New System.Windows.Forms.DataGridView()
+        CType(Me.dgvMultiple, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'cBoxType
@@ -198,6 +200,14 @@ Partial Class frmSecondaryTable
         Me.btnCreateMetaState.Text = "New State"
         Me.btnCreateMetaState.UseVisualStyleBackColor = True
         '
+        'dgvMultiple
+        '
+        Me.dgvMultiple.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvMultiple.Location = New System.Drawing.Point(15, 118)
+        Me.dgvMultiple.Name = "dgvMultiple"
+        Me.dgvMultiple.Size = New System.Drawing.Size(372, 152)
+        Me.dgvMultiple.TabIndex = 37
+        '
         'frmSecondaryTable
         '
         Me.AcceptButton = Me.btnOk
@@ -220,10 +230,12 @@ Partial Class frmSecondaryTable
         Me.Controls.Add(Me.btnOk)
         Me.Controls.Add(Me.lblCbox)
         Me.Controls.Add(Me.cBoxType)
+        Me.Controls.Add(Me.dgvMultiple)
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "frmSecondaryTable"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent
         Me.Text = "frmSecondaryTable"
+        CType(Me.dgvMultiple, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -246,4 +258,5 @@ Partial Class frmSecondaryTable
     Friend WithEvents cBoxMetaState As ComboBox
     Friend WithEvents ofdSecondaryTable As OpenFileDialog
     Friend WithEvents btnCreateMetaState As Button
+    Friend WithEvents dgvMultiple As DataGridView
 End Class

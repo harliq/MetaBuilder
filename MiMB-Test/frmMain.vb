@@ -1231,15 +1231,15 @@ Public Class frmMain
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
-                Case 0, 6, 10       'Zero Values
+                Case 0, 6, 10, 15       'Zero Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, "0")
                 Case 1, 5           'Meta States
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.cBoxMetaState.Text)
-                Case 2, 3, 4, 7, 8  'Single Values
+                Case 2, 3, 4, 7, 8, 14  'Single Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.TextBox1.Text)
                 Case 9              'Triple Value
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
-                Case 11, 12         'Double Values
+                Case 11, 12, 13         'Double Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a"))
                 Case Else           'Should not happen, but...
                     MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
@@ -1275,12 +1275,12 @@ Public Class frmMain
 
             Select Case selectedRow.Cells(0).Value.ToString
                 Case "None" ' Not USING
-                Case "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
+                Case "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression", "DestroyView"
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
                 Case "SetState", "Call State"
                     SecondTableDialog.cBoxMetaState.Text = selectedRow.Cells(1).Value.ToString
 
-                Case "GetVTOption", "SetVTOption"
+                Case "GetVTOption", "SetVTOption", "CreateView"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                     Dim StringSplit() As String
                     StringSplit = Split(tempData, ";")
@@ -1310,13 +1310,13 @@ Public Class frmMain
             newDataRow.Cells(0).Value = SecondTableDialog.cBoxAType.Text
 
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
-                Case 0, 3, 6, 10               'ZeroValue
+                Case 0, 3, 6, 10, 15               'ZeroValue
                     newDataRow.Cells(1).Value = "0"
                 Case 1, 5            ' SetState,CallState
                     newDataRow.Cells(1).Value = SecondTableDialog.cBoxMetaState.Text
-                Case 2, 4, 7, 8      'Single Values - "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
+                Case 2, 4, 7, 8, 14      'Single Values - "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
                     newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
-                Case 11, 12     'Double Values - "GetVTOption", "SetVTOption"
+                Case 11, 12, 13     'Double Values - "GetVTOption", "SetVTOption"
                     newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a")
                 Case 9
                     newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
