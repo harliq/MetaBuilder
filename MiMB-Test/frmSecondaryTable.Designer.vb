@@ -40,6 +40,9 @@ Partial Class frmSecondaryTable
         Me.ofdSecondaryTable = New System.Windows.Forms.OpenFileDialog()
         Me.btnCreateMetaState = New System.Windows.Forms.Button()
         Me.dgvMultiple = New System.Windows.Forms.DataGridView()
+        Me.btnAdd = New System.Windows.Forms.Button()
+        Me.btnEdit = New System.Windows.Forms.Button()
+        Me.btnDelete = New System.Windows.Forms.Button()
         CType(Me.dgvMultiple, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -69,7 +72,7 @@ Partial Class frmSecondaryTable
         'btnOk
         '
         Me.btnOk.DialogResult = System.Windows.Forms.DialogResult.OK
-        Me.btnOk.Location = New System.Drawing.Point(492, 23)
+        Me.btnOk.Location = New System.Drawing.Point(560, 22)
         Me.btnOk.Name = "btnOk"
         Me.btnOk.Size = New System.Drawing.Size(100, 25)
         Me.btnOk.TabIndex = 24
@@ -79,7 +82,7 @@ Partial Class frmSecondaryTable
         'btnCancel
         '
         Me.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.btnCancel.Location = New System.Drawing.Point(492, 54)
+        Me.btnCancel.Location = New System.Drawing.Point(560, 53)
         Me.btnCancel.Name = "btnCancel"
         Me.btnCancel.Size = New System.Drawing.Size(100, 25)
         Me.btnCancel.TabIndex = 25
@@ -90,7 +93,7 @@ Partial Class frmSecondaryTable
         '
         Me.TextBox1.Location = New System.Drawing.Point(15, 159)
         Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(577, 20)
+        Me.TextBox1.Size = New System.Drawing.Size(645, 20)
         Me.TextBox1.TabIndex = 26
         '
         'lblTextOne
@@ -107,14 +110,14 @@ Partial Class frmSecondaryTable
         '
         Me.TextBox2.Location = New System.Drawing.Point(15, 206)
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(577, 20)
+        Me.TextBox2.Size = New System.Drawing.Size(645, 20)
         Me.TextBox2.TabIndex = 28
         '
         'TextBox3
         '
         Me.TextBox3.Location = New System.Drawing.Point(15, 249)
         Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.Size = New System.Drawing.Size(577, 20)
+        Me.TextBox3.Size = New System.Drawing.Size(645, 20)
         Me.TextBox3.TabIndex = 29
         '
         'lblTextTwo
@@ -152,7 +155,7 @@ Partial Class frmSecondaryTable
         '
         'btnEmbedNav
         '
-        Me.btnEmbedNav.Location = New System.Drawing.Point(492, 89)
+        Me.btnEmbedNav.Location = New System.Drawing.Point(560, 88)
         Me.btnEmbedNav.Name = "btnEmbedNav"
         Me.btnEmbedNav.Size = New System.Drawing.Size(100, 25)
         Me.btnEmbedNav.TabIndex = 33
@@ -193,7 +196,7 @@ Partial Class frmSecondaryTable
         '
         'btnCreateMetaState
         '
-        Me.btnCreateMetaState.Location = New System.Drawing.Point(492, 120)
+        Me.btnCreateMetaState.Location = New System.Drawing.Point(560, 119)
         Me.btnCreateMetaState.Name = "btnCreateMetaState"
         Me.btnCreateMetaState.Size = New System.Drawing.Size(100, 23)
         Me.btnCreateMetaState.TabIndex = 36
@@ -202,11 +205,48 @@ Partial Class frmSecondaryTable
         '
         'dgvMultiple
         '
+        Me.dgvMultiple.AllowUserToResizeRows = False
+        Me.dgvMultiple.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
+        Me.dgvMultiple.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMultiple.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvMultiple.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
         Me.dgvMultiple.Location = New System.Drawing.Point(15, 118)
+        Me.dgvMultiple.MultiSelect = False
         Me.dgvMultiple.Name = "dgvMultiple"
-        Me.dgvMultiple.Size = New System.Drawing.Size(372, 152)
+        Me.dgvMultiple.RowHeadersVisible = False
+        Me.dgvMultiple.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvMultiple.ShowCellErrors = False
+        Me.dgvMultiple.ShowCellToolTips = False
+        Me.dgvMultiple.ShowEditingIcon = False
+        Me.dgvMultiple.Size = New System.Drawing.Size(539, 152)
         Me.dgvMultiple.TabIndex = 37
+        '
+        'btnAdd
+        '
+        Me.btnAdd.Location = New System.Drawing.Point(580, 157)
+        Me.btnAdd.Name = "btnAdd"
+        Me.btnAdd.Size = New System.Drawing.Size(80, 23)
+        Me.btnAdd.TabIndex = 38
+        Me.btnAdd.Text = "Add"
+        Me.btnAdd.UseVisualStyleBackColor = True
+        '
+        'btnEdit
+        '
+        Me.btnEdit.Location = New System.Drawing.Point(580, 186)
+        Me.btnEdit.Name = "btnEdit"
+        Me.btnEdit.Size = New System.Drawing.Size(80, 23)
+        Me.btnEdit.TabIndex = 39
+        Me.btnEdit.Text = "Edit"
+        Me.btnEdit.UseVisualStyleBackColor = True
+        '
+        'btnDelete
+        '
+        Me.btnDelete.Location = New System.Drawing.Point(580, 215)
+        Me.btnDelete.Name = "btnDelete"
+        Me.btnDelete.Size = New System.Drawing.Size(80, 23)
+        Me.btnDelete.TabIndex = 40
+        Me.btnDelete.Text = "Delete"
+        Me.btnDelete.UseVisualStyleBackColor = True
         '
         'frmSecondaryTable
         '
@@ -214,7 +254,10 @@ Partial Class frmSecondaryTable
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
-        Me.ClientSize = New System.Drawing.Size(604, 277)
+        Me.ClientSize = New System.Drawing.Size(672, 277)
+        Me.Controls.Add(Me.btnDelete)
+        Me.Controls.Add(Me.btnEdit)
+        Me.Controls.Add(Me.btnAdd)
         Me.Controls.Add(Me.btnCreateMetaState)
         Me.Controls.Add(Me.cBoxMetaState)
         Me.Controls.Add(Me.lblState)
@@ -259,4 +302,7 @@ Partial Class frmSecondaryTable
     Friend WithEvents ofdSecondaryTable As OpenFileDialog
     Friend WithEvents btnCreateMetaState As Button
     Friend WithEvents dgvMultiple As DataGridView
+    Friend WithEvents btnAdd As Button
+    Friend WithEvents btnEdit As Button
+    Friend WithEvents btnDelete As Button
 End Class

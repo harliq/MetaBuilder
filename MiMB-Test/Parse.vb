@@ -58,4 +58,11 @@
         Next
         MultipleString = tempdata
     End Sub
+    Function NestedMultiple(MultiOne As String) As String
+
+
+
+        Return MultiOne
+    End Function
+
 End Module

@@ -33,12 +33,15 @@
             frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & ofd.FileName
 
             'Creating Table
-
             Dim items = table.AsEnumerable().Select(Function(d) DirectCast(d(4).ToString(), Object)).ToArray()
-            frmMain.cBoxATMetaState.Items.Clear()
+
+            'Populating State Boxes
             frmMain.cBoxCTMetaState.Items.Clear()
+            frmMain.cBoxATMetaState.Items.Clear()
+            frmMain.cboxReturnMetaState.Items.Clear()
             frmMain.cBoxCTMetaState.Items.AddRange(items)
             frmMain.cBoxATMetaState.Items.AddRange(items)
+            frmMain.cboxReturnMetaState.Items.AddRange(items)
 
             'Populating Table from XML File
             Dim i As Long
@@ -52,7 +55,15 @@
                     Next
                 Next
             End With
-
+            With frmMain.cboxReturnMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
             With frmMain.cBoxCTMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
@@ -73,6 +84,7 @@
         table.Clear()
         frmMain.cBoxCTMetaState.Items.Clear()
         frmMain.cBoxATMetaState.Items.Clear()
+        frmMain.cboxReturnMetaState.Items.Clear()
 
         'table.Columns.Add("Condition Type", Type.GetType("System.String"))
         'table.Columns.Add("Action Type", Type.GetType("System.String"))
@@ -84,6 +96,8 @@
         table.Rows.Add("Never", "None", "0", "0", "Default")
         frmMain.cBoxCTMetaState.Items.Add("Default")
         frmMain.cBoxATMetaState.Items.Add("Default")
+        frmMain.cboxReturnMetaState.Items.Add("Default")
+
         Return table
     End Function
 
@@ -92,6 +106,7 @@
         frmMain.cBoxCType.SelectedIndex = 0
         frmMain.cBoxCTMetaState.SelectedIndex = 0
         frmMain.cBoxAType.SelectedIndex = 0
+        frmMain.cboxReturnMetaState.SelectedIndex = 0
         frmMain.dgvMetaRules.Rows(0).Selected = True
         frmMain.Refresh()
 

@@ -40,9 +40,9 @@
         ofd.InitialDirectory = My.Settings.MetaExportDir
         ofd.Title = "Import VT Meta"
 
-        If ofd.ShowDialog = DialogResult.OK Then
-            'Dim loaddt As New DataTable
-            table.Clear()
+        'If ofd.ShowDialog = DialogResult.OK Then
+        'Dim loaddt As New DataTable
+        table.Clear()
 
             'Start Reading MetaFile Here
             '---------------------------
@@ -136,8 +136,10 @@
                 MessageBox.Show("Canceled File Open", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Stop)
             End If
 
-            ''table.ReadXml(ofd.FileName)
-            frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & ofd.FileName
+        MessageBox.Show("You entered a blank Meta State Name " + TempAL)
+
+        ''table.ReadXml(ofd.FileName)
+        frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & ofd.FileName
 
             'Creating Table
 
@@ -147,12 +149,12 @@
             frmMain.cBoxCTMetaState.Items.AddRange(items)
             frmMain.cBoxATMetaState.Items.AddRange(items)
 
-            'Populating Table from Meta File
+        'Populating Table from Meta File
 
 
-        Else
+        'Else
 
-        End If
+        'End If
         Return table
     End Function
 

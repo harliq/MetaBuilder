@@ -50,6 +50,7 @@ Public Class frmMain
                 MetaList.Add(iBoxNewMetaState)
                 cBoxCTMetaState.Items.Add(iBoxNewMetaState)
                 cBoxATMetaState.Items.Add(iBoxNewMetaState)
+                cboxReturnMetaState.Items.Add(iBoxNewMetaState)
                 cBoxCTMetaState.SelectedItem = iBoxNewMetaState
 
             End If
@@ -90,11 +91,13 @@ Public Class frmMain
         End Select
 
         Select Case cBoxAType.SelectedIndex
-            Case 1, 5       'Set State or Call State
+            Case 1       'Set State or Call State
                 AData = cBoxATMetaState.Text
             Case 3
                 Parse.CombineMultiple()
                 AData = MultipleString
+            Case 5
+                AData = Parse.CombineTwoVal(cBoxATMetaState.Text, cboxReturnMetaState.Text, "a")
             Case 9          'for Watch Dog Set - Triple 
                 AData = Parse.CombineThreeVal(txtBoxAData.Text, txtBoxAData2.Text, txtBoxAData3.Text)
             Case 11, 12, 13
@@ -207,8 +210,8 @@ Public Class frmMain
         dgvAnyAll.Columns("Type").DisplayIndex = 0
         dgvAnyAll.Columns("Data").DisplayIndex = 1
 
-        dgvAnyAll.Columns(0).Width = dgvAnyAll.Width * 0.35
-        dgvAnyAll.Columns(1).Width = dgvAnyAll.Width * 0.65
+        dgvAnyAll.Columns(0).Width = dgvAnyAll.Width * 0.2
+        dgvAnyAll.Columns(1).Width = dgvAnyAll.Width * 0.8
 
         dgvAnyAll.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvAnyAll.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
@@ -224,8 +227,8 @@ Public Class frmMain
         dgvATMultiple.Columns("Type").DisplayIndex = 0
         dgvATMultiple.Columns("Data").DisplayIndex = 1
 
-        dgvATMultiple.Columns(0).Width = dgvATMultiple.Width * 0.35
-        dgvATMultiple.Columns(1).Width = dgvATMultiple.Width * 0.65
+        dgvATMultiple.Columns(0).Width = dgvATMultiple.Width * 0.2
+        dgvATMultiple.Columns(1).Width = dgvATMultiple.Width * 0.8
 
         dgvATMultiple.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvATMultiple.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
@@ -295,11 +298,13 @@ Public Class frmMain
         End Select
 
         Select Case cBoxAType.SelectedIndex
-            Case 1, 5
+            Case 1
                 AData = cBoxATMetaState.Text
             Case 3
                 Parse.CombineMultiple()
                 AData = MultipleString
+            Case 5
+                AData = Parse.CombineTwoVal(cBoxATMetaState.Text, cboxReturnMetaState.Text, "a")
             Case 9
                 AData = Parse.CombineThreeVal(txtBoxAData.Text, txtBoxAData2.Text, txtBoxAData3.Text)
             Case 11, 12, 13
@@ -803,7 +808,8 @@ Public Class frmMain
                  'Add Logice to change form for all conditon, and change form
                 Case "EmbeddedNavRoute"
                 Case "CallState"
-                    sMetaStateFlag = True
+                    ATypeTable = 5
+                    'sMetaStateFlag = True
                 Case "ReturnFromCall"
                 Case "ExpressionAct"
                 Case "ChatWithExpression"
@@ -881,7 +887,12 @@ Public Class frmMain
                         For Each s As String In StringSplit
                             Dim tempstring() As String
                             tempstring = Split(s, "{")
-                            If tempstring(0) = "" Then
+                            ' Spliting Mulitples
+                            If tempstring(0) = "Multiple" Then
+                                's = s.Length - 1
+                                TableATMultiple.Rows.Add("Multiple", Adata.Remove(0, 9))
+                                Exit For
+                            ElseIf tempstring(0) = "" Then
                                 Exit For
                             Else
                                 TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
@@ -890,6 +901,11 @@ Public Class frmMain
                         dgvATMultiple.DataSource = TableATMultiple
                         dgvATMultiple.Refresh()
                     Case 5
+                        Dim Adata As String = selectedRow.Cells(3).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(Adata, ";")
+                        cBoxATMetaState.Text = StringSplit(0).ToString
+                        cboxReturnMetaState.Text = StringSplit(1).ToString
                     Case Else
                         MsgBox("Out of Range - frmMain.dgvMetaRules.CellClick Case AtypeTable")
                 End Select
@@ -1231,16 +1247,26 @@ Public Class frmMain
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
-                Case 0, 6, 10, 15       'Zero Values
+                Case 0, 3, 6, 10, 15       'Zero Values - Remove 3 This is temp till Nested Tables are in
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, "0")
                 Case 1, 5           'Meta States
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.cBoxMetaState.Text)
-                Case 2, 3, 4, 7, 8, 14  'Single Values
+                Case 2, 4, 7, 8, 14  'Single Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.TextBox1.Text)
                 Case 9              'Triple Value
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
                 Case 11, 12, 13         'Double Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a"))
+                Case 13         'Multiple  -- Supposed to be 3.  This is Temp till Nested Tables are in
+                    Dim tempdata As String = ""
+                    For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
+                        If r.Cells(0).Value IsNot Nothing Then
+                            tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                        Else
+                            'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                        End If
+                    Next
+                    TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, tempdata)
                 Case Else           'Should not happen, but...
                     MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
 
@@ -1255,7 +1281,6 @@ Public Class frmMain
         SecondTableDialog.Dispose()
 
 
-        'Me.ListBoxCTDataAnyAll.Items.Add(Me.cBoxCTAnyAll.SelectedItem.ToString)
     End Sub
 
     Private Sub btnEditATAnyAll_Click(sender As Object, e As EventArgs) Handles btnEditATAnyAll.Click
@@ -1293,6 +1318,13 @@ Public Class frmMain
                     SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
                     SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
                     SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
+                Case "Multiple" ' Needs Work to finish
+                    Dim tempData As String = ""
+
+                    SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString
+
+                    SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
+
                 Case Else
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
             End Select
@@ -1407,6 +1439,7 @@ Public Class frmMain
                 MetaList.Add(iBoxNewMetaState)
                 cBoxCTMetaState.Items.Add(iBoxNewMetaState)
                 cBoxATMetaState.Items.Add(iBoxNewMetaState)
+                cboxReturnMetaState.Items.Add(iBoxNewMetaState)
                 cBoxATMetaState.SelectedItem = iBoxNewMetaState
 
             End If
@@ -1418,6 +1451,8 @@ Public Class frmMain
     End Sub
 
     Private Sub ToolStripButtonImport_Click(sender As Object, e As EventArgs) Handles ToolStripButtonImport.Click
-        dgvMetaRules.DataSource = ImportMeta.LoadMeta(table)
+
+        MessageBox.Show("Not Implemented")
+        'dgvMetaRules.DataSource = ImportMeta.LoadMeta(table)
     End Sub
 End Class

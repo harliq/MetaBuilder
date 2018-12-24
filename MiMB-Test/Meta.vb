@@ -25,8 +25,10 @@
             Dim CTypeTable As Integer = 0  'This is to flag if Condition Type uses a Record Table. No record table=0, Single=1, Double=3, Multiple Table=3, Triple =4  Used to call correct Functions, Init as 0
             Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
             Dim sRecordOneAdataType As String = "" ' to determine the AdataType - Example e=Expression, n=Name
-            'Dim cdType As Condition
-            'Dim never As String
+            Dim sADataTableVarOne As String = "" ' For setting the proper Var Type for each subtable Variable
+            Dim sADataTableVarTwo As String = ""
+            'Dim sADataTableVarThree As String = ""
+
 
             Select Case (r.Cells(0).Value) ' Condition Types
                 Case Nothing ' To remove blank lines
@@ -126,8 +128,11 @@
                     tempmeta = tempmeta + i + "4" + vbCrLf
                     tAD = "s"
                 Case "CallState"
+                    ATypeTable = 8
                     tempmeta = tempmeta + i + "5" + vbCrLf
                     tAD = "s"
+                    sADataTableVarOne = "st"
+                    sADataTableVarTwo = "ret"
                 Case "ReturnFromCall"
                     tempmeta = tempmeta + i + "6" + vbCrLf
                     tAD = "s"
@@ -224,6 +229,9 @@
                     tempmeta = tempmeta & tAD & vbCrLf & r.Cells(3).Value & vbCrLf
                 Case 7
                     tempmeta = tempmeta & ATypeCreateViewExport(r.Cells(3).Value & vbCrLf)  'Table 3 records (WatchDog Set)
+                Case 8
+                    tempmeta = tempmeta & ATypeDoubleExportVTwo(r.Cells(3).Value, sADataTableVarOne, sADataTableVarTwo)
+                    'tempmeta = tempmeta & ATypeDoubleExportV2(r.Cells(3).Value, sADataTableVarOne, sADataTableVarTwo, & vbCrLf)
                 Case Else
                     MsgBox("Out Of Range - Meta.MetaExport- Case ATypeTable")
             End Select
@@ -358,6 +366,19 @@
 
     End Function
 
+    Function ATypeDoubleExportVTwo(Rule As String, ADataTableVarOne As String, ADataTableVarTwo As String) As String
+        Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "2"
+        Dim ExportData As String
+        Dim StringSplit() As String
+
+        ExportData = "s" ' This is always a string
+
+        StringSplit = Split(Rule, ";")
+        ExportData = ExportData & vbCrLf & ADataTableVarOne & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & ADataTableVarTwo & vbCrLf & "s" & vbCrLf & StringSplit(1).ToString & vbCrLf ' next part, o = option, and s = var type of name (string)
+        Rule = TableHeader & vbCrLf & ExportData
+
+        Return (Rule)
+    End Function
 
     Function ATypeTripleExport(Rule As String) As String ' For AT WatchDog Set Only
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "3"

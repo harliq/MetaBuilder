@@ -1,4 +1,8 @@
 MiMB Changelog
+1.1.2.0
+12/24/2018
+Fixed issue with calling a state, Changed GUI for the Any/All/Multiple Types (So you can see more of the rules at a glance, Added Functions for future nested tables in Any/All/Multiple Data, and Disabled Meta Import, as that is a long way off from being completed.  
+
 1.1.1.5
 12/09/2018
 Fixed export parts for Any/Multiple that I broke when adding MetaViews.  Also added MetaViews to Multiple ActionTypes (forgot to do that Earlier).

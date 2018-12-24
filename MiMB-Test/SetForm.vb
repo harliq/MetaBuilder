@@ -264,9 +264,11 @@
         frmMain.txtBoxAData2.Visible = False
         frmMain.txtBoxAData3.Visible = False
         frmMain.cBoxATMetaState.Visible = False
+        frmMain.cboxReturnMetaState.Visible = False
         frmMain.lblAdata2.Visible = False
         frmMain.lblAData3.Visible = False
         frmMain.lblATMetaState.Visible = False
+        frmMain.lblATReturnToState.Visible = False
         frmMain.btnChooseNav.Visible = False
         frmMain.btnATCreateState.Visible = False
         frmMain.dgvATMultiple.Visible = False
@@ -284,6 +286,7 @@
         frmMain.txtBoxAData2.Text = ""
         frmMain.txtBoxAData3.Text = ""
         frmMain.cBoxATMetaState.Text = "Default"
+        frmMain.cboxReturnMetaState.Text = "Default"
     End Sub
 
     Sub ATSingleRule()
@@ -305,8 +308,17 @@
     End Sub
     Sub ATSetStateRule()
         frmMain.cBoxATMetaState.Visible = True
+        'frmMain.cboxReturnMetaState.Visible = True
         frmMain.lblATMetaState.Visible = True
         frmMain.btnATCreateState.Visible = True
+    End Sub
+    Sub ATCallStateRule()
+        frmMain.cBoxATMetaState.Visible = True
+        frmMain.cboxReturnMetaState.Visible = True
+        frmMain.lblATMetaState.Visible = True
+        frmMain.lblATReturnToState.Visible = True
+        frmMain.btnATCreateState.Visible = True
+
     End Sub
     Sub ATMultiple()
         ''frmMain.txtBoxAData.Enabled = True
@@ -337,8 +349,8 @@
                 frmMain.btnChooseNav.Visible = True
                 frmMain.lblAData.Text = "Embedded Nav - Choose File"
             Case "5", "CallState"
-                SetForm.ATSetStateRule()
-                frmMain.lblAData.Text = "Call State"
+                SetForm.ATCallStateRule()
+                frmMain.lblATMetaState.Text = "State To Call"
             Case "6", "ReturnFromCall"
                 frmMain.lblAData.Text = "Return From Call"
                 frmMain.txtBoxAData.Text = "0"
