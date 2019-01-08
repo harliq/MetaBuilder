@@ -54,6 +54,7 @@ Partial Class frmMain
         Me.ToolStripButtonSave = New System.Windows.Forms.ToolStripButton()
         Me.ToolStripSeparator2 = New System.Windows.Forms.ToolStripSeparator()
         Me.ToolStripButtonExport = New System.Windows.Forms.ToolStripButton()
+        Me.ToolStripButtonImport = New System.Windows.Forms.ToolStripButton()
         Me.tsbNew = New System.Windows.Forms.ToolStripButton()
         Me.tsbOpen = New System.Windows.Forms.ToolStripButton()
         Me.tsbSave = New System.Windows.Forms.ToolStripButton()
@@ -106,7 +107,13 @@ Partial Class frmMain
         Me.btnCreateRule = New System.Windows.Forms.Button()
         Me.btnInsertRule = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
-        Me.ToolStripButtonImport = New System.Windows.Forms.ToolStripButton()
+        Me.rdbFalse = New System.Windows.Forms.RadioButton()
+        Me.rdbTrue = New System.Windows.Forms.RadioButton()
+        Me.lstBoxCommonOptions = New System.Windows.Forms.ListBox()
+        Me.lblATReturnToState = New System.Windows.Forms.Label()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
+        Me.SaveAsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -129,7 +136,7 @@ Partial Class frmMain
         '
         'FileToolStripMenuItem1
         '
-        Me.FileToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem1, Me.OpenToolStripMenuItem1, Me.SaveToolStripMenuItem1, Me.ExitToolStripMenuItem1})
+        Me.FileToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NewToolStripMenuItem1, Me.OpenToolStripMenuItem1, Me.SaveToolStripMenuItem1, Me.SaveAsToolStripMenuItem1, Me.ExitToolStripMenuItem1})
         Me.FileToolStripMenuItem1.Name = "FileToolStripMenuItem1"
         Me.FileToolStripMenuItem1.Size = New System.Drawing.Size(37, 20)
         Me.FileToolStripMenuItem1.Text = "&File"
@@ -137,25 +144,25 @@ Partial Class frmMain
         'NewToolStripMenuItem1
         '
         Me.NewToolStripMenuItem1.Name = "NewToolStripMenuItem1"
-        Me.NewToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.NewToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
         Me.NewToolStripMenuItem1.Text = "&New"
         '
         'OpenToolStripMenuItem1
         '
         Me.OpenToolStripMenuItem1.Name = "OpenToolStripMenuItem1"
-        Me.OpenToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.OpenToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
         Me.OpenToolStripMenuItem1.Text = "&Open"
         '
         'SaveToolStripMenuItem1
         '
         Me.SaveToolStripMenuItem1.Name = "SaveToolStripMenuItem1"
-        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
         Me.SaveToolStripMenuItem1.Text = "&Save"
         '
         'ExitToolStripMenuItem1
         '
         Me.ExitToolStripMenuItem1.Name = "ExitToolStripMenuItem1"
-        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(152, 22)
+        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
         Me.ExitToolStripMenuItem1.Text = "E&xit"
         '
         'ToolsToolStripMenuItem1
@@ -168,7 +175,7 @@ Partial Class frmMain
         'OptionsToolStripMenuItem
         '
         Me.OptionsToolStripMenuItem.Name = "OptionsToolStripMenuItem"
-        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.OptionsToolStripMenuItem.Size = New System.Drawing.Size(116, 22)
         Me.OptionsToolStripMenuItem.Text = "&O&ptions"
         '
         'HelpToolStripMenuItem1
@@ -327,6 +334,16 @@ Partial Class frmMain
         Me.ToolStripButtonExport.Size = New System.Drawing.Size(23, 22)
         Me.ToolStripButtonExport.Text = "Export to Meta"
         '
+        'ToolStripButtonImport
+        '
+        Me.ToolStripButtonImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ToolStripButtonImport.Image = CType(resources.GetObject("ToolStripButtonImport.Image"), System.Drawing.Image)
+        Me.ToolStripButtonImport.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButtonImport.Name = "ToolStripButtonImport"
+        Me.ToolStripButtonImport.Size = New System.Drawing.Size(23, 22)
+        Me.ToolStripButtonImport.Text = "ToolStripButton1"
+        Me.ToolStripButtonImport.ToolTipText = "Import Meta"
+        '
         'tsbNew
         '
         Me.tsbNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
@@ -375,7 +392,7 @@ Partial Class frmMain
         Me.dgvMetaRules.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMetaRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMetaRules.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvMetaRules.Location = New System.Drawing.Point(10, 49)
+        Me.dgvMetaRules.Location = New System.Drawing.Point(12, 49)
         Me.dgvMetaRules.MultiSelect = False
         Me.dgvMetaRules.Name = "dgvMetaRules"
         Me.dgvMetaRules.RowHeadersVisible = False
@@ -413,12 +430,11 @@ Partial Class frmMain
         Me.dgvATMultiple.MultiSelect = False
         Me.dgvATMultiple.Name = "dgvATMultiple"
         Me.dgvATMultiple.RowHeadersVisible = False
-        Me.dgvATMultiple.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.dgvATMultiple.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
         Me.dgvATMultiple.ShowCellErrors = False
         Me.dgvATMultiple.ShowCellToolTips = False
         Me.dgvATMultiple.ShowEditingIcon = False
-        Me.dgvATMultiple.Size = New System.Drawing.Size(302, 168)
+        Me.dgvATMultiple.Size = New System.Drawing.Size(900, 168)
         Me.dgvATMultiple.TabIndex = 7
         '
         'lblAType
@@ -435,7 +451,7 @@ Partial Class frmMain
         '
         Me.lblAData.AutoSize = True
         Me.lblAData.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAData.Location = New System.Drawing.Point(10, 54)
+        Me.lblAData.Location = New System.Drawing.Point(10, 112)
         Me.lblAData.Name = "lblAData"
         Me.lblAData.Size = New System.Drawing.Size(93, 20)
         Me.lblAData.TabIndex = 2
@@ -444,7 +460,7 @@ Partial Class frmMain
         'txtBoxAData
         '
         Me.txtBoxAData.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxAData.Location = New System.Drawing.Point(14, 75)
+        Me.txtBoxAData.Location = New System.Drawing.Point(14, 133)
         Me.txtBoxAData.Name = "txtBoxAData"
         Me.txtBoxAData.Size = New System.Drawing.Size(950, 22)
         Me.txtBoxAData.TabIndex = 4
@@ -489,7 +505,7 @@ Partial Class frmMain
         'txtBoxAData2
         '
         Me.txtBoxAData2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxAData2.Location = New System.Drawing.Point(14, 120)
+        Me.txtBoxAData2.Location = New System.Drawing.Point(14, 178)
         Me.txtBoxAData2.Name = "txtBoxAData2"
         Me.txtBoxAData2.Size = New System.Drawing.Size(950, 22)
         Me.txtBoxAData2.TabIndex = 5
@@ -498,7 +514,7 @@ Partial Class frmMain
         '
         Me.lblAdata2.AutoSize = True
         Me.lblAdata2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAdata2.Location = New System.Drawing.Point(10, 100)
+        Me.lblAdata2.Location = New System.Drawing.Point(10, 158)
         Me.lblAdata2.Name = "lblAdata2"
         Me.lblAdata2.Size = New System.Drawing.Size(93, 20)
         Me.lblAdata2.TabIndex = 9
@@ -507,7 +523,7 @@ Partial Class frmMain
         'txtBoxAData3
         '
         Me.txtBoxAData3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxAData3.Location = New System.Drawing.Point(15, 162)
+        Me.txtBoxAData3.Location = New System.Drawing.Point(15, 221)
         Me.txtBoxAData3.Name = "txtBoxAData3"
         Me.txtBoxAData3.Size = New System.Drawing.Size(950, 22)
         Me.txtBoxAData3.TabIndex = 6
@@ -516,7 +532,7 @@ Partial Class frmMain
         '
         Me.lblAData3.AutoSize = True
         Me.lblAData3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAData3.Location = New System.Drawing.Point(11, 142)
+        Me.lblAData3.Location = New System.Drawing.Point(11, 200)
         Me.lblAData3.Name = "lblAData3"
         Me.lblAData3.Size = New System.Drawing.Size(93, 20)
         Me.lblAData3.TabIndex = 11
@@ -580,7 +596,7 @@ Partial Class frmMain
         '
         Me.btnTest.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTest.Location = New System.Drawing.Point(922, 18)
+        Me.btnTest.Location = New System.Drawing.Point(747, 22)
         Me.btnTest.Name = "btnTest"
         Me.btnTest.Size = New System.Drawing.Size(92, 32)
         Me.btnTest.TabIndex = 29
@@ -591,7 +607,7 @@ Partial Class frmMain
         'btnAddATAnyAll
         '
         Me.btnAddATAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddATAnyAll.Location = New System.Drawing.Point(342, 75)
+        Me.btnAddATAnyAll.Location = New System.Drawing.Point(932, 75)
         Me.btnAddATAnyAll.Name = "btnAddATAnyAll"
         Me.btnAddATAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnAddATAnyAll.TabIndex = 8
@@ -602,7 +618,7 @@ Partial Class frmMain
         'btnEditATAnyAll
         '
         Me.btnEditATAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEditATAnyAll.Location = New System.Drawing.Point(342, 111)
+        Me.btnEditATAnyAll.Location = New System.Drawing.Point(932, 111)
         Me.btnEditATAnyAll.Name = "btnEditATAnyAll"
         Me.btnEditATAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnEditATAnyAll.TabIndex = 9
@@ -613,7 +629,7 @@ Partial Class frmMain
         'btnDeleteATAnyAll
         '
         Me.btnDeleteATAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteATAnyAll.Location = New System.Drawing.Point(341, 149)
+        Me.btnDeleteATAnyAll.Location = New System.Drawing.Point(932, 149)
         Me.btnDeleteATAnyAll.Name = "btnDeleteATAnyAll"
         Me.btnDeleteATAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnDeleteATAnyAll.TabIndex = 10
@@ -647,7 +663,7 @@ Partial Class frmMain
         Me.dgvAnyAll.ShowCellErrors = False
         Me.dgvAnyAll.ShowCellToolTips = False
         Me.dgvAnyAll.ShowEditingIcon = False
-        Me.dgvAnyAll.Size = New System.Drawing.Size(302, 161)
+        Me.dgvAnyAll.Size = New System.Drawing.Size(900, 161)
         Me.dgvAnyAll.TabIndex = 8
         '
         'btnUp
@@ -768,7 +784,7 @@ Partial Class frmMain
         'btnEditAnyAll
         '
         Me.btnEditAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEditAnyAll.Location = New System.Drawing.Point(341, 115)
+        Me.btnEditAnyAll.Location = New System.Drawing.Point(932, 115)
         Me.btnEditAnyAll.Name = "btnEditAnyAll"
         Me.btnEditAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnEditAnyAll.TabIndex = 6
@@ -779,7 +795,7 @@ Partial Class frmMain
         'btnDeleteAnyAll
         '
         Me.btnDeleteAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteAnyAll.Location = New System.Drawing.Point(340, 153)
+        Me.btnDeleteAnyAll.Location = New System.Drawing.Point(932, 153)
         Me.btnDeleteAnyAll.Name = "btnDeleteAnyAll"
         Me.btnDeleteAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnDeleteAnyAll.TabIndex = 7
@@ -801,7 +817,7 @@ Partial Class frmMain
         'btnAddAnyAll
         '
         Me.btnAddAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddAnyAll.Location = New System.Drawing.Point(341, 79)
+        Me.btnAddAnyAll.Location = New System.Drawing.Point(932, 79)
         Me.btnAddAnyAll.Name = "btnAddAnyAll"
         Me.btnAddAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnAddAnyAll.TabIndex = 5
@@ -854,7 +870,7 @@ Partial Class frmMain
         Me.btnInsertRule.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnInsertRule.Enabled = False
         Me.btnInsertRule.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnInsertRule.Location = New System.Drawing.Point(922, 104)
+        Me.btnInsertRule.Location = New System.Drawing.Point(932, 9)
         Me.btnInsertRule.Name = "btnInsertRule"
         Me.btnInsertRule.Size = New System.Drawing.Size(129, 32)
         Me.btnInsertRule.TabIndex = 29
@@ -899,10 +915,16 @@ Partial Class frmMain
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.SplitContainer1.Panel2.Controls.Add(Me.rdbFalse)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.rdbTrue)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.lstBoxCommonOptions)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnAddATAnyAll)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.lblATReturnToState)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.Label1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.cboxReturnMetaState)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnATCreateState)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnDeleteATAnyAll)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnEditATAnyAll)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.btnAddATAnyAll)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnTest)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnChooseNav)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnLoadXML)
@@ -924,15 +946,78 @@ Partial Class frmMain
         Me.SplitContainer1.SplitterDistance = 243
         Me.SplitContainer1.TabIndex = 11
         '
-        'ToolStripButtonImport
+        'rdbFalse
         '
-        Me.ToolStripButtonImport.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
-        Me.ToolStripButtonImport.Image = CType(resources.GetObject("ToolStripButtonImport.Image"), System.Drawing.Image)
-        Me.ToolStripButtonImport.ImageTransparentColor = System.Drawing.Color.Magenta
-        Me.ToolStripButtonImport.Name = "ToolStripButtonImport"
-        Me.ToolStripButtonImport.Size = New System.Drawing.Size(23, 22)
-        Me.ToolStripButtonImport.Text = "ToolStripButton1"
-        Me.ToolStripButtonImport.ToolTipText = "Import Meta"
+        Me.rdbFalse.AutoSize = True
+        Me.rdbFalse.Checked = True
+        Me.rdbFalse.Location = New System.Drawing.Point(665, 24)
+        Me.rdbFalse.Name = "rdbFalse"
+        Me.rdbFalse.Size = New System.Drawing.Size(50, 17)
+        Me.rdbFalse.TabIndex = 46
+        Me.rdbFalse.TabStop = True
+        Me.rdbFalse.Text = "False"
+        Me.rdbFalse.UseVisualStyleBackColor = True
+        '
+        'rdbTrue
+        '
+        Me.rdbTrue.AutoSize = True
+        Me.rdbTrue.Location = New System.Drawing.Point(588, 24)
+        Me.rdbTrue.Name = "rdbTrue"
+        Me.rdbTrue.Size = New System.Drawing.Size(47, 17)
+        Me.rdbTrue.TabIndex = 45
+        Me.rdbTrue.Text = "True"
+        Me.rdbTrue.UseVisualStyleBackColor = True
+        '
+        'lstBoxCommonOptions
+        '
+        Me.lstBoxCommonOptions.FormattingEnabled = True
+        Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "NavPriorityBoost"})
+        Me.lstBoxCommonOptions.Location = New System.Drawing.Point(340, 24)
+        Me.lstBoxCommonOptions.Name = "lstBoxCommonOptions"
+        Me.lstBoxCommonOptions.Size = New System.Drawing.Size(175, 95)
+        Me.lstBoxCommonOptions.TabIndex = 44
+        '
+        'lblATReturnToState
+        '
+        Me.lblATReturnToState.AutoSize = True
+        Me.lblATReturnToState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblATReturnToState.Location = New System.Drawing.Point(338, 52)
+        Me.lblATReturnToState.Name = "lblATReturnToState"
+        Me.lblATReturnToState.Size = New System.Drawing.Size(119, 20)
+        Me.lblATReturnToState.TabIndex = 32
+        Me.lblATReturnToState.Text = "Return to State"
+        Me.lblATReturnToState.Visible = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.Label1.Location = New System.Drawing.Point(575, 113)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(84, 20)
+        Me.Label1.TabIndex = 31
+        Me.Label1.Text = "MetaState"
+        Me.Label1.Visible = False
+        '
+        'cboxReturnMetaState
+        '
+        Me.cboxReturnMetaState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cboxReturnMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cboxReturnMetaState.FormattingEnabled = True
+        Me.cboxReturnMetaState.Items.AddRange(New Object() {"Default"})
+        Me.cboxReturnMetaState.Location = New System.Drawing.Point(342, 73)
+        Me.cboxReturnMetaState.MaxDropDownItems = 100
+        Me.cboxReturnMetaState.Name = "cboxReturnMetaState"
+        Me.cboxReturnMetaState.Size = New System.Drawing.Size(175, 28)
+        Me.cboxReturnMetaState.Sorted = True
+        Me.cboxReturnMetaState.TabIndex = 30
+        Me.cboxReturnMetaState.Visible = False
+        '
+        'SaveAsToolStripMenuItem1
+        '
+        Me.SaveAsToolStripMenuItem1.Name = "SaveAsToolStripMenuItem1"
+        Me.SaveAsToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.SaveAsToolStripMenuItem1.Text = "Save &As"
         '
         'frmMain
         '
@@ -971,6 +1056,10 @@ Partial Class frmMain
         Text = "Mission:Impossible - Meta Builder   FILE= NOT SAVED!"
 
 
+
+    End Sub
+
+    Private Sub frmMain_Activated(sender As Object, e As EventArgs) Handles Me.Activated
 
     End Sub
 
@@ -1074,4 +1163,11 @@ Partial Class frmMain
     Friend WithEvents btnInsertRule As Button
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents ToolStripButtonImport As ToolStripButton
+    Friend WithEvents cboxReturnMetaState As ComboBox
+    Friend WithEvents lblATReturnToState As Label
+    Friend WithEvents Label1 As Label
+    Friend WithEvents rdbFalse As RadioButton
+    Friend WithEvents rdbTrue As RadioButton
+    Friend WithEvents lstBoxCommonOptions As ListBox
+    Friend WithEvents SaveAsToolStripMenuItem1 As ToolStripMenuItem
 End Class

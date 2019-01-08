@@ -264,9 +264,11 @@
         frmMain.txtBoxAData2.Visible = False
         frmMain.txtBoxAData3.Visible = False
         frmMain.cBoxATMetaState.Visible = False
+        frmMain.cboxReturnMetaState.Visible = False
         frmMain.lblAdata2.Visible = False
         frmMain.lblAData3.Visible = False
         frmMain.lblATMetaState.Visible = False
+        frmMain.lblATReturnToState.Visible = False
         frmMain.btnChooseNav.Visible = False
         frmMain.btnATCreateState.Visible = False
         frmMain.dgvATMultiple.Visible = False
@@ -274,7 +276,9 @@
         frmMain.btnAddATAnyAll.Visible = False
         frmMain.btnEditATAnyAll.Visible = False
         frmMain.btnDeleteATAnyAll.Visible = False
-
+        frmMain.lstBoxCommonOptions.Visible = False
+        frmMain.rdbTrue.Visible = False
+        frmMain.rdbFalse.Visible = False
 
         'Clearing the fields.
         frmMain.lblAData.Text = ""
@@ -284,6 +288,7 @@
         frmMain.txtBoxAData2.Text = ""
         frmMain.txtBoxAData3.Text = ""
         frmMain.cBoxATMetaState.Text = "Default"
+        frmMain.cboxReturnMetaState.Text = "Default"
     End Sub
 
     Sub ATSingleRule()
@@ -293,6 +298,15 @@
         frmMain.txtBoxAData.Visible = True
         frmMain.txtBoxAData2.Visible = True
         frmMain.lblAdata2.Visible = True
+    End Sub
+    Sub ATSetOptionsRule()
+        frmMain.txtBoxAData.Visible = True
+        frmMain.txtBoxAData2.Visible = True
+        frmMain.lblAdata2.Visible = True
+        frmMain.lblATMetaState.Visible = True
+        frmMain.lstBoxCommonOptions.Visible = True
+        frmMain.rdbTrue.Visible = True
+        frmMain.rdbFalse.Visible = True
     End Sub
     Sub ATTripleRule()
         frmMain.txtBoxAData.Visible = True
@@ -305,8 +319,17 @@
     End Sub
     Sub ATSetStateRule()
         frmMain.cBoxATMetaState.Visible = True
+        'frmMain.cboxReturnMetaState.Visible = True
         frmMain.lblATMetaState.Visible = True
         frmMain.btnATCreateState.Visible = True
+    End Sub
+    Sub ATCallStateRule()
+        frmMain.cBoxATMetaState.Visible = True
+        frmMain.cboxReturnMetaState.Visible = True
+        frmMain.lblATMetaState.Visible = True
+        frmMain.lblATReturnToState.Visible = True
+        frmMain.btnATCreateState.Visible = True
+
     End Sub
     Sub ATMultiple()
         ''frmMain.txtBoxAData.Enabled = True
@@ -337,8 +360,8 @@
                 frmMain.btnChooseNav.Visible = True
                 frmMain.lblAData.Text = "Embedded Nav - Choose File"
             Case "5", "CallState"
-                SetForm.ATSetStateRule()
-                frmMain.lblAData.Text = "Call State"
+                SetForm.ATCallStateRule()
+                frmMain.lblATMetaState.Text = "State To Call"
             Case "6", "ReturnFromCall"
                 frmMain.lblAData.Text = "Return From Call"
                 frmMain.txtBoxAData.Text = "0"
@@ -357,17 +380,19 @@
                 frmMain.lblAData.Text = "WatchDog Clear"
                 frmMain.txtBoxAData.Text = "0"
             Case "11", "GetVTOption"
-                SetForm.ATDoubleRule()
+                SetForm.ATSetOptionsRule()
                 frmMain.lblAData.Text = "Option to Get"
                 frmMain.lblAdata2.Text = "Expression Variable Target"
+                frmMain.lblATMetaState.Text = "Common Options"
             Case "12", "SetVTOption"
-                SetForm.ATDoubleRule()
+                SetForm.ATSetOptionsRule()
                 frmMain.lblAData.Text = "Option to Set"
                 frmMain.lblAdata2.Text = "Expresssion (True/False, Value)"
+                frmMain.lblATMetaState.Text = "Common Options"
             Case "13", "CreateView"
                 SetForm.ATDoubleRule()
                 frmMain.lblAData.Text = "Name of View"
-                frmMain.lblAdata2.Text = "XML Data"
+                frmMain.lblAdata2.Text = "Raw XML Data"
             Case "14", "DestroyView"
                 SetForm.ATSingleRule()
                 frmMain.lblAData.Text = "Name of View to Destroy"
@@ -486,7 +511,7 @@
             Case "28", "ChatMessageCapture"
                 SetForm.CTDouble()
                 frmMain.lblCData.Text = "Chat Message Pattern:"
-                frmMain.lblCData2.Text = "Chat ColorID List:"
+                frmMain.lblCData2.Text = "Chat ColorID List:  (Default is 0 = Main Window)"
 
                 frmMain.Refresh()
 

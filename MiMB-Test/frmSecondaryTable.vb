@@ -1,5 +1,10 @@
 ﻿Public Class frmSecondaryTable
+    Dim TableSecondaryMultiple As New DataTable("TableSecondaryMultiple")
 
+
+    Private Sub Add_Update_Delete_DataGridView_Row_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 
     Private Sub cBoxType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxType.SelectedIndexChanged
         ResetForm()
@@ -14,10 +19,32 @@
                 TextBox1.Text = "-1"
                 TextBox2.Text = "1"
                 TextBox3.Text = "5"
+            Case 17, 18
+                TextBox1.Text = "00000000"
+
         End Select
     End Sub
 
     Private Sub frmSecondaryTable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'dgvMultiple Rule Table
+        TableSecondaryMultiple.Columns.Add("Type", Type.GetType("System.String"))
+        TableSecondaryMultiple.Columns.Add("Data", Type.GetType("System.String"))
+        'set data from datatable to datagridview
+
+        dgvMultiple.DataSource = TableSecondaryMultiple
+
+        dgvMultiple.Columns("Type").DisplayIndex = 0
+        dgvMultiple.Columns("Data").DisplayIndex = 1
+
+        dgvMultiple.Columns(0).Width = dgvMultiple.Width * 0.35
+        dgvMultiple.Columns(1).Width = dgvMultiple.Width * 0.65
+
+        dgvMultiple.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvMultiple.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
+        dgvMultiple.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
+        dgvMultiple.Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
+
         ResetForm()
         FormConfig(SetFormIndex)
     End Sub
@@ -30,10 +57,17 @@
         cBoxMetaState.Visible = False
         btnEmbedNav.Visible = False
         btnCreateMetaState.Visible = False
-
+        dgvMultiple.Visible = False
+        btnAdd.Visible = False
+        btnEdit.Visible = False
+        btnDelete.Visible = False
         TextBox1.Visible = False
         TextBox2.Visible = False
         TextBox3.Visible = False
+        rdbTrue.Visible = False
+        rdbFalse.Visible = False
+        lstBoxCommonOptions.Visible = False
+
     End Sub
 
     Sub FormConfig(ItemIndex As Integer)
@@ -86,11 +120,11 @@
                 Case 17
                     FormOneRule()
                     lblTextOne.Text = "LandBlock ="
-                    TextBox1.Text = "00000000"
+                    'TextBox1.Text = "00000000"
                 Case 18
                     FormOneRule()
                     lblTextOne.Text = "LandCell ="
-                    TextBox1.Text = "00000000"
+                    'TextBox1.Text = "00000000"
                 Case 19, 20, 21
                     TextBox1.Text = "0"
                 Case 22
@@ -123,7 +157,8 @@
                 Case 2
                     FormOneRule()
                     lblTextOne.Text = "Chat Command"
-                Case 3
+                Case 3 ' Multiple
+                    FormMultipleRule()
                 Case 4
                     FormNavRule()
                     lblTextOne.Text = "Nav File to Embed"
@@ -144,9 +179,19 @@
                     lblTextThree.Text = "Time Span: (Seconds)"
                 Case 10
                 Case 11, 12
+                    FormSetOptRule()
+                    lblTextTwo.Text = "Item"
+                    lblTextThree.Text = "Value"
+                    lblState.Text = "Common Options"
+                Case 13
                     FormTwoRule()
-                    lblTextOne.Text = "Item"
-                    lblTextTwo.Text = "Number"
+                    lblTextTwo.Text = "Name of View"
+                    lblTextThree.Text = "Raw XML Data"
+                Case 14
+                    FormOneRule()
+                    lblTextOne.Text = "Name of View to Destroy"
+                Case 15
+
             End Select
 
         Else
@@ -163,10 +208,10 @@
 
     Sub FormTwoRule()
 
-        lblTextOne.Visible = True
-        TextBox1.Visible = True
         lblTextTwo.Visible = True
         TextBox2.Visible = True
+        lblTextThree.Visible = True
+        TextBox3.Visible = True
 
     End Sub
 
@@ -197,6 +242,28 @@
         TextBox1.Visible = True
         btnEmbedNav.Visible = True
     End Sub
+    Sub FormSetOptRule()
+
+        lblTextTwo.Visible = True
+        TextBox2.Visible = True
+        lblTextThree.Visible = True
+        TextBox3.Visible = True
+        rdbTrue.Visible = True
+        rdbFalse.Visible = True
+        lstBoxCommonOptions.Visible = True
+        lblState.Visible = True
+
+    End Sub
+    Sub FormMultipleRule()
+
+        '-- This is Temp till Nested Tables are in
+        'dgvMultiple.Visible = True
+        'btnAdd.Visible = True
+        'btnEdit.Visible = True
+        'btnDelete.Visible = True
+
+    End Sub
+
     Private Sub cBoxAType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxAType.SelectedIndexChanged
 
         ResetForm()
@@ -215,6 +282,8 @@
                 FormOneRule()
                 lblTextOne.Text = "Chat Command"
             Case 3
+                'This is Temp till Nested Tables are in
+                'FormMultipleRule() 
                 TextBox1.Text = "0"
             Case 4
                 FormNavRule()
@@ -236,9 +305,20 @@
                 lblTextThree.Text = "Time Span: (Seconds)"
             Case 10
             Case 11, 12
+                FormSetOptRule()
+                lblTextTwo.Text = "Item"
+                lblTextThree.Text = "Value"
+                lblState.Text = "Common Options"
+            Case 13
                 FormTwoRule()
-                lblTextOne.Text = "Item"
-                lblTextTwo.Text = "Number"
+                lblTextTwo.Text = "Name of View"
+                lblTextThree.Text = "Raw XML Data"
+            Case 14
+                FormOneRule()
+                lblTextOne.Text = "Name of View to Destroy"
+            Case 15
+
+
         End Select
     End Sub
 
@@ -285,5 +365,125 @@
         End If
 
         metaDialog.Dispose()
+    End Sub
+
+    Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
+        Dim ThirdTableDialog As New frmSecondaryTable()
+
+
+        GlobalVars.SetFormType = 2
+        ThirdTableDialog.cBoxType.Visible = False
+        ThirdTableDialog.Text = "Action Mulitiple Dialog 2"
+        ThirdTableDialog.lblCbox.Text = "Choose Action Type:"
+        ThirdTableDialog.TextBox1.Text = ""
+        ThirdTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaActionTypeID)))
+        ThirdTableDialog.cBoxAType.SelectedIndex = 0
+
+        If ThirdTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
+
+            Select Case ThirdTableDialog.cBoxAType.SelectedIndex
+                Case 0, 3, 6, 10, 15       'Zero Values -- Remove 3.  This is Temp till Nested Tables are in
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "0")
+                Case 1, 5           'Meta States
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.cBoxMetaState.Text)
+                Case 2, 4, 7, 8, 14  'Single Values
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.TextBox1.Text)
+                Case 9              'Triple Value
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text))
+                Case 11, 12, 13         'Double Values
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", Parse.CombineTwoVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, "a"))
+                Case 13 '  Multiple -- Supposed to be 3.  This is Temp till Nested Tables are in
+                    'Dim sTempDataA As String = ""
+
+                    Dim tempdata As String = ""
+                    'DataGridViewRow
+                    Dim tempRowCount As Integer = ThirdTableDialog.dgvMultiple.Rows.Count - 1
+                    Dim RowCount As Integer = 0
+
+                    For Each r As DataGridViewRow In ThirdTableDialog.dgvMultiple.Rows
+
+                        'For Each r As DataTable In TableSecondaryMultiple.Rows
+                        'MsgBox("number of Rows = " & ThirdTableDialog.dgvMultiple.Rows.Count)
+                        If (r.Cells(0).Value IsNot Nothing) Then
+                            RowCount = RowCount + 1
+                            If RowCount = tempRowCount Then
+                                tempdata = tempdata & r.Cells(0).Value.ToString & r.Cells(1).Value.ToString
+                            Else
+                                'tempdata = tempdata & "{"(r.Cells(0).Value.ToString) & (r.Cells(1).Value.ToString) & "}"
+                                'tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                                tempdata = tempdata & r.Cells(0).Value.ToString & r.Cells(1).Value.ToString & ", "
+                                'tempdata = tempdata & (r.Rows.Item(0).ToString) & "{" & (r.Rows.Item(1).ToString) & "}"
+                            End If
+
+                        Else
+                            MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                        End If
+                        'For Each r As DataTable In TableSecondaryMultiple.Rows
+                        'r.Rows.Item(0).ToString()
+                    Next
+
+
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", tempdata)
+                Case Else           'Should not happen, but...
+                    MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
+
+            End Select
+
+        Else
+            'MsgBox("Click Cancel")
+        End If
+
+        dgvMultiple.DataSource = TableSecondaryMultiple
+        dgvMultiple.Refresh()
+        ThirdTableDialog.Dispose()
+
+    End Sub
+
+    Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
+
+    End Sub
+
+    Function CombineMultipleAction(sMultipleData As String, tMultipleData As DataGridView)
+        Dim tempdata As String = ""
+        'DataGridViewRow
+        For Each r As DataGridViewRow In tMultipleData.Rows
+            'For Each r As DataTable In TableSecondaryMultiple.Rows
+            If (r.Cells(0).Value IsNot Nothing) Then
+                tempdata = tempdata & (r.Cells(0).ToString) & "{" & (r.Cells(1).ToString) & "}"
+                'tempdata = tempdata & (r.Rows.Item(0).ToString) & "{" & (r.Rows.Item(1).ToString) & "}"
+            Else
+                MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+            End If
+            'For Each r As DataTable In TableSecondaryMultiple.Rows
+            'r.Rows.Item(0).ToString()
+        Next
+        sMultipleData = tempdata
+        Return (sMultipleData)
+    End Function
+
+    Private Sub rdbFalse_CheckedChanged(sender As Object, e As EventArgs) Handles rdbFalse.CheckedChanged
+        TextBox3.Text = "False"
+
+    End Sub
+
+    Private Sub rdbTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTrue.CheckedChanged
+        TextBox3.Text = "True"
+
+    End Sub
+
+    Private Sub lstBoxCommonOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBoxCommonOptions.SelectedIndexChanged
+        TextBox2.Text = lstBoxCommonOptions.SelectedItem.ToString
+        rdbFalse.Checked = True
+        TextBox3.Text = False
+    End Sub
+
+    Private Sub rdbFalse_Click(sender As Object, e As EventArgs) Handles rdbFalse.Click
+        rdbTrue.Checked = False
+        rdbFalse.Checked = True
+    End Sub
+
+    Private Sub rdbTrue_Click(sender As Object, e As EventArgs) Handles rdbTrue.Click
+        rdbFalse.Checked = False
+        rdbTrue.Checked = True
     End Sub
 End Class

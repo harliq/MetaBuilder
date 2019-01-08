@@ -15,7 +15,7 @@ Public Class frmMain
     Dim table As New DataTable("table")
     Dim TableAnyAll As New DataTable("TableAnyAll")
     Dim TableATMultiple As New DataTable("TableATMultiple")
-    Dim index As Integer
+    Dim index As Integer 'dgvMetaTable index
     Dim tAnyAllIndex As Integer
     Dim tATMultipleIndex As Integer
 
@@ -50,6 +50,7 @@ Public Class frmMain
                 MetaList.Add(iBoxNewMetaState)
                 cBoxCTMetaState.Items.Add(iBoxNewMetaState)
                 cBoxATMetaState.Items.Add(iBoxNewMetaState)
+                cboxReturnMetaState.Items.Add(iBoxNewMetaState)
                 cBoxCTMetaState.SelectedItem = iBoxNewMetaState
 
             End If
@@ -90,11 +91,13 @@ Public Class frmMain
         End Select
 
         Select Case cBoxAType.SelectedIndex
-            Case 1, 5       'Set State or Call State
+            Case 1       'Set State or Call State
                 AData = cBoxATMetaState.Text
             Case 3
                 Parse.CombineMultiple()
                 AData = MultipleString
+            Case 5
+                AData = Parse.CombineTwoVal(cBoxATMetaState.Text, cboxReturnMetaState.Text, "a")
             Case 9          'for Watch Dog Set - Triple 
                 AData = Parse.CombineThreeVal(txtBoxAData.Text, txtBoxAData2.Text, txtBoxAData3.Text)
             Case 11, 12, 13
@@ -121,6 +124,8 @@ Public Class frmMain
                 txtBoxCData.Text = "99999"
             Case 11, 12 'item count
                 txtBoxCData2.Text = "0"
+            Case 15 'need to buff
+                txtBoxCData.Text = "0"
             Case 16 'No Monsters within Distance
                 txtBoxCData.Text = "5"
             Case 22 'SecondsInStatePersistGE 
@@ -134,7 +139,8 @@ Public Class frmMain
                 txtBoxCData.Text = "10"
             Case 26 'Expression
                 txtBoxCData.Text = "False"
-
+            Case 28 'Chat Message Capture
+                txtBoxCData2.Text = "0"
 
         End Select
 
@@ -207,8 +213,8 @@ Public Class frmMain
         dgvAnyAll.Columns("Type").DisplayIndex = 0
         dgvAnyAll.Columns("Data").DisplayIndex = 1
 
-        dgvAnyAll.Columns(0).Width = dgvAnyAll.Width * 0.35
-        dgvAnyAll.Columns(1).Width = dgvAnyAll.Width * 0.65
+        dgvAnyAll.Columns(0).Width = dgvAnyAll.Width * 0.2
+        dgvAnyAll.Columns(1).Width = dgvAnyAll.Width * 0.8
 
         dgvAnyAll.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvAnyAll.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
@@ -224,8 +230,8 @@ Public Class frmMain
         dgvATMultiple.Columns("Type").DisplayIndex = 0
         dgvATMultiple.Columns("Data").DisplayIndex = 1
 
-        dgvATMultiple.Columns(0).Width = dgvATMultiple.Width * 0.35
-        dgvATMultiple.Columns(1).Width = dgvATMultiple.Width * 0.65
+        dgvATMultiple.Columns(0).Width = dgvATMultiple.Width * 0.2
+        dgvATMultiple.Columns(1).Width = dgvATMultiple.Width * 0.8
 
         dgvATMultiple.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvATMultiple.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
@@ -273,7 +279,7 @@ Public Class frmMain
         Dim newDataRow As DataGridViewRow
         Dim CData As String
         Dim AData As String
-
+        '
 
         newDataRow = dgvMetaRules.Rows(index)
 
@@ -295,16 +301,19 @@ Public Class frmMain
         End Select
 
         Select Case cBoxAType.SelectedIndex
-            Case 1, 5
+            Case 1
                 AData = cBoxATMetaState.Text
             Case 3
                 Parse.CombineMultiple()
                 AData = MultipleString
+            Case 5
+                AData = Parse.CombineTwoVal(cBoxATMetaState.Text, cboxReturnMetaState.Text, "a")
             Case 9
                 AData = Parse.CombineThreeVal(txtBoxAData.Text, txtBoxAData2.Text, txtBoxAData3.Text)
-            Case 11, 12
+            Case 11, 12, 13
                 AData = Parse.CombineTwoVal(txtBoxAData.Text, txtBoxAData2.Text, "a")
-
+                ' Case 13
+                '     AData = Parse.CombineTwoVal(txtBoxAData.Text, txtBoxAData2.Text, "a")
             Case Else
                 AData = txtBoxAData.Text
         End Select
@@ -338,9 +347,9 @@ Public Class frmMain
     End Sub
 
     Private Sub btnSaveXML_Click(sender As Object, e As EventArgs) Handles btnSaveXML.Click
-
+        'Cursor = Cursors.WaitCursor
         xml.SaveXML()
-
+        'Cursor = Cursors.Default
     End Sub
 
     Public Sub SaveXML()
@@ -478,7 +487,7 @@ Public Class frmMain
 
     Private Sub swapRows(ByVal range As mode)
         Dim iSelectedRow As Integer = -1
-        For iTmp As Integer = 0 To dgvMetaRules.Rows.Count - 1
+        For iTmp As Integer = 0 To dgvMetaRules.Rows.Count - 1 'Temp Row Index
             If dgvMetaRules.Rows(iTmp).Selected Then
                 iSelectedRow = iTmp
                 Exit For
@@ -486,7 +495,7 @@ Public Class frmMain
         Next
 
         If iSelectedRow <> -1 Then
-            Dim sTmp(4) As String
+            Dim sTmp(4) As String 'Temp Row
             For iTmp As Integer = 0 To dgvMetaRules.Columns.Count - 1
                 sTmp(iTmp) = dgvMetaRules.Rows(iSelectedRow).Cells(iTmp).Value.ToString
             Next
@@ -497,22 +506,46 @@ Public Class frmMain
             ElseIf range = mode.up Then
                 iNewRow = iSelectedRow - 1
             End If
+            If iNewRow < 0 Then
+                MsgBox("You went to far")
+                Exit Sub
+            ElseIf iNewRow = dgvMetaRules.Rows.Count - 1 Then
+                MsgBox("You went to far")
+                Exit Sub
+            End If
+
 
             If range = mode.up Or range = mode.down Then
                 For iTmp As Integer = 0 To dgvMetaRules.Columns.Count - 1
+
                     If dgvMetaRules.CurrentRow.Index < 0 Then
                         MsgBox("Row out of range - #MovingRows")
                         Exit Sub
                     Else
-                        dgvMetaRules.Rows(iSelectedRow).Cells(iTmp).Value = dgvMetaRules.Rows(iNewRow).Cells(iTmp).Value
-                        dgvMetaRules.Rows(iNewRow).Cells(iTmp).Value = sTmp(iTmp)
+                        Try
+                            dgvMetaRules.Rows(iSelectedRow).Cells(iTmp).Value = dgvMetaRules.Rows(iNewRow).Cells(iTmp).Value
+                            dgvMetaRules.Rows(iNewRow).Cells(iTmp).Value = sTmp(iTmp)
+                        Catch
+                            MsgBox("You went to far")
+                        End Try
                     End If
                 Next
                 toSelect(iNewRow)
+                dgvMetaRules.ClearSelection()
+                dgvMetaRules.Rows(iNewRow).Selected = True
             ElseIf range = mode.top Or range = mode.bottom Then
+                'Try
                 reshuffleRows(sTmp, iSelectedRow, range)
+                'Catch
+                'MsgBox("You went to far")
+                'End Try
             End If
-            dgvMetaRules.Rows(1).Selected = False
+            dgvMetaRules.ClearSelection()
+            dgvMetaRules.Rows(iNewRow).Selected = True
+            dgvMetaRules.Refresh()
+            index = iNewRow
+            'dgvMetaRules.CurrentCell = dgvMetaRules.Rows(iNewRow).Cells(0)
+            'dgvMetaRules.Rows(1).Selected = False
         End If
 
     End Sub
@@ -802,7 +835,8 @@ Public Class frmMain
                  'Add Logice to change form for all conditon, and change form
                 Case "EmbeddedNavRoute"
                 Case "CallState"
-                    sMetaStateFlag = True
+                    ATypeTable = 5
+                    'sMetaStateFlag = True
                 Case "ReturnFromCall"
                 Case "ExpressionAct"
                 Case "ChatWithExpression"
@@ -812,6 +846,8 @@ Public Class frmMain
                 Case "GetVTOption"
                     ATypeTable = 2
                 Case "SetVTOption"
+                    ATypeTable = 6
+                Case "CreateView"
                     ATypeTable = 2
                 Case Else
                     'MessageBox.Show("Out of Range - Meta Export Action Type")
@@ -878,7 +914,12 @@ Public Class frmMain
                         For Each s As String In StringSplit
                             Dim tempstring() As String
                             tempstring = Split(s, "{")
-                            If tempstring(0) = "" Then
+                            ' Spliting Mulitples
+                            If tempstring(0) = "Multiple" Then
+                                's = s.Length - 1
+                                TableATMultiple.Rows.Add("Multiple", Adata.Remove(0, 9))
+                                Exit For
+                            ElseIf tempstring(0) = "" Then
                                 Exit For
                             Else
                                 TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
@@ -887,6 +928,24 @@ Public Class frmMain
                         dgvATMultiple.DataSource = TableATMultiple
                         dgvATMultiple.Refresh()
                     Case 5
+                        Dim Adata As String = selectedRow.Cells(3).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(Adata, ";")
+                        cBoxATMetaState.Text = StringSplit(0).ToString
+                        cboxReturnMetaState.Text = StringSplit(1).ToString
+                    Case 6 'Set Options
+                        Dim Adata As String = selectedRow.Cells(3).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(Adata, ";")
+
+                        txtBoxAData.Text = StringSplit(0).ToString
+                        txtBoxAData2.Text = StringSplit(1).ToString
+                        lstBoxCommonOptions.SetSelected(1, False)
+                        lstBoxCommonOptions.SelectedItem = txtBoxAData.Text
+                        If StringSplit(1).ToString = "True" Then
+                            rdbTrue.Checked = True
+                            rdbFalse.Checked = False
+                        End If
                     Case Else
                         MsgBox("Out of Range - frmMain.dgvMetaRules.CellClick Case AtypeTable")
                 End Select
@@ -936,14 +995,14 @@ Public Class frmMain
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             Select Case SecondTableDialog.cBoxType.SelectedIndex
-                Case 0 To 3, 7 To 10, 15, 19, 20 'Empty Values set as a ZERO
+                Case 0 To 3, 7 To 10, 15, 19, 20, 21 'Empty Values Set As a ZERO
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, "0")
                 ' Case 4, 5, 6    'Single Values
                 Case 11, 12, 28     'Double Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a"))
                 Case 13, 14
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
-                Case 21 ' NOT
+                    'Case 21 ' NOT
 
                 Case Else ' Single Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, SecondTableDialog.TextBox1.Text) ' Single Values
@@ -963,18 +1022,15 @@ Public Class frmMain
 
         If dgvAnyAll.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top row... Yet")
-
+            MsgBox("You can not delete the top or bottom (blank) row... Yet")
         ElseIf dgvAnyAll.CurrentRow.Index >= 0 Then
             Try
-                dgvAnyAll.Rows.RemoveAt(index)
+                dgvAnyAll.Rows.RemoveAt(tAnyAllIndex)
             Catch
-                MsgBox("You Can't remove that row")
+                MsgBox("You Can't remove that row - Index is: " + dgvAnyAll.CurrentRow.Index.ToString)
             End Try
-
         Else
             MsgBox("Rows out of range")
-
         End If
 
     End Sub
@@ -998,7 +1054,7 @@ Public Class frmMain
             Select Case selectedRow.Cells(0).Value.ToString
                 Case "Never", "Alway", "All", "Any", "Not" ' Not USING
 
-                Case "ChatMessage", "Expression"
+                Case "ChatMessage", "Expression", "LandBlockE", "LandCellE"
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
                 Case "ItemCountLE", "ItemCountGE", "ChatMessageCapture"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
@@ -1228,16 +1284,26 @@ Public Class frmMain
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
-                Case 0, 6, 10       'Zero Values
+                Case 0, 3, 6, 10, 15       'Zero Values - Remove 3 This is temp till Nested Tables are in
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, "0")
                 Case 1, 5           'Meta States
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.cBoxMetaState.Text)
-                Case 2, 3, 4, 7, 8  'Single Values
+                Case 2, 4, 7, 8, 14  'Single Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.TextBox1.Text)
                 Case 9              'Triple Value
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
-                Case 11, 12         'Double Values
-                    TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a"))
+                Case 11, 12, 13         'Double Values
+                    TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a"))
+                Case 13         'Multiple  -- Supposed to be 3.  This is Temp till Nested Tables are in
+                    Dim tempdata As String = ""
+                    For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
+                        If r.Cells(0).Value IsNot Nothing Then
+                            tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                        Else
+                            'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                        End If
+                    Next
+                    TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, tempdata)
                 Case Else           'Should not happen, but...
                     MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
 
@@ -1252,7 +1318,6 @@ Public Class frmMain
         SecondTableDialog.Dispose()
 
 
-        'Me.ListBoxCTDataAnyAll.Items.Add(Me.cBoxCTAnyAll.SelectedItem.ToString)
     End Sub
 
     Private Sub btnEditATAnyAll_Click(sender As Object, e As EventArgs) Handles btnEditATAnyAll.Click
@@ -1272,17 +1337,28 @@ Public Class frmMain
 
             Select Case selectedRow.Cells(0).Value.ToString
                 Case "None" ' Not USING
-                Case "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
+                Case "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression", "DestroyView"
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
                 Case "SetState", "Call State"
                     SecondTableDialog.cBoxMetaState.Text = selectedRow.Cells(1).Value.ToString
 
-                Case "GetVTOption", "SetVTOption"
+                Case "GetVTOption", "SetVTOption", "CreateView"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                     Dim StringSplit() As String
                     StringSplit = Split(tempData, ";")
-                    SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
-                    SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
+                    SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
+                    SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
+                    If StringSplit(1).ToString = "True" Then
+                        SecondTableDialog.rdbTrue.Checked = True
+                        SecondTableDialog.rdbFalse.Checked = False
+                    End If
+                Case "CreateView"
+                    Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                    Dim StringSplit() As String
+                    StringSplit = Split(tempData, ";")
+                    SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
+                    SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
+
                 Case "WatchdogSet"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                     Dim StringSplit() As String
@@ -1290,6 +1366,13 @@ Public Class frmMain
                     SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
                     SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
                     SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
+                Case "Multiple" ' Needs Work to finish
+                    Dim tempData As String = ""
+
+                    SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString
+
+                    SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
+
                 Case Else
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
             End Select
@@ -1307,14 +1390,14 @@ Public Class frmMain
             newDataRow.Cells(0).Value = SecondTableDialog.cBoxAType.Text
 
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
-                Case 0, 3, 6, 10               'ZeroValue
+                Case 0, 3, 6, 10, 15               'ZeroValue
                     newDataRow.Cells(1).Value = "0"
                 Case 1, 5            ' SetState,CallState
                     newDataRow.Cells(1).Value = SecondTableDialog.cBoxMetaState.Text
-                Case 2, 4, 7, 8      'Single Values - "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
+                Case 2, 4, 7, 8, 14      'Single Values - "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
                     newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
-                Case 11, 12     'Double Values - "GetVTOption", "SetVTOption"
-                    newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a")
+                Case 11, 12, 13     'Double Values - "GetVTOption", "SetVTOption"
+                    newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
                 Case 9
                     newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
                 Case Else
@@ -1367,11 +1450,11 @@ Public Class frmMain
     Private Sub btnDeleteATAnyAll_Click(sender As Object, e As EventArgs) Handles btnDeleteATAnyAll.Click
         If dgvATMultiple.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top row... Yet")
+            MsgBox("You can not delete the top or bottom (blank) row... Yet")
 
         ElseIf dgvATMultiple.CurrentRow.Index >= 0 Then
             Try
-                dgvATMultiple.Rows.RemoveAt(index)
+                dgvATMultiple.Rows.RemoveAt(tATMultipleIndex)
             Catch
                 MsgBox("You Can't remove that row")
             End Try
@@ -1404,6 +1487,7 @@ Public Class frmMain
                 MetaList.Add(iBoxNewMetaState)
                 cBoxCTMetaState.Items.Add(iBoxNewMetaState)
                 cBoxATMetaState.Items.Add(iBoxNewMetaState)
+                cboxReturnMetaState.Items.Add(iBoxNewMetaState)
                 cBoxATMetaState.SelectedItem = iBoxNewMetaState
 
             End If
@@ -1415,6 +1499,47 @@ Public Class frmMain
     End Sub
 
     Private Sub ToolStripButtonImport_Click(sender As Object, e As EventArgs) Handles ToolStripButtonImport.Click
-        dgvMetaRules.DataSource = ImportMeta.LoadMeta(table)
+
+        MessageBox.Show("Not Implemented")
+        'dgvMetaRules.DataSource = ImportMeta.LoadMeta(table)
+        'ImportMeta.TempImport()
+    End Sub
+
+    Private Sub dgvMetaRules_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMetaRules.SelectionChanged
+
+    End Sub
+
+    Private Sub rdbTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTrue.CheckedChanged
+        txtBoxAData2.Text = "True"
+    End Sub
+
+    Private Sub rdbTrue_Click(sender As Object, e As EventArgs) Handles rdbTrue.Click
+        rdbFalse.Checked = False
+        rdbTrue.Checked = True
+    End Sub
+
+    Private Sub rdbFalse_CheckedChanged(sender As Object, e As EventArgs) Handles rdbFalse.CheckedChanged
+        txtBoxAData2.Text = "False"
+    End Sub
+
+    Private Sub rdbFalse_Click(sender As Object, e As EventArgs) Handles rdbFalse.Click
+        rdbTrue.Checked = False
+        rdbFalse.Checked = True
+    End Sub
+
+    Private Sub lstBoxCommonOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBoxCommonOptions.SelectedIndexChanged
+        Try
+            txtBoxAData.Text = lstBoxCommonOptions.SelectedItem.ToString
+        Catch
+        End Try
+
+        rdbFalse.Checked = True
+        txtBoxAData2.Text = False
+    End Sub
+
+    Private Sub SaveAsToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveAsToolStripMenuItem1.Click
+
+        xml.SaveAsXML()
+
     End Sub
 End Class
