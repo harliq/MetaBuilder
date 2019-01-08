@@ -1,24 +1,62 @@
-﻿Module xml
+﻿Imports System.IO
+
+Module xml
     Public Property SaveFileDialog1 As Object
     'Dim loaddt As New DataTable("loaddt")
 
     Public Sub SaveXML()
 
+        If FileName = "" Then
+            Dim sfd As New SaveFileDialog()
+            sfd.Filter = "XML Files|*.xml"
+            sfd.InitialDirectory = My.Settings.XMLOpenSave
+            GlobalVars.FileName = sfd.FileName
+            If sfd.ShowDialog = DialogResult.OK Then
+                Dim savedt As DataTable = CType(frmMain.dgvMetaRules.DataSource, DataTable)
+                savedt.AcceptChanges()
+                savedt.WriteXml(sfd.FileName, System.Data.XmlWriteMode.WriteSchema, False)
+                SetForm.SaveWork = False
+                frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & sfd.FileName
+                GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
+                GlobalVars.FileNameAndPath = sfd.FileName
+            Else
 
+
+            End If
+
+        Else
+            Dim savedt As DataTable = CType(frmMain.dgvMetaRules.DataSource, DataTable)
+            savedt.AcceptChanges()
+            savedt.WriteXml(GlobalVars.FileNameAndPath, System.Data.XmlWriteMode.WriteSchema, False)
+            SetForm.SaveWork = False
+            'MsgBox("XML Saved")
+            frmMain.Cursor = Cursors.WaitCursor
+            Threading.Thread.Sleep(500)
+            frmMain.Cursor = Cursors.Default
+
+            'frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & sfd.FileName
+            'GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
+            'GlobalVars.FileNameAndPath = sfd.FileName
+        End If
+    End Sub
+
+    Public Sub SaveAsXML()
         Dim sfd As New SaveFileDialog()
         sfd.Filter = "XML Files|*.xml"
         sfd.InitialDirectory = My.Settings.XMLOpenSave
-
+        GlobalVars.FileName = sfd.FileName
         If sfd.ShowDialog = DialogResult.OK Then
             Dim savedt As DataTable = CType(frmMain.dgvMetaRules.DataSource, DataTable)
             savedt.AcceptChanges()
             savedt.WriteXml(sfd.FileName, System.Data.XmlWriteMode.WriteSchema, False)
             SetForm.SaveWork = False
             frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & sfd.FileName
+            GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
+            GlobalVars.FileNameAndPath = sfd.FileName
         Else
 
-        End If
 
+        End If
     End Sub
 
     Function LoadXML(table As DataTable) As DataTable
@@ -31,7 +69,9 @@
             table.Clear()
             table.ReadXml(ofd.FileName)
             frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & ofd.FileName
-
+            GlobalVars.FileName = Path.GetFileNameWithoutExtension(ofd.FileName)
+            GlobalVars.FileNameAndPath = ofd.FileName
+            'MsgBox("Path= " & GlobalVars.FileNameAndPath)
             'Creating Table
             Dim items = table.AsEnumerable().Select(Function(d) DirectCast(d(4).ToString(), Object)).ToArray()
 

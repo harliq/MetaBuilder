@@ -19,6 +19,9 @@
                 TextBox1.Text = "-1"
                 TextBox2.Text = "1"
                 TextBox3.Text = "5"
+            Case 17, 18
+                TextBox1.Text = "00000000"
+
         End Select
     End Sub
 
@@ -61,6 +64,10 @@
         TextBox1.Visible = False
         TextBox2.Visible = False
         TextBox3.Visible = False
+        rdbTrue.Visible = False
+        rdbFalse.Visible = False
+        lstBoxCommonOptions.Visible = False
+
     End Sub
 
     Sub FormConfig(ItemIndex As Integer)
@@ -113,11 +120,11 @@
                 Case 17
                     FormOneRule()
                     lblTextOne.Text = "LandBlock ="
-                    TextBox1.Text = "00000000"
+                    'TextBox1.Text = "00000000"
                 Case 18
                     FormOneRule()
                     lblTextOne.Text = "LandCell ="
-                    TextBox1.Text = "00000000"
+                    'TextBox1.Text = "00000000"
                 Case 19, 20, 21
                     TextBox1.Text = "0"
                 Case 22
@@ -172,13 +179,14 @@
                     lblTextThree.Text = "Time Span: (Seconds)"
                 Case 10
                 Case 11, 12
-                    FormTwoRule()
-                    lblTextOne.Text = "Item"
-                    lblTextTwo.Text = "Number"
+                    FormSetOptRule()
+                    lblTextTwo.Text = "Item"
+                    lblTextThree.Text = "Value"
+                    lblState.Text = "Common Options"
                 Case 13
                     FormTwoRule()
-                    lblTextOne.Text = "Name of View"
-                    lblTextTwo.Text = "Raw XML Data"
+                    lblTextTwo.Text = "Name of View"
+                    lblTextThree.Text = "Raw XML Data"
                 Case 14
                     FormOneRule()
                     lblTextOne.Text = "Name of View to Destroy"
@@ -200,10 +208,10 @@
 
     Sub FormTwoRule()
 
-        lblTextOne.Visible = True
-        TextBox1.Visible = True
         lblTextTwo.Visible = True
         TextBox2.Visible = True
+        lblTextThree.Visible = True
+        TextBox3.Visible = True
 
     End Sub
 
@@ -234,7 +242,18 @@
         TextBox1.Visible = True
         btnEmbedNav.Visible = True
     End Sub
+    Sub FormSetOptRule()
 
+        lblTextTwo.Visible = True
+        TextBox2.Visible = True
+        lblTextThree.Visible = True
+        TextBox3.Visible = True
+        rdbTrue.Visible = True
+        rdbFalse.Visible = True
+        lstBoxCommonOptions.Visible = True
+        lblState.Visible = True
+
+    End Sub
     Sub FormMultipleRule()
 
         '-- This is Temp till Nested Tables are in
@@ -286,13 +305,14 @@
                 lblTextThree.Text = "Time Span: (Seconds)"
             Case 10
             Case 11, 12
-                FormTwoRule()
-                lblTextOne.Text = "Item"
-                lblTextTwo.Text = "Number"
+                FormSetOptRule()
+                lblTextTwo.Text = "Item"
+                lblTextThree.Text = "Value"
+                lblState.Text = "Common Options"
             Case 13
                 FormTwoRule()
-                lblTextOne.Text = "Name of View"
-                lblTextTwo.Text = "Raw XML Data"
+                lblTextTwo.Text = "Name of View"
+                lblTextThree.Text = "Raw XML Data"
             Case 14
                 FormOneRule()
                 lblTextOne.Text = "Name of View to Destroy"
@@ -440,4 +460,30 @@
         sMultipleData = tempdata
         Return (sMultipleData)
     End Function
+
+    Private Sub rdbFalse_CheckedChanged(sender As Object, e As EventArgs) Handles rdbFalse.CheckedChanged
+        TextBox3.Text = "False"
+
+    End Sub
+
+    Private Sub rdbTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTrue.CheckedChanged
+        TextBox3.Text = "True"
+
+    End Sub
+
+    Private Sub lstBoxCommonOptions_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lstBoxCommonOptions.SelectedIndexChanged
+        TextBox2.Text = lstBoxCommonOptions.SelectedItem.ToString
+        rdbFalse.Checked = True
+        TextBox3.Text = False
+    End Sub
+
+    Private Sub rdbFalse_Click(sender As Object, e As EventArgs) Handles rdbFalse.Click
+        rdbTrue.Checked = False
+        rdbFalse.Checked = True
+    End Sub
+
+    Private Sub rdbTrue_Click(sender As Object, e As EventArgs) Handles rdbTrue.Click
+        rdbFalse.Checked = False
+        rdbTrue.Checked = True
+    End Sub
 End Class

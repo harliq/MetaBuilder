@@ -25,6 +25,7 @@
             Dim CTypeTable As Integer = 0  'This is to flag if Condition Type uses a Record Table. No record table=0, Single=1, Double=3, Multiple Table=3, Triple =4  Used to call correct Functions, Init as 0
             Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
             Dim sRecordOneAdataType As String = "" ' to determine the AdataType - Example e=Expression, n=Name
+            Dim sCDataTableVarOne As String = "" ' For setting the proper Var Type for each subtable Variable
             Dim sADataTableVarOne As String = "" ' For setting the proper Var Type for each subtable Variable
             Dim sADataTableVarTwo As String = ""
             'Dim sADataTableVarThree As String = ""
@@ -96,8 +97,12 @@
                 Case "BurdenPercentGE"
                     tempmeta = tempmeta + i + "24" + vbCrLf
                 Case "DistanceToAnyRoutePointGE"
+                    sCDataTableVarOne = "dist"
+                    CTypeTable = 1 'Table records = 1
+                    tCD = "d"
                     tempmeta = tempmeta + i + "25" + vbCrLf
                 Case "Expression"
+                    sCDataTableVarOne = "e"
                     CTypeTable = 1 'Table records = 1
                     tempmeta = tempmeta + i + "26" + vbCrLf
                     tCD = "s" ''  Sets Var as string for CData Exporting
@@ -188,7 +193,7 @@
                     End If
 
                 Case 1 ' Single Record Table
-                    tempmeta = tempmeta & SingleExport(r.Cells(2).Value & vbCrLf, sRecordOneAdataType)
+                    tempmeta = tempmeta & SingleExport(r.Cells(2).Value & vbCrLf, sCDataTableVarOne)
                 Case 2 ' Double Record Table
                     tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
                 Case 3 'Any/All/Not Sub Table
@@ -249,7 +254,7 @@
         Dim sfd As New SaveFileDialog()
         sfd.Filter = "Meta Files|*.met"
         sfd.InitialDirectory = My.Settings.MetaExportDir
-
+        sfd.FileName = GlobalVars.FileName
 
 
         If (sfd.ShowDialog = DialogResult.OK) Then
@@ -341,8 +346,14 @@
 
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "1"
         Dim ExportData As String = "s"  'starting off with Variable as string 
+        Dim cDataVarTypeRecOne As String = "s"
 
-        ExportData = ExportData & vbCrLf & RecordOneADataType & vbCrLf & "s" & vbCrLf & Rule  ' next part, e = expression, and s = var type of name (string)
+        Select Case RecordOneADataType
+            Case "dist"
+                cDataVarTypeRecOne = "d"
+        End Select
+
+        ExportData = ExportData & vbCrLf & RecordOneADataType & vbCrLf & cDataVarTypeRecOne & vbCrLf & Rule  ' next part, e = expression, and s = var type of name (string)
 
         Rule = TableHeader & vbCrLf & ExportData
         Return (Rule)
@@ -559,6 +570,9 @@
         Dim s As String = "s" + vbCrLf
         Dim tCD As String = "i" 'temp var for setting the Condition Data Var type -Set when Condition Type is figured out.
         Dim CTypeTable As Integer = 0  'This is to flag if Condition Type uses a Record Table. No record table=0, Single=1, Double=3 or Multiple Table=3.  Used to call correct Functions, Init as 0
+        Dim sCDataTableVarOne As String = "" ' For setting the proper Var Type for each subtable Variable
+        'Dim sADataTableVarThree As String = ""
+
         'Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
         'Dim cdType As MetaConditionTypeID
         'Dim cdType As Condition
@@ -625,8 +639,11 @@
             Case "BurdenPercentGE"
                 tempmeta = tempmeta + i + "24" + vbCrLf
             Case "DistanceToAnyRoutePointGE"
+                CTypeTable = 1 'Table records = 1
+                sCDataTableVarOne = "dist"
                 tempmeta = tempmeta + i + "25" + vbCrLf
             Case "Expression"
+                sCDataTableVarOne = "e"
                 CTypeTable = 1 'Table records = 1
                 tempmeta = tempmeta + i + "26" + vbCrLf
                 tCD = "s" ''  Sets Var as string for CData Exporting
@@ -642,8 +659,6 @@
 
 
 
-
-
         Select Case CTypeTable 'To find the correct Export function for Exporting the Condition Type
             Case 0 ' No Table
 
@@ -656,7 +671,7 @@
                 End If
 
             Case 1 ' Single Record Table
-                tempmeta = tempmeta & SingleExport(CTypeData & vbCrLf, "")
+                tempmeta = tempmeta & SingleExport(CTypeData & vbCrLf, sCDataTableVarOne)
             Case 2 ' Double Record Table
                 tempmeta = tempmeta & CTypeDoubleExport(CTypeData, CTypeString) & vbCrLf
             Case 3 'Any/All/Not Sub Table
@@ -729,7 +744,7 @@
         Dim tAD As String = "i"
         Dim tempmeta As String = ""
         Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
-        Dim sADataVaribleType As String
+        Dim sADataVaribleType As String = ""
 
         Select Case (ATypeString)  ' Action Types
             Case "None"

@@ -43,6 +43,9 @@ Partial Class frmSecondaryTable
         Me.btnAdd = New System.Windows.Forms.Button()
         Me.btnEdit = New System.Windows.Forms.Button()
         Me.btnDelete = New System.Windows.Forms.Button()
+        Me.lstBoxCommonOptions = New System.Windows.Forms.ListBox()
+        Me.rdbTrue = New System.Windows.Forms.RadioButton()
+        Me.rdbFalse = New System.Windows.Forms.RadioButton()
         CType(Me.dgvMultiple, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -248,6 +251,37 @@ Partial Class frmSecondaryTable
         Me.btnDelete.Text = "Delete"
         Me.btnDelete.UseVisualStyleBackColor = True
         '
+        'lstBoxCommonOptions
+        '
+        Me.lstBoxCommonOptions.FormattingEnabled = True
+        Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "NavPriorityBoost"})
+        Me.lstBoxCommonOptions.Location = New System.Drawing.Point(15, 87)
+        Me.lstBoxCommonOptions.Name = "lstBoxCommonOptions"
+        Me.lstBoxCommonOptions.Size = New System.Drawing.Size(217, 95)
+        Me.lstBoxCommonOptions.TabIndex = 41
+        '
+        'rdbTrue
+        '
+        Me.rdbTrue.AutoSize = True
+        Me.rdbTrue.Location = New System.Drawing.Point(263, 87)
+        Me.rdbTrue.Name = "rdbTrue"
+        Me.rdbTrue.Size = New System.Drawing.Size(47, 17)
+        Me.rdbTrue.TabIndex = 42
+        Me.rdbTrue.Text = "True"
+        Me.rdbTrue.UseVisualStyleBackColor = True
+        '
+        'rdbFalse
+        '
+        Me.rdbFalse.AutoSize = True
+        Me.rdbFalse.Checked = True
+        Me.rdbFalse.Location = New System.Drawing.Point(340, 87)
+        Me.rdbFalse.Name = "rdbFalse"
+        Me.rdbFalse.Size = New System.Drawing.Size(50, 17)
+        Me.rdbFalse.TabIndex = 43
+        Me.rdbFalse.TabStop = True
+        Me.rdbFalse.Text = "False"
+        Me.rdbFalse.UseVisualStyleBackColor = True
+        '
         'frmSecondaryTable
         '
         Me.AcceptButton = Me.btnOk
@@ -255,6 +289,9 @@ Partial Class frmSecondaryTable
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(672, 277)
+        Me.Controls.Add(Me.rdbFalse)
+        Me.Controls.Add(Me.rdbTrue)
+        Me.Controls.Add(Me.lstBoxCommonOptions)
         Me.Controls.Add(Me.btnDelete)
         Me.Controls.Add(Me.btnEdit)
         Me.Controls.Add(Me.btnAdd)
@@ -305,4 +342,7 @@ Partial Class frmSecondaryTable
     Friend WithEvents btnAdd As Button
     Friend WithEvents btnEdit As Button
     Friend WithEvents btnDelete As Button
+    Friend WithEvents lstBoxCommonOptions As ListBox
+    Friend WithEvents rdbTrue As RadioButton
+    Friend WithEvents rdbFalse As RadioButton
 End Class

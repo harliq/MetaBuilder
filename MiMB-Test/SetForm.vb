@@ -276,7 +276,9 @@
         frmMain.btnAddATAnyAll.Visible = False
         frmMain.btnEditATAnyAll.Visible = False
         frmMain.btnDeleteATAnyAll.Visible = False
-
+        frmMain.lstBoxCommonOptions.Visible = False
+        frmMain.rdbTrue.Visible = False
+        frmMain.rdbFalse.Visible = False
 
         'Clearing the fields.
         frmMain.lblAData.Text = ""
@@ -296,6 +298,15 @@
         frmMain.txtBoxAData.Visible = True
         frmMain.txtBoxAData2.Visible = True
         frmMain.lblAdata2.Visible = True
+    End Sub
+    Sub ATSetOptionsRule()
+        frmMain.txtBoxAData.Visible = True
+        frmMain.txtBoxAData2.Visible = True
+        frmMain.lblAdata2.Visible = True
+        frmMain.lblATMetaState.Visible = True
+        frmMain.lstBoxCommonOptions.Visible = True
+        frmMain.rdbTrue.Visible = True
+        frmMain.rdbFalse.Visible = True
     End Sub
     Sub ATTripleRule()
         frmMain.txtBoxAData.Visible = True
@@ -369,13 +380,15 @@
                 frmMain.lblAData.Text = "WatchDog Clear"
                 frmMain.txtBoxAData.Text = "0"
             Case "11", "GetVTOption"
-                SetForm.ATDoubleRule()
+                SetForm.ATSetOptionsRule()
                 frmMain.lblAData.Text = "Option to Get"
                 frmMain.lblAdata2.Text = "Expression Variable Target"
+                frmMain.lblATMetaState.Text = "Common Options"
             Case "12", "SetVTOption"
-                SetForm.ATDoubleRule()
+                SetForm.ATSetOptionsRule()
                 frmMain.lblAData.Text = "Option to Set"
                 frmMain.lblAdata2.Text = "Expresssion (True/False, Value)"
+                frmMain.lblATMetaState.Text = "Common Options"
             Case "13", "CreateView"
                 SetForm.ATDoubleRule()
                 frmMain.lblAData.Text = "Name of View"
@@ -498,7 +511,7 @@
             Case "28", "ChatMessageCapture"
                 SetForm.CTDouble()
                 frmMain.lblCData.Text = "Chat Message Pattern:"
-                frmMain.lblCData2.Text = "Chat ColorID List:"
+                frmMain.lblCData2.Text = "Chat ColorID List:  (Default is 0 = Main Window)"
 
                 frmMain.Refresh()
 
