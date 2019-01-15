@@ -242,6 +242,10 @@
     End Function
 
     Sub TempImport()
+        '-----------------------------------------------------
+        'Temporary, this is proof of concept Of importing, and getting the basics figured out
+        '-----------------------------------------------------
+
         Dim TempS As String = ""     'Rule Row
         Dim TempAL As String = ""    'Accrued Lines
         Dim TempL As String = ""        'Line
@@ -265,23 +269,15 @@
         Dim vCTypeConv As String = ""       ' For Converting Condtion Type Variable to Associated Condtion Rule Type
         Dim vATypeConv As String = ""       ' For Converting Action Type Variable to Asscoiated Condtion Rule Type
 
-
         '-- New Vars
         Dim Rule As String = ""
 
-        'TempS = "State" + vbTab + vbTab + "Condition Type" + vbTab + vbTab + "Condition Value" + vbTab + vbTab + "Action Type" + vbTab + vbTab + "Action Value" + vbCrLf
         TempS = "State" + vbTab + "Condition Type" + vbTab + "Condition Value" + vbTab + "Action Type" + vbTab + "Action Value" + vbCrLf
-
-
 
         Dim ofd As New OpenFileDialog()
         ofd.Filter = "Meta Files|*.met"
         ofd.InitialDirectory = My.Settings.MetaExportDir
         ofd.Title = "Import VT Meta"
-
-        'If ofd.ShowDialog = DialogResult.OK Then
-        'Dim loaddt As New DataTable
-
 
         'Start Reading MetaFile Here
         '---------------------------
@@ -325,7 +321,6 @@
 
                         End Select
 
-
                         'Action Type & Action Data
                         TempL = reader.ReadLine
                         RuleCountLine = RuleCountLine + 1
@@ -346,8 +341,6 @@
 
                         End Select
 
-
-
                         'Condition Data
                         TempL = reader.ReadLine
                         RuleCountLine = RuleCountLine + 1
@@ -359,7 +352,6 @@
                             Case Else
                                 'MsgBox("Error with Condition Data Varible, Its Not i, its " & TempL)
                         End Select
-
 
                         'Action Data
                         TempL = reader.ReadLine
@@ -386,43 +378,27 @@
                         End Select
                         '' **** -Might be able to reuse this code in a Function, Not sure
 
-
                     Loop Until RuleCountLine = 10 Or reader.Peek = -1 ' Need to Rename this, This is for a single simple Rule, no tables 
                     Rule = Rule + vStateValue + vbTab + vCType + vbTab + vCDataValue + vbTab + vAType + vbTab + vADataValue + vbCrLf
                     RuleCountLine = 0
                     'TempAL = TempAL + TempS
                 Loop Until reader.Peek = -1
                 reader.Close()
-                MessageBox.Show("Finished!", "Finished", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                TestingStuff.TextBoxTest.Text = TempS + Rule
-                TestingStuff.Show()
-
 
             Catch
                 MessageBox.Show("ERROR!", "ERROR File Empty!! or No File Name", MessageBoxButtons.OK, MessageBoxIcon.Error)
-
                 reader.Close()
             End Try
-
 
         Else
             MessageBox.Show("Canceled File Open", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Stop)
         End If
 
-
-
         frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & ofd.FileName
 
-        'Creating Table
-
-        'Dim items = table.AsEnumerable().Select(Function(d) DirectCast(d(4).ToString(), Object)).ToArray()
-        '    frmMain.cBoxATMetaState.Items.Clear()
-        '    frmMain.cBoxCTMetaState.Items.Clear()
-        '    frmMain.cBoxCTMetaState.Items.AddRange(items)
-        '    frmMain.cBoxATMetaState.Items.AddRange(items)
-
-        'Populating Table from Meta File
-
+        'MessageBox.Show("Finished!", "Finished", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        TestingStuff.TextBoxTest.Text = TempS + Rule
+        TestingStuff.Show()
 
 
     End Sub

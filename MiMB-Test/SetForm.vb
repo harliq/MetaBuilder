@@ -336,8 +336,8 @@
         'frmMain.txtBoxAData.Visible = True
         'frmMain.cBoxATMetaState.Visible = False
         'frmMain.lblATMetaState.Visible = False
-        frmMain.lblAData.Visible = True
-        frmMain.lblAData.Text = "Multiple"
+        'frmMain.lblAData.Visible = True
+        'frmMain.lblAData.Text = "Multiple"
         frmMain.dgvATMultiple.Visible = True
 
         frmMain.btnAddATAnyAll.Visible = True

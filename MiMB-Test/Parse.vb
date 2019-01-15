@@ -65,4 +65,24 @@
         Return MultiOne
     End Function
 
+    Sub SplitingStrings()
+        Dim StringSplit As String = ""
+
+        For Each s As String In StringSplit
+            Dim tempstring() As String
+            tempstring = Split(s, "{")
+            ' Spliting Mulitples
+            If tempstring(0) = "Multiple" Then
+                's = s.Length - 1
+                'TableATMultiple.Rows.Add("Multiple", Adata.Remove(0, 9))
+                Exit For
+            ElseIf tempstring(0) = "" Then
+                Exit For
+            Else
+                'TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
+            End If
+        Next
+
+
+    End Sub
 End Module
