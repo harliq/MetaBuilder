@@ -11,15 +11,18 @@
         FormConfig(SetFormIndex)
         'set defaults for certain items
         Select Case cBoxType.SelectedIndex
-            Case 13
+            Case 11, 12 ' Item Count LE & GE
+                TextBox3.Text = "0"
+
+            Case 13 ' Monster Count Within Distance
                 TextBox1.Text = ""
                 TextBox2.Text = "1"
                 TextBox3.Text = "5"
-            Case 14
+            Case 14 ' Monsters with Priority within distance
                 TextBox1.Text = "-1"
                 TextBox2.Text = "1"
                 TextBox3.Text = "5"
-            Case 17, 18
+            Case 17, 18 ' Landblock & LandCell
                 TextBox1.Text = "00000000"
 
         End Select
@@ -96,10 +99,14 @@
                     TextBox1.Text = "0"
                 Case 10
                     TextBox1.Text = "0"
-                Case 11, 12
+                Case 11
                     FormTwoRule()
-                    lblTextOne.Text = "Item"
-                    lblTextTwo.Text = "Number"
+                    lblTextTwo.Text = "Item"
+                    lblTextThree.Text = "Number of items <="
+                Case 12
+                    FormTwoRule()
+                    lblTextTwo.Text = "Item"
+                    lblTextThree.Text = "Number of items >="
                 Case 13
                     FormThreeRule()
                     lblTextOne.Text = "Monster Name (regex):"
@@ -146,8 +153,8 @@
                     TextBox1.Text = "0"
                 Case 28
                     FormTwoRule()
-                    lblTextOne.Text = "Chat"
-                    lblTextTwo.Text = "Color ID"
+                    lblTextTwo.Text = "Chat"
+                    lblTextThree.Text = "Color ID"
             End Select
         ElseIf SetFormType = 2 Then
             Select Case cBoxAType.SelectedIndex

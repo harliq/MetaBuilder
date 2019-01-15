@@ -999,7 +999,7 @@ Public Class frmMain
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, "0")
                 ' Case 4, 5, 6    'Single Values
                 Case 11, 12, 28     'Double Values
-                    TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a"))
+                    TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a"))
                 Case 13, 14
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
                     'Case 21 ' NOT
@@ -1060,8 +1060,8 @@ Public Class frmMain
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                     Dim StringSplit() As String
                     StringSplit = Split(tempData, ";")
-                    SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
-                    SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
+                    SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
+                    SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
                 Case "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                     Dim StringSplit() As String

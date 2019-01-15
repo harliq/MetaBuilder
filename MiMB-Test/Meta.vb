@@ -463,6 +463,7 @@
 
                 Loop
                 FileClose(FileNum)
+                NavRouteName = System.IO.Path.GetFileName(filename)
             Catch e As Exception
                 RecordCount = "0"
                 NavRouteName = ""

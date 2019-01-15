@@ -336,8 +336,8 @@
         'frmMain.txtBoxAData.Visible = True
         'frmMain.cBoxATMetaState.Visible = False
         'frmMain.lblATMetaState.Visible = False
-        frmMain.lblAData.Visible = True
-        frmMain.lblAData.Text = "Multiple"
+        'frmMain.lblAData.Visible = True
+        'frmMain.lblAData.Text = "Multiple"
         frmMain.dgvATMultiple.Visible = True
 
         frmMain.btnAddATAnyAll.Visible = True
@@ -443,12 +443,12 @@
                 frmMain.txtBoxCData.Text = "0"
             Case "11", "ItemCountLE"
                 SetForm.CTDouble()
-                frmMain.lblCData.Text = "Item:"
-                frmMain.lblCData2.Text = "Number Less than or Equal To:"
+                frmMain.lblCData.Text = "Item"
+                frmMain.lblCData2.Text = "Number of items <="
             Case "12", "ItemCountGE"
                 SetForm.CTDouble()
-                frmMain.lblCData.Text = "Item:"
-                frmMain.lblCData2.Text = "Number Greater than or Equal To:"
+                frmMain.lblCData.Text = "Item"
+                frmMain.lblCData2.Text = "Number of items >="
             Case "13", "MonsterCountWithinDistance"
                 SetForm.CTTriple()
                 frmMain.lblCData.Text = "Monster Name (regex):"
