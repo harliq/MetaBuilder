@@ -1,14 +1,18 @@
-Updated
-***MiMB Changelog***
+Update:
+**Mission Impossible - Meta Builder**
+*MiMB Changelog*
 1.2.1.2
 1/15/2019
-***Bugs***
+**Bugs**
 *Fixed - Save As wasn't in File Menu*
 *Fixed - ItemsLE,ItemsGE and Chat Capture where not saving or able to be edited in ANY/ALL/NOT Conditions*
 *Fixed - Small changes to some field descriptions*
 
-***Features***
+**Features**
 *IN - Name of Nav File exported instead of "NONE"*
+**New Version is here:** http://mimb.harliq.net/download.html
+
+MiMB's official Discord Channel is on the MetaMasters Discord: https://discord.gg/vaYErue
 
 1.2.0.0
 1/7/2018
@@ -34,6 +38,7 @@ Updated
 **Features**
 *IN - Export Meta has same name as XML*
 *IN - Keep Row Highlighted as you are moving it up or down*
+
 
 1.1.2.0
 12/24/2018
