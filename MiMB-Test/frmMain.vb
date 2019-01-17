@@ -1380,7 +1380,7 @@ Public Class frmMain
                     TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
                     TableNestedMultiple.Columns.Add("Data", Type.GetType("System.String"))
 
-                    sFirstSplit = Split(tempDataString, "}{") 'First Split using "}{" to give me first set of substrings to analize
+                    sFirstSplit = Split(tempDataString, "}") 'First Split using "}{" to give me first set of substrings to analize
                     For Each s As String In sFirstSplit
                         Dim i As Integer = 0
                         Dim sSecondSplit() As String
@@ -1393,15 +1393,16 @@ Public Class frmMain
                             Exit For
                         Else
                             For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
-                                Dim sThirdSplit() As String
+                                'Dim sThirdSplit() As String
 
-                                sThirdSplit = Split(sSecondSplit(x), "}") 'Third and Final Split using "{" to give me final set of substrings to manipulate
+                                'sThirdSplit = Split(sSecondSplit(x), "}") 'Third and Final Split using "{" to give me final set of substrings to manipulate
 
-                                If sThirdSplit(0) = "" Then
+                                If sSecondSplit(0) = "" Then
                                     Exit For
                                 Else ' Adding Data to Table 
                                     'SecondTableDialog.dgvMultiple.Rows.Add(sThirdSplit(0).Replace(": ", ""), sThirdSplit(1))
-                                    TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
+                                    'TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
+                                    TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
                                     'TableNestedMultiple.Rows.Add(sThirdSplit(0).Replace(": ", "").ToString, sThirdSplit(1))
                                     SecondTableDialog.tableMultiple = TableNestedMultiple
                                 End If
@@ -1524,9 +1525,9 @@ Public Class frmMain
 
     Private Sub ToolStripButtonImport_Click(sender As Object, e As EventArgs) Handles ToolStripButtonImport.Click
 
-        MessageBox.Show("Not Implemented")
+        'MessageBox.Show("Not Implemented")
         'dgvMetaRules.DataSource = ImportMeta.LoadMeta(table)
-        'ImportMeta.TempImport()
+        ImportMeta.TempImport()
     End Sub
 
     Private Sub dgvMetaRules_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMetaRules.SelectionChanged

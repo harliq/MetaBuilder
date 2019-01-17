@@ -1,28 +1,56 @@
-***New Version of Meta Builder*** - New Version Here: http://www.harliq.net/mimb/download.html
-***MiMB Changelog***
+Update:
+**Mission Impossible - Meta Builder**
+*MiMB Changelog*
+1.2.
+1/00/2019
+**Bugs**
+
+
+**Features**
+
+
+**New Version is here:** http://mimb.harliq.net/download.html
+
+MiMB's official Discord Channel is on the MetaMasters Discord: https://discord.gg/vaYErue
+
+1.2.1.2
+1/15/2019
+**Bugs**
+*Fixed - Save As wasn't in File Menu*
+*Fixed - ItemsLE,ItemsGE and Chat Capture where not saving or able to be edited in ANY/ALL/NOT Conditions*
+*Fixed - Small changes to some field descriptions*
+
+**Features**
+*IN - Name of Nav File exported instead of "NONE"*
+**New Version is here:** http://mimb.harliq.net/download.html
+
+MiMB's official Discord Channel is on the MetaMasters Discord: https://discord.gg/vaYErue
+
 1.2.0.0
 1/7/2018
 **Bugs Fixed**
-*Fixed - When moving row, if you update the rule, the update happens on different rule(started when I added keeping row highlighted as you moved it)*
+*Fixed - When moving row, if you update the rule, the update happens on different rule(started when I added keeping row highlighted as you moved it)
 *Fixed - ANY/ALL/NOT Condition Landblock and Landcell default to 0000000 when editing*
 
 **Features**
-*IN - Have save option instead of SaveAs (No more SaveDialog if working on same XML)*
-*IN - Added Listbox with common VT options, True False Radio Buttons.  You can Use the True/False options on all Options (even those not in list).  However there is no logic, So if option requires a value other than True/False, Meta will fail in Vtank.*
+*IN - Have save option instead of SaveAs (No more SaveDialog if working on same XML)
+*IN - Added Listbox with common VT options, True False Radio Buttons.  You can Use the True/False options on all Options (even those not in list).  However there is no logic, So if option requires a value other than True/False, Meta will fail in Vtank.
 
 1.1.3.6 (Unoffical Release)
 12/27/2018
+
 **Bugs Fixed**
 *Fixed - Deleting rules in the Any/All Conditions isnt working correctly*
 *Fixed - Export for Condition Expression exports as FALSE even if populated*
 *Fixed - ChatCapture needs to default to ColorID:0 (0=Main Window)*
 *Fixed - Needtobuff not exporting*
 *Fixed - DistanceToAnyRoutePointGE*
-*Fixed - NOT under ANY/ALL not showing up*
+*Fixed - NOT under ANY/ALL not showing up
 
 **Features**
 *IN - Export Meta has same name as XML*
 *IN - Keep Row Highlighted as you are moving it up or down*
+
 
 1.1.2.0
 12/24/2018

@@ -413,12 +413,13 @@
 
             Select Case ThirdTableDialog.cBoxAType.SelectedIndex
                 Case 0, 6, 10, 15       'Zero Values -- Remove 3.  This is Temp till Nested Tables are in
+                    ' TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
                     TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
                 Case 1, 5           'Meta States
                     TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.cBoxMetaState.Text & "}")
                 Case 2, 4, 7, 8, 14  'Single Values
                     'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.TextBox1.Text & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.TextBox1.Text & "}")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.TextBox1.Text & "}")
                 Case 9              'Triple Value
                     TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text) & "}")
                 Case 11, 12, 13         'Double Values
@@ -554,7 +555,7 @@
                             Exit For
                         Else
                             For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
-                                Dim sThirdSplit() As String
+                                'Dim sThirdSplit() As String
                                 TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
                                 'sThirdSplit = Split(sSecondSplit(x), "{") 'Third and Final Split using "{" to give me final set of substrings to manipulate
 
