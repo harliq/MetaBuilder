@@ -245,7 +245,7 @@
     End Sub
     Sub CTChatMessageCapture()
         frmMain.lblCData.Text = "Chat Message Pattern"
-        frmMain.lblCData2.Text = "Chat ColorID List"
+        frmMain.lblCData2.Text = "Chat ColorID List (Leave Blank)"
         frmMain.lblCData2.Visible = True
         'frmMain.txtBoxCData.Enabled = True
         frmMain.txtBoxCData.Visible = True
@@ -513,7 +513,7 @@
             Case "28", "ChatMessageCapture"
                 SetForm.CTDouble()
                 frmMain.lblCData.Text = "Chat Message Pattern:"
-                frmMain.lblCData2.Text = "Chat ColorID List:  (Default is 0 = Main Window)"
+                frmMain.lblCData2.Text = "Chat ColorID List: (Leave Blank)"
 
                 frmMain.Refresh()
 

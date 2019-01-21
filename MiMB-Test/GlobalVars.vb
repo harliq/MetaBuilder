@@ -7,11 +7,11 @@
     Public RuleChange As Boolean = False
 
     Sub rulechanged()
-        If RuleChange = False Then
-            frmMain.dgvMetaRules.DefaultCellStyle.SelectionBackColor = Color.Blue
-        Else
-            frmMain.dgvMetaRules.DefaultCellStyle.SelectionBackColor = Color.Red
-        End If
+        'If RuleChange = False Then
+        '    frmMain.dgvMetaRules.DefaultCellStyle.SelectionBackColor = Color.Blue
+        'Else
+        '    frmMain.dgvMetaRules.DefaultCellStyle.SelectionBackColor = Color.Red
+        'End If
 
 
     End Sub

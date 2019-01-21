@@ -116,8 +116,8 @@ Public Class frmMain
         TableAnyAll.Clear()
         SetForm.ResetCondition()
         SetForm.CTSet(cBoxCType.SelectedIndex.ToString)
-        RuleChange = True
-        GlobalVars.rulechanged()
+        'RuleChange = True
+        'GlobalVars.rulechanged()
 
         'Defaults
         Select Case cBoxCType.SelectedIndex
@@ -143,7 +143,7 @@ Public Class frmMain
             Case 26 'Expression
                 txtBoxCData.Text = "False"
             Case 28 'Chat Message Capture
-                txtBoxCData2.Text = "0"
+                txtBoxCData2.Text = ""
 
         End Select
 

@@ -24,6 +24,10 @@
                 TextBox3.Text = "5"
             Case 17, 18 ' Landblock & LandCell
                 TextBox1.Text = "00000000"
+            Case 28 'Chat Message Capture
+                TextBox2.Text = ""
+                TextBox3.Text = ""
+
 
         End Select
     End Sub
@@ -154,7 +158,7 @@
                 Case 28
                     FormTwoRule()
                     lblTextTwo.Text = "Chat"
-                    lblTextThree.Text = "Color ID"
+                    lblTextThree.Text = "Color ID (Leave Blank)"
             End Select
         ElseIf SetFormType = 2 Then
             Select Case cBoxAType.SelectedIndex
@@ -219,6 +223,9 @@
         TextBox2.Visible = True
         lblTextThree.Visible = True
         TextBox3.Visible = True
+        TextBox2.Text = ""
+        TextBox3.Text = ""
+
 
     End Sub
 
@@ -229,6 +236,9 @@
         TextBox2.Visible = True
         lblTextThree.Visible = True
         TextBox3.Visible = True
+        TextBox2.Text = ""
+        TextBox3.Text = ""
+
 
     End Sub
     Sub FormMetaRule()
