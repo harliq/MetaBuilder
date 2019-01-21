@@ -4,4 +4,15 @@
     Public SetFormIndex As Integer = 0
     Public FileName As String = ""
     Public FileNameAndPath As String = ""
+    Public RuleChange As Boolean = False
+
+    Sub rulechanged()
+        If RuleChange = False Then
+            frmMain.dgvMetaRules.DefaultCellStyle.SelectionBackColor = Color.Blue
+        Else
+            frmMain.dgvMetaRules.DefaultCellStyle.SelectionBackColor = Color.Red
+        End If
+
+
+    End Sub
 End Module

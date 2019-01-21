@@ -24,6 +24,8 @@
         frmMain.btnDeleteAnyAll.Visible = False
         frmMain.btnEditAnyAll.Visible = False
         frmMain.dgvAnyAll.Visible = False
+        frmMain.ProgressBar1.Visible = False
+        frmMain.lblProgressBar.Visible = False
         'Making everyting blank
         frmMain.txtBoxCData.Text = ""
         frmMain.txtBoxCData2.Text = ""

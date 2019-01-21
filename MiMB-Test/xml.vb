@@ -5,8 +5,21 @@ Module xml
     'Dim loaddt As New DataTable("loaddt")
 
     Public Sub SaveXML()
+        frmMain.ProgressBar1.Value = 0
+        frmMain.lblProgressBar.Text = "Saving XML"
+        frmMain.Refresh()
+        frmMain.lblProgressBar.Visible = True
+        frmMain.ProgressBar1.Visible = True
+        frmMain.ProgressBar1.Increment(10)
+        frmMain.Cursor = Cursors.WaitCursor
+        Threading.Thread.Sleep(200)
+        frmMain.ProgressBar1.Increment(20)
 
         If FileName = "" Then
+            frmMain.ProgressBar1.Increment(40)
+            frmMain.Refresh()
+            Threading.Thread.Sleep(300)
+
             Dim sfd As New SaveFileDialog()
             sfd.Filter = "XML Files|*.xml"
             sfd.InitialDirectory = My.Settings.XMLOpenSave
@@ -25,19 +38,35 @@ Module xml
             End If
 
         Else
+
+            frmMain.ProgressBar1.Increment(40)
+            frmMain.Refresh()
+            Threading.Thread.Sleep(300)
             Dim savedt As DataTable = CType(frmMain.dgvMetaRules.DataSource, DataTable)
             savedt.AcceptChanges()
             savedt.WriteXml(GlobalVars.FileNameAndPath, System.Data.XmlWriteMode.WriteSchema, False)
             SetForm.SaveWork = False
             'MsgBox("XML Saved")
-            frmMain.Cursor = Cursors.WaitCursor
-            Threading.Thread.Sleep(500)
-            frmMain.Cursor = Cursors.Default
+
+
+
 
             'frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & sfd.FileName
             'GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
             'GlobalVars.FileNameAndPath = sfd.FileName
         End If
+        frmMain.ProgressBar1.Increment(30)
+        frmMain.Refresh()
+        Threading.Thread.Sleep(400)
+        'frmMain.ProgressBar1.Increment(100)
+        frmMain.ProgressBar1.Refresh()
+
+        Threading.Thread.Sleep(200)
+        'frmMain.ProgressBar1.Increment(80)
+        frmMain.Cursor = Cursors.Default
+        'MsgBox("ProgressBar = " & frmMain.ProgressBar1.Value)
+        frmMain.ProgressBar1.Visible = False
+        frmMain.lblProgressBar.Visible = False
     End Sub
 
     Public Sub SaveAsXML()

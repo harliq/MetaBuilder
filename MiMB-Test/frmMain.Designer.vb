@@ -28,6 +28,7 @@ Partial Class frmMain
         Me.NewToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.OpenToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.SaveToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.SaveAsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ExitToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ToolsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.OptionsToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -113,7 +114,8 @@ Partial Class frmMain
         Me.lblATReturnToState = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
-        Me.SaveAsToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.lblProgressBar = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -144,25 +146,31 @@ Partial Class frmMain
         'NewToolStripMenuItem1
         '
         Me.NewToolStripMenuItem1.Name = "NewToolStripMenuItem1"
-        Me.NewToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
+        Me.NewToolStripMenuItem1.Size = New System.Drawing.Size(114, 22)
         Me.NewToolStripMenuItem1.Text = "&New"
         '
         'OpenToolStripMenuItem1
         '
         Me.OpenToolStripMenuItem1.Name = "OpenToolStripMenuItem1"
-        Me.OpenToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
+        Me.OpenToolStripMenuItem1.Size = New System.Drawing.Size(114, 22)
         Me.OpenToolStripMenuItem1.Text = "&Open"
         '
         'SaveToolStripMenuItem1
         '
         Me.SaveToolStripMenuItem1.Name = "SaveToolStripMenuItem1"
-        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
+        Me.SaveToolStripMenuItem1.Size = New System.Drawing.Size(114, 22)
         Me.SaveToolStripMenuItem1.Text = "&Save"
+        '
+        'SaveAsToolStripMenuItem1
+        '
+        Me.SaveAsToolStripMenuItem1.Name = "SaveAsToolStripMenuItem1"
+        Me.SaveAsToolStripMenuItem1.Size = New System.Drawing.Size(114, 22)
+        Me.SaveAsToolStripMenuItem1.Text = "Save &As"
         '
         'ExitToolStripMenuItem1
         '
         Me.ExitToolStripMenuItem1.Name = "ExitToolStripMenuItem1"
-        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(103, 22)
+        Me.ExitToolStripMenuItem1.Size = New System.Drawing.Size(114, 22)
         Me.ExitToolStripMenuItem1.Text = "E&xit"
         '
         'ToolsToolStripMenuItem1
@@ -870,7 +878,7 @@ Partial Class frmMain
         Me.btnInsertRule.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnInsertRule.Enabled = False
         Me.btnInsertRule.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnInsertRule.Location = New System.Drawing.Point(932, 9)
+        Me.btnInsertRule.Location = New System.Drawing.Point(677, 9)
         Me.btnInsertRule.Name = "btnInsertRule"
         Me.btnInsertRule.Size = New System.Drawing.Size(129, 32)
         Me.btnInsertRule.TabIndex = 29
@@ -888,6 +896,8 @@ Partial Class frmMain
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.SplitContainer1.Panel1.Controls.Add(Me.lblProgressBar)
+        Me.SplitContainer1.Panel1.Controls.Add(Me.ProgressBar1)
         Me.SplitContainer1.Panel1.Controls.Add(Me.btnUp)
         Me.SplitContainer1.Panel1.Controls.Add(Me.btnInsertRule)
         Me.SplitContainer1.Panel1.Controls.Add(Me.btnCreateRule)
@@ -1013,11 +1023,22 @@ Partial Class frmMain
         Me.cboxReturnMetaState.TabIndex = 30
         Me.cboxReturnMetaState.Visible = False
         '
-        'SaveAsToolStripMenuItem1
+        'ProgressBar1
         '
-        Me.SaveAsToolStripMenuItem1.Name = "SaveAsToolStripMenuItem1"
-        Me.SaveAsToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
-        Me.SaveAsToolStripMenuItem1.Text = "Save &As"
+        Me.ProgressBar1.Location = New System.Drawing.Point(830, 9)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(243, 14)
+        Me.ProgressBar1.TabIndex = 32
+        '
+        'lblProgressBar
+        '
+        Me.lblProgressBar.AutoSize = True
+        Me.lblProgressBar.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProgressBar.Location = New System.Drawing.Point(926, 33)
+        Me.lblProgressBar.Name = "lblProgressBar"
+        Me.lblProgressBar.Size = New System.Drawing.Size(51, 18)
+        Me.lblProgressBar.TabIndex = 33
+        Me.lblProgressBar.Text = "Label2"
         '
         'frmMain
         '
@@ -1170,4 +1191,6 @@ Partial Class frmMain
     Friend WithEvents rdbTrue As RadioButton
     Friend WithEvents lstBoxCommonOptions As ListBox
     Friend WithEvents SaveAsToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents lblProgressBar As Label
+    Friend WithEvents ProgressBar1 As ProgressBar
 End Class

@@ -72,7 +72,8 @@ Public Class frmMain
     End Sub
 
     Private Sub btnCreateRule_Click(sender As Object, e As EventArgs) Handles btnCreateRule.Click
-
+        RuleChange = False
+        GlobalVars.rulechanged()
         SaveWork = True ' Var for checking to save work.  Public in Setform Module
 
         Dim CData As String
@@ -115,6 +116,8 @@ Public Class frmMain
         TableAnyAll.Clear()
         SetForm.ResetCondition()
         SetForm.CTSet(cBoxCType.SelectedIndex.ToString)
+        RuleChange = True
+        GlobalVars.rulechanged()
 
         'Defaults
         Select Case cBoxCType.SelectedIndex
@@ -1505,9 +1508,6 @@ Public Class frmMain
         'ImportMeta.TempImport()
     End Sub
 
-    Private Sub dgvMetaRules_SelectionChanged(sender As Object, e As EventArgs) Handles dgvMetaRules.SelectionChanged
-
-    End Sub
 
     Private Sub rdbTrue_CheckedChanged(sender As Object, e As EventArgs) Handles rdbTrue.CheckedChanged
         txtBoxAData2.Text = "True"
@@ -1542,4 +1542,6 @@ Public Class frmMain
         xml.SaveAsXML()
 
     End Sub
+
+
 End Class
