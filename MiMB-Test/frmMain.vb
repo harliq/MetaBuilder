@@ -1193,6 +1193,7 @@ Public Class frmMain
             dgvMetaRules.DataSource = NewXML(table)
             xml.DefaultsXML()
         End If
+        FileName = ""
         index = 0
         Text = "Mission:Impossible - Meta Builder   FILE= NOT SAVED!"
     End Sub
@@ -1253,14 +1254,18 @@ Public Class frmMain
                     xml.SaveXML()
                     dgvMetaRules.DataSource = NewXML(table)
                     xml.DefaultsXML()
+
                 Case Windows.Forms.DialogResult.No
                     dgvMetaRules.DataSource = NewXML(table)
                     xml.DefaultsXML()
+
             End Select
         Else
             dgvMetaRules.DataSource = NewXML(table)
             xml.DefaultsXML()
+
         End If
+        FileName = ""
         index = 0
         Text = "Mission:Impossible - Meta Builder   FILE= NOT SAVED!"
     End Sub
