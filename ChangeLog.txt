@@ -1,6 +1,19 @@
 Update:
 **Mission Impossible - Meta Builder**
 *MiMB Changelog*
+1.2.2.0
+1/22/2019
+**Bugs**
+*Fixed - New file would overwrite previously opened file if you saved it instead of save as*
+*Fixed - Removed 0 (zero) as default value in ChatCapture, Fixed defalts for some Multiple Condition Types*
+*Fixed - More changes to some field descriptions*
+
+**Features**
+*IN - Added XML Save progress bar*
+
+**New Version is here:** http://mimb.harliq.net/download.html
+
+
 1.2.1.2
 1/15/2019
 **Bugs**
