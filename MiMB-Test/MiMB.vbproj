@@ -172,6 +172,7 @@
     <Compile Include="Parse.vb" />
     <Compile Include="Rule.vb" />
     <Compile Include="SetForm.vb" />
+    <Compile Include="Start.vb" />
     <Compile Include="TestingStuff.Designer.vb">
       <DependentUpon>TestingStuff.vb</DependentUpon>
     </Compile>

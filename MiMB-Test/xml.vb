@@ -180,4 +180,63 @@ Module xml
         frmMain.Refresh()
 
     End Sub
+
+    Function ConvertXML(table As DataTable) As DataTable
+
+        'Dim loaddt As New DataTable
+        table.Clear()
+        Try
+            table.ReadXml(XMLFileNameLoad)
+            frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & XMLFileNameLoad
+            GlobalVars.FileName = Path.GetFileNameWithoutExtension(XMLFileNameLoad)
+            GlobalVars.FileNameAndPath = XMLFileNameLoad
+            'MsgBox("Path= " & GlobalVars.FileNameAndPath)
+            'Creating Table
+            Dim items = table.AsEnumerable().Select(Function(d) DirectCast(d(4).ToString(), Object)).ToArray()
+
+            'Populating State Boxes
+            frmMain.cBoxCTMetaState.Items.Clear()
+            frmMain.cBoxATMetaState.Items.Clear()
+            frmMain.cboxReturnMetaState.Items.Clear()
+            frmMain.cBoxCTMetaState.Items.AddRange(items)
+            frmMain.cBoxATMetaState.Items.AddRange(items)
+            frmMain.cboxReturnMetaState.Items.AddRange(items)
+
+            'Populating Table from XML File
+            Dim i As Long
+            Dim j As Long
+            With frmMain.cBoxATMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
+            With frmMain.cboxReturnMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
+            With frmMain.cBoxCTMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
+        Catch
+            MsgBox("Can not find file")
+
+        End Try
+
+        Return table
+    End Function
 End Module

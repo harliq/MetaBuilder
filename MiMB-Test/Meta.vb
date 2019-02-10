@@ -251,20 +251,29 @@
         Dim FileNum As Integer = FreeFile()
         Dim FileWR As System.IO.StreamWriter
         'FileWR = My.Computer.FileSystem.OpenTextFileWriter("c:\test\streamwrite.met", True)
-        Dim sfd As New SaveFileDialog()
-        sfd.Filter = "Meta Files|*.met"
-        sfd.InitialDirectory = My.Settings.MetaExportDir
-        sfd.FileName = GlobalVars.FileName
 
+        If CommandArgument = True Then
 
-        If (sfd.ShowDialog = DialogResult.OK) Then
-            'FileOpen(FileNum, SaveFileDialogMeta.FileName, OpenMode.Output)
-            FileWR = My.Computer.FileSystem.OpenTextFileWriter(sfd.FileName, False)
+            FileWR = My.Computer.FileSystem.OpenTextFileWriter(MetaFileNameExport, False)
             FileWR.Write(metafile)
             FileWR.Close()
-            MessageBox.Show("Meta Export Complete")
-            'Write(FileNum, metafile)
-            'FileClose(FileNum)
+
+        Else
+            Dim sfd As New SaveFileDialog()
+            sfd.Filter = "Meta Files|*.met"
+            sfd.InitialDirectory = My.Settings.MetaExportDir
+            sfd.FileName = GlobalVars.FileName
+
+
+            If (sfd.ShowDialog = DialogResult.OK) Then
+                'FileOpen(FileNum, SaveFileDialogMeta.FileName, OpenMode.Output)
+                FileWR = My.Computer.FileSystem.OpenTextFileWriter(sfd.FileName, False)
+                FileWR.Write(metafile)
+                FileWR.Close()
+                MessageBox.Show("Meta Export Complete")
+                'Write(FileNum, metafile)
+                'FileClose(FileNum)
+            End If
         End If
 
         '**** Used for testing******

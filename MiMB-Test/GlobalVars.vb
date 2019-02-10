@@ -5,6 +5,12 @@
     Public FileName As String = ""
     Public FileNameAndPath As String = ""
     Public RuleChange As Boolean = False
+    Public XMLFileNameLoad As String = "" 'For CommandLine Arugments
+    Public MetaFileNameExport As String = "" 'For CommandLine Arugments
+    Public CommandArgument As Boolean = False 'Default is False - For a check when doing XML -> Meta conversions via Command Line
+
+
+
 
     Sub rulechanged()
         'If RuleChange = False Then

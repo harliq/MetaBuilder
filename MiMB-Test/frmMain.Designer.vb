@@ -1074,6 +1074,10 @@ Partial Class frmMain
     End Sub
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
+
+
+
+
         Text = "Mission:Impossible - Meta Builder   FILE= NOT SAVED!"
 
 

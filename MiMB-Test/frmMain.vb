@@ -250,6 +250,57 @@ Public Class frmMain
         cBoxCTMetaState.SelectedIndex = 0
         cBoxAType.SelectedIndex = 0
         dgvMetaRules.Rows(0).Selected = True
+
+
+
+
+
+        'Check if command line arguments were specified
+        Dim CommandArgs() As String = Environment.GetCommandLineArgs()
+        If CommandArgs.Length > 1 Then
+            'Yes Arguments, set to read them and carry them out
+
+            Select Case CommandArgs(1)
+                'Loads File - This is a test to make sure I am getting the arguments right
+                Case "-l" 'Load XML
+                    XMLFileNameLoad = CommandArgs(2)
+                    xml.ConvertXML(table)
+                Case "-c" 'Load XML & Convert to Meta
+                    CommandArgument = True
+                    'MsgBox("Not Functioning Currently")
+                    XMLFileNameLoad = CommandArgs(2)
+                    xml.ConvertXML(table)
+                    MetaFileNameExport = CommandArgs(3)
+                    MetaExport()
+                    'MsgBox("Did it work?")
+                    Me.Close()
+            End Select
+
+
+            'If CommandArgs(1) = "-c" Then 'Convert XML to Meta
+            '    'Convert XML to Meta
+
+            'Else
+            '    MsgBox("Incorrect Command Line Argument")
+            'End If
+
+        Else
+
+
+            '--- Nope, run the normal Windows Forms startup code
+            '    Application.EnableVisualStyles()
+            'Application.SetCompatibleTextRenderingDefault(False)
+            'Application.Run(MiMB_Test.frmMain())
+            ' Dim args = Environment.GetCommandLineArgs()
+
+            'If args.Length > 1 Then textBox1.Text = args(1)
+            'If args.Length > 2 Then textBox2.Text = args(2)
+        End If
+
+
+
+
+
     End Sub
 
     Private Sub btnDeleteRule_Click(sender As Object, e As EventArgs) Handles btnDeleteRule.Click
@@ -1548,5 +1599,7 @@ Public Class frmMain
 
     End Sub
 
+    Private Sub frmMain_DragEnter(sender As Object, e As DragEventArgs) Handles Me.DragEnter
 
+    End Sub
 End Class
