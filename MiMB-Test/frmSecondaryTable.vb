@@ -223,8 +223,8 @@
         TextBox2.Visible = True
         lblTextThree.Visible = True
         TextBox3.Visible = True
-        TextBox2.Text = ""
-        TextBox3.Text = ""
+        'TextBox2.Text = ""
+        'TextBox3.Text = ""
 
 
     End Sub
