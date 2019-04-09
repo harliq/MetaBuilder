@@ -108,14 +108,14 @@ Partial Class frmMain
         Me.btnCreateRule = New System.Windows.Forms.Button()
         Me.btnInsertRule = New System.Windows.Forms.Button()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
+        Me.lblProgressBar = New System.Windows.Forms.Label()
+        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
         Me.rdbFalse = New System.Windows.Forms.RadioButton()
         Me.rdbTrue = New System.Windows.Forms.RadioButton()
         Me.lstBoxCommonOptions = New System.Windows.Forms.ListBox()
         Me.lblATReturnToState = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
-        Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
-        Me.lblProgressBar = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -956,6 +956,23 @@ Partial Class frmMain
         Me.SplitContainer1.SplitterDistance = 243
         Me.SplitContainer1.TabIndex = 11
         '
+        'lblProgressBar
+        '
+        Me.lblProgressBar.AutoSize = True
+        Me.lblProgressBar.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblProgressBar.Location = New System.Drawing.Point(926, 33)
+        Me.lblProgressBar.Name = "lblProgressBar"
+        Me.lblProgressBar.Size = New System.Drawing.Size(51, 18)
+        Me.lblProgressBar.TabIndex = 33
+        Me.lblProgressBar.Text = "Label2"
+        '
+        'ProgressBar1
+        '
+        Me.ProgressBar1.Location = New System.Drawing.Point(830, 9)
+        Me.ProgressBar1.Name = "ProgressBar1"
+        Me.ProgressBar1.Size = New System.Drawing.Size(243, 14)
+        Me.ProgressBar1.TabIndex = 32
+        '
         'rdbFalse
         '
         Me.rdbFalse.AutoSize = True
@@ -981,7 +998,7 @@ Partial Class frmMain
         'lstBoxCommonOptions
         '
         Me.lstBoxCommonOptions.FormattingEnabled = True
-        Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "NavPriorityBoost"})
+        Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "LootAllCorpses", "NavPriorityBoost", "OpenDoors"})
         Me.lstBoxCommonOptions.Location = New System.Drawing.Point(340, 24)
         Me.lstBoxCommonOptions.Name = "lstBoxCommonOptions"
         Me.lstBoxCommonOptions.Size = New System.Drawing.Size(175, 95)
@@ -1022,23 +1039,6 @@ Partial Class frmMain
         Me.cboxReturnMetaState.Sorted = True
         Me.cboxReturnMetaState.TabIndex = 30
         Me.cboxReturnMetaState.Visible = False
-        '
-        'ProgressBar1
-        '
-        Me.ProgressBar1.Location = New System.Drawing.Point(830, 9)
-        Me.ProgressBar1.Name = "ProgressBar1"
-        Me.ProgressBar1.Size = New System.Drawing.Size(243, 14)
-        Me.ProgressBar1.TabIndex = 32
-        '
-        'lblProgressBar
-        '
-        Me.lblProgressBar.AutoSize = True
-        Me.lblProgressBar.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblProgressBar.Location = New System.Drawing.Point(926, 33)
-        Me.lblProgressBar.Name = "lblProgressBar"
-        Me.lblProgressBar.Size = New System.Drawing.Size(51, 18)
-        Me.lblProgressBar.TabIndex = 33
-        Me.lblProgressBar.Text = "Label2"
         '
         'frmMain
         '

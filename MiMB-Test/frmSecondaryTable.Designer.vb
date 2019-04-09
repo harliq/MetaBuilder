@@ -254,7 +254,7 @@ Partial Class frmSecondaryTable
         'lstBoxCommonOptions
         '
         Me.lstBoxCommonOptions.FormattingEnabled = True
-        Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "NavPriorityBoost"})
+        Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "LootAllCorpses", "NavPriorityBoost", "OpenDoors"})
         Me.lstBoxCommonOptions.Location = New System.Drawing.Point(15, 87)
         Me.lstBoxCommonOptions.Name = "lstBoxCommonOptions"
         Me.lstBoxCommonOptions.Size = New System.Drawing.Size(217, 95)

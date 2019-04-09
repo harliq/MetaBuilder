@@ -1146,7 +1146,7 @@ Public Class frmMain
                     'Case 0, 1, 4 - 10, 13 - 20, 22 - 26          'Single Values - ChatMessage,
                     newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
                 Case 11, 12, 28     'Double Values - ItemCountLE, ItemCountGE
-                    newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, "a")
+                    newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
                 Case 13, 14
                     newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
                 Case Else
