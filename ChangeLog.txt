@@ -1,6 +1,23 @@
 Update:
 **Mission Impossible - Meta Builder**
 *MiMB Changelog*
+1.2.2.3
+4/09/2019
+**Bugs**
+*Fixed - ItemsLE inside an All shows up blank when attempted to be edited - I keep fixing this, I must have merged an old project or didn't sync something right*
+
+**Features**
+*IN - Added LootAllCorpses & OpenDoors to common VT Option Set Lists*
+*IN - Added 2 command line options for bulk XML to Meta conversions*
+-l will just Load file, ex:  MiMB -l c:\xml\Hello.xml
+-c will load and convert, you won't see anything happen.   ex: MiMB -c C:\Test\ChatHello.xml c:\test\XMLConverter2.met
+
+**New Version is here:** http://mimb.harliq.net/download.html
+
+**EVERYONE** Please update to newest MiMB as soon as possible, I found a bug, which would overwrite your previous XML if you created a new XML, and then used Save instead of Save As. I lost my custom muling xml.  Glad I found it before anyone else did.
+Update:
+**Mission Impossible - Meta Builder**
+*MiMB Changelog*
 1.2.2.0
 1/22/2019
 **Bugs**
