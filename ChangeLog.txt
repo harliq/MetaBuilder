@@ -9,8 +9,8 @@ Update:
 **Features**
 *IN - Added LootAllCorpses & OpenDoors to common VT Option Set Lists*
 *IN - Added 2 command line options for bulk XML to Meta conversions*
--l will just Load file, ex:  MiMB -l c:\xml\Hello.xml
--c will load and convert, you won't see anything happen.   ex: MiMB -c C:\Test\ChatHello.xml c:\test\XMLConverter2.met
+	-l will just Load file, ex:  MiMB -l c:\xml\Hello.xml
+	-c will load and convert, you won't see anything happen.   ex: MiMB -c C:\Test\ChatHello.xml c:\test\XMLConverter2.met
 
 **New Version is here:** http://mimb.harliq.net/download.html
 
