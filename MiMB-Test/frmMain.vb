@@ -80,6 +80,8 @@ Public Class frmMain
         Dim AData As String
 
         Select Case cBoxCType.SelectedIndex
+            Case 0
+                CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
                 CData = AnyAllString
@@ -87,11 +89,14 @@ Public Class frmMain
                 CData = Parse.CombineTwoVal(txtBoxCData.Text, txtBoxCData2.Text, "a")
             Case 13, 14
                 CData = Parse.CombineThreeVal(txtBoxCData.Text, txtBoxCData2.Text, txtBoxCData3.Text)
+
             Case Else
                 CData = txtBoxCData.Text
         End Select
 
         Select Case cBoxAType.SelectedIndex
+            Case 0
+                AData = "0"
             Case 1       'Set State or Call State
                 AData = cBoxATMetaState.Text
             Case 3
@@ -1250,7 +1255,20 @@ Public Class frmMain
     End Sub
 
     Private Sub ToolStripButtonOpen_Click(sender As Object, e As EventArgs) Handles ToolStripButtonOpen.Click
-        dgvMetaRules.DataSource = LoadXML(table)
+
+        If SaveWork = True Then
+            Select Case MessageBox.Show("You have not saved current file, save changes?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                Case Windows.Forms.DialogResult.Yes
+                    xml.SaveXML()
+                    dgvMetaRules.DataSource = LoadXML(table)
+                Case Windows.Forms.DialogResult.No
+                    dgvMetaRules.DataSource = LoadXML(table)
+            End Select
+        Else
+            dgvMetaRules.DataSource = LoadXML(table)
+
+        End If
+
 
     End Sub
 
@@ -1263,7 +1281,20 @@ Public Class frmMain
     End Sub
 
     Private Sub OpenToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles OpenToolStripMenuItem1.Click
-        dgvMetaRules.DataSource = LoadXML(table)
+
+        If SaveWork = True Then
+            Select Case MessageBox.Show("You have not saved current file, save changes?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                Case Windows.Forms.DialogResult.Yes
+                    xml.SaveXML()
+                    dgvMetaRules.DataSource = LoadXML(table)
+                Case Windows.Forms.DialogResult.No
+                    dgvMetaRules.DataSource = LoadXML(table)
+            End Select
+        Else
+            dgvMetaRules.DataSource = LoadXML(table)
+
+        End If
+
     End Sub
 
     Private Sub SaveToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles SaveToolStripMenuItem1.Click

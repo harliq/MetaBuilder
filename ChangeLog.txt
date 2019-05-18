@@ -1,6 +1,12 @@
 Update:
 **Mission Impossible - Meta Builder**
 *MiMB Changelog*
+1.2.3.3
+5/18/2019
+**Bugs**
+*Fixed - If you tried to open an XML, and had an existing file open and had not saved changes, changes would not be saved before opening new file.*
+*Fixed - If you selected blank row at bottom, it would create rules with vacant Condition and Action Data.  This would make meta exports corrupt*
+
 1.2.2.3
 4/09/2019
 **Bugs**
