@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8355560D-5256-44D0-9291-C2D800763B8A}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>MiMB_Test.My.MyApplication</StartupObject>
-    <RootNamespace>MiMB_Test</RootNamespace>
+    <StartupObject>MiMB.My.MyApplication</StartupObject>
+    <RootNamespace>MiMB</RootNamespace>
     <AssemblyName>MiMB</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
@@ -28,7 +28,7 @@
     <ProductName>Mission Impossible MetaBuilder</ProductName>
     <PublisherName>Harli B</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.2.2.0</ApplicationVersion>
+    <ApplicationVersion>1.2.3.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
