@@ -75,12 +75,12 @@ Partial Class About
         Me.LinkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.LinkLabel1.AutoSize = True
         Me.LinkLabel1.Font = New System.Drawing.Font("Microsoft Sans Serif", 16.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LinkLabel1.Location = New System.Drawing.Point(105, 98)
+        Me.LinkLabel1.Location = New System.Drawing.Point(18, 97)
         Me.LinkLabel1.Name = "LinkLabel1"
-        Me.LinkLabel1.Size = New System.Drawing.Size(270, 26)
+        Me.LinkLabel1.Size = New System.Drawing.Size(446, 26)
         Me.LinkLabel1.TabIndex = 4
         Me.LinkLabel1.TabStop = True
-        Me.LinkLabel1.Text = "http://www.harliq.net/mimb"
+        Me.LinkLabel1.Text = "https://harliq.github.io/MetaBuilder/index.html"
         Me.LinkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'About
