@@ -1,6 +1,13 @@
 Update:
 **Mission Impossible - Meta Builder**
 *MiMB Changelog*
+
+1.2.3.5
+9/18/2019
+**Bugs**
+*Fixed - Call State didnt have a return field under multiple
+*Fixed - Long outstanding bug that if you edited a multiple that was set state, the set state wouldn't populate, it would just stay at default
+
 1.2.3.0
 5/18/2019
 **Bugs**

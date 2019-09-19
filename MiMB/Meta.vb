@@ -1,4 +1,5 @@
 ﻿Module Meta
+    Private ActionDataType As String 'Using this to set Vars based on action data types in for Multiple Actions.   
 
     Sub MetaExport()
 
@@ -375,11 +376,19 @@
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "2"
         Dim ExportData As String
         Dim StringSplit() As String
+        Dim ADataVarOne As String = "o"  'Defaults for Get Set VT Options
+        Dim ADataVarTwo As String = "v"  'Defaults for Get Set VT Options
+
+
+        If ActionDataType = "CallState" Then
+            ADataVarOne = "st"
+            ADataVarTwo = "ret"
+        End If
 
         ExportData = "s" ' This is always a string
 
         StringSplit = Split(Rule, ";")
-        ExportData = ExportData & vbCrLf & "o" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "v" & vbCrLf & "s" & vbCrLf & StringSplit(1).ToString ' next part, o = option, and s = var type of name (string)
+        ExportData = ExportData & vbCrLf & ADataVarOne & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & ADataVarTwo & vbCrLf & "s" & vbCrLf & StringSplit(1).ToString ' next part, o = option, and s = var type of name (string)
         Rule = TableHeader & vbCrLf & ExportData
 
         Return (Rule)
@@ -772,6 +781,9 @@
                 tempmeta = tempmeta + i + "4" + vbCrLf
                 tAD = "s"
             Case "CallState"
+
+                ActionDataType = "CallState"
+                ATypeTable = 2
                 tempmeta = tempmeta + i + "5" + vbCrLf
                 tAD = "s"
             Case "ReturnFromCall"
@@ -827,7 +839,7 @@
             Case 1
                 tempmeta = tempmeta & SingleExport(ATypeData & vbCrLf, sADataVaribleType)  'Table 1 record
             Case 2
-                tempmeta = tempmeta & ATypeDoubleExport(ATypeData & vbCrLf)  'Table 2 records (Gets/Set VT Options
+                tempmeta = tempmeta & ATypeDoubleExport(ATypeData & vbCrLf)  'Table 2 records (Gets/Set VT Options, Call State)
             Case 3
                 tempmeta = tempmeta & ATypeTripleExport(ATypeData & vbCrLf)  'Table 3 records (WatchDog Set)
             Case 4  'Nav Routes
@@ -843,7 +855,8 @@
         End Select
 
         ATypeString = tempmeta
-
+        ActionDataType = ""
         Return ATypeString
+
     End Function
 End Module

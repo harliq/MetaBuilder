@@ -46,6 +46,7 @@ Partial Class frmSecondaryTable
         Me.lstBoxCommonOptions = New System.Windows.Forms.ListBox()
         Me.rdbTrue = New System.Windows.Forms.RadioButton()
         Me.rdbFalse = New System.Windows.Forms.RadioButton()
+        Me.cBoxMetaStateTwo = New System.Windows.Forms.ComboBox()
         CType(Me.dgvMultiple, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -170,7 +171,7 @@ Partial Class frmSecondaryTable
         '
         Me.lblState.AutoSize = True
         Me.lblState.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblState.Location = New System.Drawing.Point(12, 63)
+        Me.lblState.Location = New System.Drawing.Point(12, 73)
         Me.lblState.Name = "lblState"
         Me.lblState.Size = New System.Drawing.Size(113, 16)
         Me.lblState.TabIndex = 34
@@ -184,7 +185,7 @@ Partial Class frmSecondaryTable
         Me.cBoxMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxMetaState.FormattingEnabled = True
         Me.cBoxMetaState.IntegralHeight = False
-        Me.cBoxMetaState.Location = New System.Drawing.Point(15, 82)
+        Me.cBoxMetaState.Location = New System.Drawing.Point(15, 92)
         Me.cBoxMetaState.MaxDropDownItems = 30
         Me.cBoxMetaState.Name = "cBoxMetaState"
         Me.cBoxMetaState.Size = New System.Drawing.Size(387, 28)
@@ -282,6 +283,20 @@ Partial Class frmSecondaryTable
         Me.rdbFalse.Text = "False"
         Me.rdbFalse.UseVisualStyleBackColor = True
         '
+        'cBoxMetaStateTwo
+        '
+        Me.cBoxMetaStateTwo.DropDownHeight = 150
+        Me.cBoxMetaStateTwo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
+        Me.cBoxMetaStateTwo.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.cBoxMetaStateTwo.FormattingEnabled = True
+        Me.cBoxMetaStateTwo.IntegralHeight = False
+        Me.cBoxMetaStateTwo.Location = New System.Drawing.Point(15, 156)
+        Me.cBoxMetaStateTwo.MaxDropDownItems = 30
+        Me.cBoxMetaStateTwo.Name = "cBoxMetaStateTwo"
+        Me.cBoxMetaStateTwo.Size = New System.Drawing.Size(387, 28)
+        Me.cBoxMetaStateTwo.TabIndex = 44
+        Me.cBoxMetaStateTwo.Visible = False
+        '
         'frmSecondaryTable
         '
         Me.AcceptButton = Me.btnOk
@@ -289,6 +304,7 @@ Partial Class frmSecondaryTable
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(672, 277)
+        Me.Controls.Add(Me.cBoxMetaStateTwo)
         Me.Controls.Add(Me.rdbFalse)
         Me.Controls.Add(Me.rdbTrue)
         Me.Controls.Add(Me.lstBoxCommonOptions)
@@ -345,4 +361,5 @@ Partial Class frmSecondaryTable
     Friend WithEvents lstBoxCommonOptions As ListBox
     Friend WithEvents rdbTrue As RadioButton
     Friend WithEvents rdbFalse As RadioButton
+    Friend WithEvents cBoxMetaStateTwo As ComboBox
 End Class

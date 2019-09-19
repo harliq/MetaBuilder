@@ -1376,10 +1376,15 @@ Public Class frmMain
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
                 Case 0, 3, 6, 10, 15       'Zero Values - Remove 3 This is temp till Nested Tables are in
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, "0")
-                Case 1, 5           'Meta States
+                Case 1           'Meta States
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.cBoxMetaState.Text)
                 Case 2, 4, 7, 8, 14  'Single Values
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, SecondTableDialog.TextBox1.Text)
+                Case 5           'Meta States
+
+                    'TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a"))
+
+                    TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineTwoVal(SecondTableDialog.cBoxMetaState.Text, SecondTableDialog.cBoxMetaStateTwo.Text, "a"))
                 Case 9              'Triple Value
                     TableATMultiple.Rows.Add(SecondTableDialog.cBoxAType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
                 Case 11, 12, 13         'Double Values
@@ -1429,8 +1434,20 @@ Public Class frmMain
                 Case "None" ' Not USING
                 Case "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression", "DestroyView"
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
-                Case "SetState", "Call State"
-                    SecondTableDialog.cBoxMetaState.Text = selectedRow.Cells(1).Value.ToString
+                Case "SetState"
+                    'SecondTableDialog.cBoxMetaState.Text = selectedRow.Cells(1).Value.ToString
+                    SecondTableDialog.FormSelection = 1
+                    SecondTableDialog.TextOne = selectedRow.Cells(1).Value.ToString
+                Case "CallState"
+                    Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                    Dim StringSplit() As String
+                    StringSplit = Split(tempData, ";")
+                    SecondTableDialog.FormSelection = 5
+                    SecondTableDialog.TextOne = StringSplit(0).ToString
+                    SecondTableDialog.TextTwo = StringSplit(1).ToString
+
+                    'SecondTableDialog.cBoxMetaState.Text = StringSplit(0).ToString
+                    'SecondTableDialog.cBoxMetaStateTwo.Text = StringSplit(1).ToString
 
                 Case "GetVTOption", "SetVTOption", "CreateView"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
@@ -1444,6 +1461,7 @@ Public Class frmMain
                     End If
                 Case "CreateView"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+
                     Dim StringSplit() As String
                     StringSplit = Split(tempData, ";")
                     SecondTableDialog.TextBox2.Text = StringSplit(0).ToString

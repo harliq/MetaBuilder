@@ -1,4 +1,11 @@
 ﻿Public Class frmSecondaryTable
+
+    Public Property FormSelection As Integer
+    Public Property TextOne As String
+    Public Property TextTwo As String
+    Public Property TextThree As String
+
+
     Dim TableSecondaryMultiple As New DataTable("TableSecondaryMultiple")
 
 
@@ -62,6 +69,7 @@
         lblTextThree.Visible = False
         lblState.Visible = False
         cBoxMetaState.Visible = False
+        cBoxMetaStateTwo.Visible = False
         btnEmbedNav.Visible = False
         btnCreateMetaState.Visible = False
         dgvMultiple.Visible = False
@@ -165,6 +173,9 @@
                 Case 1
                     FormMetaRule()
                     lblTextOne.Text = "Select State"
+                    If FormSelection = 1 Then
+                        cBoxMetaState.Text = TextOne
+                    End If
                 Case 2
                     FormOneRule()
                     lblTextOne.Text = "Chat Command"
@@ -174,8 +185,15 @@
                     FormNavRule()
                     lblTextOne.Text = "Nav File to Embed"
                 Case 5
-                    FormMetaRule()
-                    lblTextOne.Text = "Select Call State:"
+                    FormTwoStateRule()
+                    lblState.Text = "Select Call State:"
+                    lblTextOne.Text = "Select Return State:"
+
+                    If FormSelection = 5 Then
+                        cBoxMetaState.Text = TextOne
+                        cBoxMetaStateTwo.Text = TextTwo
+                    End If
+                    'lblTextTwo.Text =
                 Case 6
                 Case 7
                     FormOneRule()
@@ -223,8 +241,6 @@
         TextBox2.Visible = True
         lblTextThree.Visible = True
         TextBox3.Visible = True
-        'TextBox2.Text = ""
-        'TextBox3.Text = ""
 
 
     End Sub
@@ -252,6 +268,25 @@
             cBoxMetaState.Items.Add(mstate)
         Next
         cBoxMetaState.Text = "Default"
+
+    End Sub
+    Sub FormTwoStateRule()
+
+        cBoxMetaState.Visible = True
+        cBoxMetaStateTwo.Visible = True
+        lblState.Visible = True
+        lblTextOne.Visible = True
+        cBoxMetaState.Items.Clear()
+        cBoxMetaStateTwo.Items.Clear()
+
+        btnCreateMetaState.Visible = True
+
+        For Each mstate As Object In frmMain.cBoxATMetaState.Items
+            cBoxMetaState.Items.Add(mstate)
+            cBoxMetaStateTwo.Items.Add(mstate)
+        Next
+        cBoxMetaState.Text = "Default"
+        cBoxMetaStateTwo.Text = "Default"
 
     End Sub
     Sub FormNavRule()
@@ -300,14 +335,17 @@
                 lblTextOne.Text = "Chat Command"
             Case 3
                 'This is Temp till Nested Tables are in
-                'FormMultipleRule() 
+
                 TextBox1.Text = "0"
             Case 4
                 FormNavRule()
                 lblTextOne.Text = "Nav File to Embed"
             Case 5
-                FormMetaRule()
-                lblTextOne.Text = "Select Call State:"
+                FormTwoStateRule()
+                lblState.Text = "Select Call State:"
+                lblTextOne.Text = "Select Return State:"
+                cBoxMetaState.Text = TextOne
+                cBoxMetaStateTwo.Text = TextTwo
             Case 6
             Case 7
                 FormOneRule()
@@ -340,10 +378,6 @@
     End Sub
 
     Private Sub btnEmbedNav_Click(sender As Object, e As EventArgs) Handles btnEmbedNav.Click
-        'Dim ofd As New OpenFileDialog()
-        'ofd.Filter = "Nav Files|*.nav"
-        'ofd.Title = "Select Nav File to Embed"
-        'ofd.InitialDirectory = My.Settings.MetaExportDir
 
         If (ofdSecondaryTable.ShowDialog() = DialogResult.OK) Then
             TextBox1.Text = ofdSecondaryTable.FileName
@@ -374,7 +408,11 @@
                 frmMain.cBoxCTMetaState.Items.Add(iBoxNewMetaState)
                 frmMain.cBoxATMetaState.Items.Add(iBoxNewMetaState)
                 cBoxMetaState.Items.Add(iBoxNewMetaState)
-                cBoxMetaState.SelectedItem = iBoxNewMetaState
+                cBoxMetaStateTwo.Items.Add(iBoxNewMetaState)
+                If cBoxAType.SelectedIndex = 1 Then
+                    cBoxMetaState.SelectedItem = iBoxNewMetaState
+                End If
+                'cBoxMetaState.SelectedItem = iBoxNewMetaState
 
             End If
         Else
@@ -502,5 +540,9 @@
     Private Sub rdbTrue_Click(sender As Object, e As EventArgs) Handles rdbTrue.Click
         rdbFalse.Checked = False
         rdbTrue.Checked = True
+    End Sub
+
+    Private Sub btnOk_Click(sender As Object, e As EventArgs) Handles btnOk.Click
+
     End Sub
 End Class
