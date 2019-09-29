@@ -1,17 +1,48 @@
 Update:
 **Mission Impossible - Meta Builder**
 *MiMB Changelog*
-1.2.
-1/00/2019
-**Bugs**
 
+1.2.3.5
+9/18/2019
+**Bugs**
+*Fixed - Call State didnt have a return field under multiple
+*Fixed - Long outstanding bug that if you edited a multiple that was set state, the set state wouldn't populate, it would just stay at default
+
+1.2.3.0
+5/18/2019
+**Bugs**
+*Fixed - If you tried to open an XML, and had an existing file open and had not saved changes, changes would not be saved before opening new file.*
+*Fixed - If you selected blank row at bottom, it would create rules with vacant Condition and Action Data.  This would make meta exports corrupt*
+
+1.2.2.3
+4/09/2019
+**Bugs**
+*Fixed - ItemsLE inside an All shows up blank when attempted to be edited - I keep fixing this, I must have merged an old project or didn't sync something right*
 
 **Features**
-
+*IN - Added LootAllCorpses & OpenDoors to common VT Option Set Lists*
+*IN - Added 2 command line options for bulk XML to Meta conversions*
+	-l will just Load file, ex:  MiMB -l c:\xml\Hello.xml
+	-c will load and convert, you won't see anything happen.   ex: MiMB -c C:\Test\ChatHello.xml c:\test\ChatHello.met
 
 **New Version is here:** http://mimb.harliq.net/download.html
 
-MiMB's official Discord Channel is on the MetaMasters Discord: https://discord.gg/vaYErue
+**EVERYONE** Please update to newest MiMB as soon as possible, I found a bug, which would overwrite your previous XML if you created a new XML, and then used Save instead of Save As. I lost my custom muling xml.  Glad I found it before anyone else did.
+Update:
+**Mission Impossible - Meta Builder**
+*MiMB Changelog*
+1.2.2.0
+1/22/2019
+**Bugs**
+*Fixed - New file would overwrite previously opened file if you saved it instead of save as*
+*Fixed - Removed 0 (zero) as default value in ChatCapture, Fixed defalts for some Multiple Condition Types*
+*Fixed - More changes to some field descriptions*
+
+**Features**
+*IN - Added XML Save progress bar*
+
+**New Version is here:** http://mimb.harliq.net/download.html
+
 
 1.2.1.2
 1/15/2019

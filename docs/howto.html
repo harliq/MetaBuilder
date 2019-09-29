@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<title>Mission Impossible - Meta Builder</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/w3.css">
+<link rel="stylesheet" href="css/w3-theme-black.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="css/font-awesome.min.css">
+<style>
+html,body,h1,h2,h3,h4,h5,h6 {
+	font-family: Verdana, Arial, Helvetica, sans-serif
+}
+.style1 {
+	color: #212B5F
+}
+body,td,th {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	background-color: #586168;
+}
+</style>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top">
+  <div class="w3-bar w3-theme w3-top w3-left-align w3-large"><a class="w3-bar-item w3-button w3-right w3-hide-large w3-hover-white w3-large w3-theme-l1" href="javascript:void(0)" onClick="w3_open()"><i class="fa fa-bars"></i></a><div><a></a></div>
+  <a href="index.html" class="w3-bar-item w3-button w3-hide-small w3-hover-white"><img src="images/MiMB_Icon.png" alt="MiMB" width="50" height="50" longdesc="http://www.harliq.net/mimb"></a>
+  <h1 class="w3-text-indigo w3-margin-left"><img src="images/MiMBHeader.png" alt="Header" width="588" height="46" class="w3-image"></h1>
+  </div>
+  </div>
+
+<!-- Sidebar -->
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-large w3-theme-l5 w3-animate-left" style="z-index:3; width:250px; margin-top:100px;" id="mySidebar">
+ <a href="javascript:void(0)" onClick="w3_close()" class="w3-right w3-xlarge w3-padding-large w3-hover-black w3-hide-large" title="Close Menu"> <i class="fa fa-remove"></i> </a><a class="w3-bar-item w3-button w3-hover-black" href="index.html">Home</a> <a class="w3-bar-item w3-button w3-hover-black" href="download.html">Download</a> <a class="w3-bar-item w3-button w3-hover-black" href="howto.html">HowTo</a> <a class="w3-bar-item w3-button w3-hover-black" href="xmls.html">Example XML's</a> <a class="w3-bar-item w3-button w3-hover-black" href="resources.html">Resources</a> <a class="w3-bar-item w3-button w3-hover-black" href="other.html">Other</a></nav>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onClick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- Main content: shift it to the right by 250 pixels when the sidebar is visible -->
+<div class="w3-main" style="margin-left:250px">
+
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container"></div>
+
+  </div>
+
+  <div class="w3-row">
+    <div class="w3-twothird w3-container">
+      <h3 class="w3-text-white">How to use MiMB</h3>
+      <p class="w3-text-light-grey"><span data-ux="Element">MiMB is very simular to the VTank in game editor. The top is where the rules are (same as VTank). The middle section under the rules is the conditon area. This the left side of the rule window in VTank. The bottom in MiMB is Action area, which is the right side of the Vtank rule window. </span> If you have used VTank editor, it should be very easy to understand.</p>
+      <h5 class="w3-text-light-gray">Limitations</h5>
+      <p class="w3-text-light-gray">There are a couple of limitations. First off, in MiMB you can only go 1 table deep.  Meaning if you add an Any/All/Not type under an existing Any/All/Not type, you will not be able to edit or add to those. This is possible under VT, but not in MiMB. VTank can have unlimted nesting, but its rarely used beyond nesting 1 table deep. Also you will have to enter landblocks and landcells by hand (you can easily find the info by clicking your character and doing /vt property dump). Finally, embedded nav routes can be done, but you will have to have the route saved as a .nav through VTank. Just select the correct .nav file when creating that action.</p>
+      <p class="w3-text-light-gray">&nbsp;</p>
+    </div>
+  </div>
+  
+
+  
+  <div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+      <h3 class="w3-text-indigo">&nbsp;</h3>
+    </div>   
+  </div>
+
+</div>
+<div class="w3-row w3-padding-64">
+    <div class="w3-twothird w3-container">
+  <footer id="myFooter">
+    
+      <p class="w3-center">&copy;HarliQ 2019</p>
+  </div>
+
+
+</div>
+<!-- END MAIN -->
+</div>
+
+<script>
+// Get the Sidebar
+var mySidebar = document.getElementById("mySidebar");
+
+// Get the DIV with overlay effect
+var overlayBg = document.getElementById("myOverlay");
+
+// Toggle between showing and hiding the sidebar, and add overlay effect
+function w3_open() {
+    if (mySidebar.style.display === 'block') {
+        mySidebar.style.display = 'none';
+        overlayBg.style.display = "none";
+    } else {
+        mySidebar.style.display = 'block';
+        overlayBg.style.display = "block";
+    }
+}
+
+// Close the sidebar with the close button
+function w3_close() {
+    mySidebar.style.display = "none";
+    overlayBg.style.display = "none";
+}
+</script>
+
+</body>
+</html>
