@@ -8,6 +8,7 @@
     Public XMLFileNameLoad As String = "" 'For CommandLine Arugments
     Public MetaFileNameExport As String = "" 'For CommandLine Arugments
     Public CommandArgument As Boolean = False 'Default is False - For a check when doing XML -> Meta conversions via Command Line
+    'Public NestedTableForm As Boolean = False
 
 
 

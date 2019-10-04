@@ -4,7 +4,7 @@
     Public Property TextOne As String
     Public Property TextTwo As String
     Public Property TextThree As String
-
+    Public Property Nested As Boolean = False
 
     Dim TableSecondaryMultiple As New DataTable("TableSecondaryMultiple")
     Dim indexMultiple As Integer = 0
@@ -64,13 +64,28 @@
         '    dgvMultiple.DataSource = TableSecondaryMultiple
         'End If
 
-        If NestedTableForm = False Then
+        ''-------------------Need to Find this global and change it to class property instead of global var in function-------------
+        'If NestedTableForm = False Then
+        '    TableSecondaryMultiple.Columns.Add("Type", Type.GetType("System.String"))
+        '    TableSecondaryMultiple.Columns.Add("Data", Type.GetType("System.String"))
+        '    'dgvMultiple.DataSource = TableSecondaryMultiple
+        'Else
+        '    TableSecondaryMultiple = NewDataTable
+        '    NestedTableForm = False
+        'End If
+        ''---------------------------------------------------------------------------------------------------------------------------
+
+        Dim tNested As Boolean = Nested 'testing only
+
+        If Nested = False Then
             TableSecondaryMultiple.Columns.Add("Type", Type.GetType("System.String"))
             TableSecondaryMultiple.Columns.Add("Data", Type.GetType("System.String"))
             'dgvMultiple.DataSource = TableSecondaryMultiple
         Else
             TableSecondaryMultiple = NewDataTable
-            NestedTableForm = False
+
+            Nested = False
+
         End If
 
         dgvMultiple.DataSource = TableSecondaryMultiple
@@ -454,7 +469,8 @@
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim ThirdTableDialog As New frmSecondaryTable()
-        NestedTableForm = False
+        'NestedTableForm = False
+        'ThirdTableDialog.Nested = False
 
         GlobalVars.SetFormType = 2
         ThirdTableDialog.cBoxType.Visible = False
@@ -469,20 +485,29 @@
             Select Case ThirdTableDialog.cBoxAType.SelectedIndex
                 Case 0, 6, 10, 15       'Zero Values -- Remove 3.  This is Temp till Nested Tables are in
                     ' TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
+                    'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0")
+
                 Case 1, 5           'Meta States
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.cBoxMetaState.Text & "}")
+                    'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.cBoxMetaState.Text & "}")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.cBoxMetaState.Text)
+
+
                 Case 2, 4, 7, 8, 14  'Single Values
                     'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.TextBox1.Text & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.TextBox1.Text & "}")
+                    'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.TextBox1.Text & "}")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.TextBox1.Text)
                 Case 9              'Triple Value
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text) & "}")
+                    'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text) & "}")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text))
                 Case 11, 12, 13         'Double Values
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineTwoVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, "a") & "}")
+                    'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineTwoVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, "a") & "}")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineTwoVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, "a"))
                 Case 3 '  Multiple -- Supposed to be 3.  This is Temp till Nested Tables are in
                     'Dim sTempDataA As String = ""
 
-                    NestedTableForm = True ' Setting to use new table to true for New Form SecondaryTable
+                    'NestedTableForm = True ' Setting to use new table to true for New Form SecondaryTable
+                    ThirdTableDialog.Nested = True
 
                     Dim tempdata As String = ""
                     'DataGridViewRow
@@ -544,6 +569,7 @@
 
         '------Opening new Window to edit Table Value---------
         Dim SecondTableDialog As New frmSecondaryTable()
+        SecondTableDialog.Nested = False
         selectedRow = dgvMultiple.Rows(indexMultiple)
 
         GlobalVars.SetFormType = 2
@@ -592,42 +618,55 @@
 
                     'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
                     Dim tempDataString As String = selectedRow.Cells(1).Value.ToString() ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-                    Dim sFirstSplit() As String
-                    NestedTableForm = True 'Global Var so New Form uses Editing Table
-                    'TableNestedMultiple.Reset()
-                    Dim TableNestedMultiple As New DataTable("TableNestedMultiple")
-                    TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
-                    TableNestedMultiple.Columns.Add("Data", Type.GetType("System.String"))
 
-                    sFirstSplit = Split(tempDataString, "}") 'First Split using "{" to give me first set of substrings to analize
-                    For Each s As String In sFirstSplit
-                        Dim i As Integer = 0
-                        Dim sSecondSplit() As String
+                    If tempDataString.Contains("Multiple:") = True Then
+                        MsgBox("Has Multiple:")
+                    Else
 
-                        sSecondSplit = Split(s, "{") 'Second Split using "{" to give me second set of substrings to analize
 
-                        If sFirstSplit(0) = "" Then
-                            Exit For
-                        Else
-                            For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
-                                'Dim sThirdSplit() As String
-                                TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
-                                'sThirdSplit = Split(sSecondSplit(x), "{") 'Third and Final Split using "{" to give me final set of substrings to manipulate
 
-                                If sSecondSplit(0) = "" Then
-                                    Exit For
-                                    'If sThirdSplit(0) = "" Then
-                                    '    Exit For
-                                Else ' Adding Data to Table 
-                                    'SecondTableDialog.dgvMultiple.Rows.Add(sThirdSplit(0).Replace(": ", ""), sThirdSplit(1))
-                                    'TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
-                                    'TableNestedMultiple.Rows.Add(sThirdSplit(0).Replace(": ", "").ToString, sThirdSplit(1))
-                                    'SecondTableDialog.tableMultiple = TableNestedMultiple
-                                End If
-                            Next
-                        End If
-                        i = i + 1
-                    Next
+                        Dim sFirstSplit() As String
+                        SecondTableDialog.Nested = True
+                        'NestedTableForm = True 'Global Var so New Form uses Editing Table
+                        'TableNestedMultiple.Reset()
+                        Dim TableNestedMultiple As New DataTable("TableNestedMultiple")
+                        TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
+                        TableNestedMultiple.Columns.Add("Data", Type.GetType("System.String"))
+
+                        sFirstSplit = Split(tempDataString, "}") 'First Split using "{" to give me first set of substrings to analize
+
+                        For Each s As String In sFirstSplit
+                            Dim i As Integer = 0
+                            Dim sSecondSplit() As String
+
+                            sSecondSplit = Split(s, "{") 'Second Split using "{" to give me second set of substrings to analize
+
+                            If sFirstSplit(0) = "" Then
+                                Exit For
+                            Else
+                                For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
+                                    'Dim sThirdSplit() As String
+                                    'TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
+                                    'sThirdSplit = Split(sSecondSplit(x), "{") 'Third and Final Split using "{" to give me final set of substrings to manipulate
+
+                                    If sSecondSplit(0) = "" Then
+                                        Exit For
+                                        'If sThirdSplit(0) = "" Then
+                                        '    Exit For
+                                    Else ' Adding Data to Table 
+                                        TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
+                                        'SecondTableDialog.dgvMultiple.Rows.Add(sThirdSplit(0).Replace(": ", ""), sThirdSplit(1))
+                                        'TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
+                                        'TableNestedMultiple.Rows.Add(sThirdSplit(0).Replace(": ", "").ToString, sThirdSplit(1))
+                                        'SecondTableDialog.tableMultiple = TableNestedMultiple
+                                    End If
+                                Next
+                            End If
+                            i = i + 1
+                            SecondTableDialog.tableMultiple = TableNestedMultiple
+                        Next
+                    End If
+
                 Case Else
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
             End Select
@@ -638,7 +677,9 @@
 
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
-            NestedTableForm = False ' Resetting Global Variable to use default add table
+
+            SecondTableDialog.Nested = False
+            'NestedTableForm = False ' Resetting Global Variable to use default add table
             Dim newDataRow As DataGridViewRow
             newDataRow = dgvMultiple.Rows(indexMultiple)
 

@@ -148,6 +148,7 @@
     <Compile Include="MetaState.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Multiple.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>

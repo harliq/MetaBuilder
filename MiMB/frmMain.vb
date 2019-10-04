@@ -1482,7 +1482,8 @@ Public Class frmMain
                     'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
                     Dim tempDataString As String = selectedRow.Cells(1).Value.ToString() ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
                     Dim sFirstSplit() As String
-                    NestedTableForm = True 'Global Var so New Form uses Editing Table
+                    SecondTableDialog.Nested = True
+                    'NestedTableForm = True 'Global Var so New Form uses Editing Table
                     'TableNestedMultiple.Reset()
                     Dim TableNestedMultiple As New DataTable("TableNestedMultiple")
                     TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
@@ -1492,9 +1493,9 @@ Public Class frmMain
                     For Each s As String In sFirstSplit
                         Dim i As Integer = 0
                         Dim sSecondSplit() As String
-                        'If s.Contains("Multple: ") Then
-                        '    sSecondSplit = s.Replace("Multiple: ", "").ToString
-                        'End If
+                        If s.Contains("Multple: ") Then
+                            sSecondSplit = s.Replace("Multiple: ", "").ToString
+                        End If
                         sSecondSplit = Split(s, "{") 'Second Split using "{" to give me second set of substrings to analize
 
                         If sFirstSplit(0) = "" Then
@@ -1528,7 +1529,8 @@ Public Class frmMain
 
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
-            NestedTableForm = False ' Resetting Global Variable to use default add table
+            SecondTableDialog.Nested = True
+            'NestedTableForm = False ' Resetting Global Variable to use default add table
             Dim newDataRow As DataGridViewRow
             newDataRow = dgvATMultiple.Rows(tATMultipleIndex)
 
