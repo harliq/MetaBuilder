@@ -1,22 +1,75 @@
-﻿Public Class AnyAll
+﻿Imports System.Text.RegularExpressions
 
-    Private CondType As String
-    Private CondData As String
+Public Class AnyAll
 
-    ' Initialize the object.
-    Public Sub New(ByVal new_CType As String, ByVal new_CData As String)
-        CondType = new_CType
-        CondData = new_CData
+    Public InputString As String
+    Public RegexPattern As String
+    Public MultipleNested As Boolean
+    Public MultiTable As DataTable
+
+    Public Sub New(ByVal input As String, ByVal regex As String, ByVal multipleNested As Boolean)
+        InputString = input
+        RegexPattern = regex
+        multipleNested = multipleNested
+        MultiTable = regxMatch(input, regex, multipleNested)
     End Sub
 
-    ' Return the object's name.
-    Public Overrides Function ToString() As String
-        Return CondType
-    End Function
 
-    ' Return the object's Category.
-    Public Function Category() As String
-        Return CondData
+
+    Function regxMatch(ByVal text As String, ByVal expr As String, ByVal isMultiple As Boolean) As DataTable
+
+        Dim multipleTable As New DataTable("MultipleTable")
+        multipleTable.Columns.Add("Type", Type.GetType("System.String"))
+        multipleTable.Columns.Add("Data", Type.GetType("System.String"))
+
+        Dim tColOneData As String = ""
+        Dim tColTwoData As String = ""
+        Dim tData As String = ""
+
+
+        'initiate the regex object
+        Dim r As Regex = New Regex(expr, RegexOptions.IgnoreCase)
+
+        'match the regex pattern against string
+        Dim m As Match = r.Match(text)
+        Dim matchcount As Integer = 0
+        Dim i As Integer = matchcount
+        Do While m.Success 'if there is a regex match
+            matchcount += 1
+            i = matchcount
+            Dim tempC As Integer = 0
+            Dim myMod As Integer
+            For i = 1 To 20 ' ******THIS MAY NEED TO BE CHANGED**********  - 1-20 is not correct, but not sure how to count, but it works, and ignoring the blanks
+                Dim g As Group = m.Groups(i)
+                Dim cc As CaptureCollection = g.Captures
+                Dim myC As Integer
+                For myC = 0 To cc.Count - 1
+                    Dim c As Capture = cc(myC)
+                    myMod = tempC Mod 2
+                    If isMultiple = True Then 'This checks to see if there is another nested "Multiple:"
+                        tData = tData & c.ToString() & vbCrLf
+                    Else 'If not another "Multiple:"  Formats info for display in new data table
+                        If myMod = 0 Then
+                            tColOneData = c.ToString()
+                            tData = tData & c.ToString() & vbTab
+                            tColTwoData = ""
+                        Else
+                            tColTwoData = c.ToString()
+                            tData = tData & c.ToString() & vbCrLf
+                        End If
+                    End If
+                    tempC = tempC + 1
+                    'Adding to data table
+                    If tColTwoData = "" Then
+                    Else
+                        multipleTable.Rows.Add(tColOneData, tColTwoData)
+                    End If
+                Next
+            Next
+            m = m.NextMatch()
+        Loop
+        'TextBox2.Text = TextBox2.Text & tData
+        Return multipleTable
     End Function
 
 End Class

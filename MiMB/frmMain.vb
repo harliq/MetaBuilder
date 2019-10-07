@@ -1478,47 +1478,30 @@ Public Class frmMain
                     SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
                     SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
                 Case "Multiple" ' Needs Work to finish
-
                     'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
-                    Dim tempDataString As String = selectedRow.Cells(1).Value.ToString() ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-                    Dim sFirstSplit() As String
-                    SecondTableDialog.Nested = True
-                    'NestedTableForm = True 'Global Var so New Form uses Editing Table
-                    'TableNestedMultiple.Reset()
-                    Dim TableNestedMultiple As New DataTable("TableNestedMultiple")
-                    TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
-                    TableNestedMultiple.Columns.Add("Data", Type.GetType("System.String"))
 
-                    sFirstSplit = Split(tempDataString, "}") 'First Split using "}{" to give me first set of substrings to analize
-                    For Each s As String In sFirstSplit
-                        Dim i As Integer = 0
-                        Dim sSecondSplit() As String
-                        If s.Contains("Multple: ") Then
-                            sSecondSplit = s.Replace("Multiple: ", "").ToString
-                        End If
-                        sSecondSplit = Split(s, "{") 'Second Split using "{" to give me second set of substrings to analize
 
-                        If sFirstSplit(0) = "" Then
-                            Exit For
-                        Else
-                            For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
-                                'Dim sThirdSplit() As String
+                    If MultipleString.Contains("Multiple: ") Then
+                        'nested, need to write another parser I think
 
-                                'sThirdSplit = Split(sSecondSplit(x), "}") 'Third and Final Split using "{" to give me final set of substrings to manipulate
+                        'TextBox2.Text = regxMatch(multipleString, "Multiple{(.*)", True)
 
-                                If sSecondSplit(0) = "" Then
-                                    Exit For
-                                Else ' Adding Data to Table 
-                                    'SecondTableDialog.dgvMultiple.Rows.Add(sThirdSplit(0).Replace(": ", ""), sThirdSplit(1))
-                                    'TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
-                                    TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
-                                    'TableNestedMultiple.Rows.Add(sThirdSplit(0).Replace(": ", "").ToString, sThirdSplit(1))
-                                    SecondTableDialog.tableMultiple = TableNestedMultiple
-                                End If
-                            Next
-                        End If
-                        i = i + 1
-                    Next
+                    Else
+                        'SecondTableDialog.TableSecondaryMultiple = AnyAll.regxMatch(MultipleString, selectedRow.Cells(1).Value.ToString(), False)
+                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                        'Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}", False)
+                        'With myNest
+                        '    .InputString = selectedRow.Cells(1).Value.ToString()
+                        '    .RegexPattern = "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}"
+                        '    .MultipleNested = False
+                        'End With
+                        'Set secondform datatable
+                        SecondTableDialog.tableMultiple = myNest.MultiTable
+                        SecondTableDialog.EditTable = True
+
+                    End If
+
+
                 Case Else
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
             End Select
@@ -1526,6 +1509,8 @@ Public Class frmMain
             MsgBox("Please select the row and try again - btnEditAnyAll SelectedRowIndex is Null")
             Exit Sub
         End If
+
+
 
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then

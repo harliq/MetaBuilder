@@ -5,20 +5,13 @@
     Public Property TextTwo As String
     Public Property TextThree As String
     Public Property Nested As Boolean = False
+    Public Property tableMultiple As DataTable
+    Public Property TableSecondaryMultiple As New DataTable("TableSecondaryMultiple")
+    Public Property EditTable As Boolean = False
 
-    Dim TableSecondaryMultiple As New DataTable("TableSecondaryMultiple")
     Dim indexMultiple As Integer = 0
     'Define a new class member named NewDataTable as follows:
-    Private NewDataTable As DataTable
-    'Define a table property named TableMultiple as follows:
-    Public Property tableMultiple As DataTable
-        Get
-            Return NewDataTable
-        End Get
-        Set(ByVal tableMultiple As DataTable)
-            NewDataTable = tableMultiple
-        End Set
-    End Property
+
 
     Private Sub Add_Update_Delete_DataGridView_Row_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -78,14 +71,22 @@
         Dim tNested As Boolean = Nested 'testing only
 
         If Nested = False Then
-            TableSecondaryMultiple.Columns.Add("Type", Type.GetType("System.String"))
-            TableSecondaryMultiple.Columns.Add("Data", Type.GetType("System.String"))
+            'TableSecondaryMultiple = tableMultiple
+            'TableSecondaryMultiple.Columns.Add("Type", Type.GetType("System.String"))
+            'TableSecondaryMultiple.Columns.Add("Data", Type.GetType("System.String"))
             'dgvMultiple.DataSource = TableSecondaryMultiple
         Else
-            TableSecondaryMultiple = NewDataTable
+            'TableSecondaryMultiple = tableMultiple
 
             Nested = False
 
+        End If
+
+        If EditTable = True Then
+            TableSecondaryMultiple = tableMultiple
+        Else
+            TableSecondaryMultiple.Columns.Add("Type", Type.GetType("System.String"))
+            TableSecondaryMultiple.Columns.Add("Data", Type.GetType("System.String"))
         End If
 
         dgvMultiple.DataSource = TableSecondaryMultiple
@@ -486,11 +487,11 @@
                 Case 0, 6, 10, 15       'Zero Values -- Remove 3.  This is Temp till Nested Tables are in
                     ' TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
                     'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0" & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & "0")
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "0")
 
                 Case 1, 5           'Meta States
                     'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.cBoxMetaState.Text & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & ThirdTableDialog.cBoxMetaState.Text)
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.cBoxMetaState.Text)
 
 
                 Case 2, 4, 7, 8, 14  'Single Values
@@ -499,10 +500,10 @@
                     TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", ThirdTableDialog.TextBox1.Text)
                 Case 9              'Triple Value
                     'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text) & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text))
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text))
                 Case 11, 12, 13         'Double Values
                     'TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineTwoVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, "a") & "}")
-                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", "{" & Parse.CombineTwoVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, "a"))
+                    TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", Parse.CombineTwoVal(ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text, "a"))
                 Case 3 '  Multiple -- Supposed to be 3.  This is Temp till Nested Tables are in
                     'Dim sTempDataA As String = ""
 
@@ -683,8 +684,9 @@
             Dim newDataRow As DataGridViewRow
             newDataRow = dgvMultiple.Rows(indexMultiple)
 
-            newDataRow.Cells(0).Value = SecondTableDialog.cBoxAType.Text
+            newDataRow.Cells(0).Value = SecondTableDialog.cBoxAType.Text & ": "
 
+            ' -----------------------OLD WAY--------------------------------------------------------
             Select Case SecondTableDialog.cBoxAType.SelectedIndex
                 Case 0, 6, 10, 15               'ZeroValue
                     newDataRow.Cells(1).Value = "0"
@@ -709,8 +711,9 @@
                 Case Else           'Should not happen, but...
                     MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
             End Select
+            '-----------------------OLD WAY--------------------------------------------------------
 
-            'MsgBox("Click OK")
+
         Else
             'MsgBox("Click Cancel")
         End If
@@ -767,4 +770,6 @@
     Private Sub dgvMultiple_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMultiple.CellClick
         indexMultiple = e.RowIndex
     End Sub
+
+
 End Class
