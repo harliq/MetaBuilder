@@ -475,7 +475,7 @@
 
         GlobalVars.SetFormType = 2
         ThirdTableDialog.cBoxType.Visible = False
-        ThirdTableDialog.Text = "ADD Action Mulitiple Dialog 2"
+        ThirdTableDialog.Text = "ADD **NESTED** Action Mulitiple Dialog 2"
         ThirdTableDialog.lblCbox.Text = "Choose Action Type:"
         ThirdTableDialog.TextBox1.Text = ""
         ThirdTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaActionTypeID)))
@@ -570,6 +570,7 @@
 
         '------Opening new Window to edit Table Value---------
         Dim SecondTableDialog As New frmSecondaryTable()
+
         SecondTableDialog.Nested = False
         selectedRow = dgvMultiple.Rows(indexMultiple)
 
@@ -577,7 +578,7 @@
 
         If selectedRow.Cells(0).Value IsNot Nothing Then
             SecondTableDialog.cBoxType.Visible = False
-            SecondTableDialog.Text = "EDIT Action Mulitiple Dialog"
+            SecondTableDialog.Text = "EDIT **NESTED** Action Mulitiple Dialog 2"
             SecondTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaActionTypeID)))
             'SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString
             SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString.Replace(": ", "")
@@ -771,5 +772,21 @@
         indexMultiple = e.RowIndex
     End Sub
 
+    Private Sub btnDelete_Click(sender As Object, e As EventArgs) Handles btnDelete.Click
+        If dgvMultiple.CurrentRow.Index = Nothing Then
 
+            MsgBox("You can not delete the top or bottom (blank) row... Yet")
+
+        ElseIf dgvMultiple.CurrentRow.Index >= 0 Then
+            Try
+                dgvMultiple.Rows.RemoveAt(indexMultiple)
+            Catch
+                MsgBox("You Can't remove that row")
+            End Try
+
+        Else
+            MsgBox("Rows out of range")
+
+        End If
+    End Sub
 End Class

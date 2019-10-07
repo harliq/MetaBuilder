@@ -1479,9 +1479,9 @@ Public Class frmMain
                     SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
                 Case "Multiple" ' Needs Work to finish
                     'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
-
-
-                    If MultipleString.Contains("Multiple: ") Then
+                    If selectedRow.Cells(1).Value.ToString().Contains("Multiple: ") Then
+                        'If MultipleString.Contains("Multiple: ") Then
+                        '     If MultipleString.Contains("Multiple: ") Then
                         'nested, need to write another parser I think
 
                         'TextBox2.Text = regxMatch(multipleString, "Multiple{(.*)", True)
