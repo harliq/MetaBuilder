@@ -1051,18 +1051,31 @@ Public Class frmMain
         SecondTableDialog.TextBox1.Text = ""
         SecondTableDialog.cBoxType.Items.AddRange([Enum].GetNames(GetType(MetaConditionTypeID)))
         SecondTableDialog.cBoxType.SelectedIndex = 0
-
+        SecondTableDialog.TableType = 1
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             Select Case SecondTableDialog.cBoxType.SelectedIndex
-                Case 0 To 3, 7 To 10, 15, 19, 20, 21 'Empty Values Set As a ZERO
+                Case 0, 1, 7 To 10, 15, 19, 20 'Empty Values Set As a ZERO
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, "0")
-                ' Case 4, 5, 6    'Single Values
-                Case 11, 12, 28     'Double Values
+
+                Case 11, 12, 28  'Double Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a"))
-                Case 13, 14
+                Case 13, 14     'Triple Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
-                    'Case 21 ' NOT
+                Case 2, 3, 21 ' Any/All/NOT
+
+                    Dim tempdata As String = ""
+                    For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
+                        If r.Cells(0).Value IsNot Nothing Then
+                            'tempdata = tempdata & r.Cells(0).Value.ToString & r.Cells(1).Value.ToString
+                            tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                        Else
+                            'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                        End If
+                    Next
+                    TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, tempdata)
+
+
 
                 Case Else ' Single Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, SecondTableDialog.TextBox1.Text) ' Single Values
@@ -1371,6 +1384,7 @@ Public Class frmMain
         SecondTableDialog.TextBox1.Text = ""
         SecondTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaActionTypeID)))
         SecondTableDialog.cBoxAType.SelectedIndex = 0
+        SecondTableDialog.TableType = 2
 
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
@@ -1479,29 +1493,63 @@ Public Class frmMain
                     SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
                 Case "Multiple" ' Needs Work to finish
                     'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
-                    If selectedRow.Cells(1).Value.ToString().Contains("Multiple: ") Then
-                        'If MultipleString.Contains("Multiple: ") Then
-                        '     If MultipleString.Contains("Multiple: ") Then
-                        'nested, need to write another parser I think
+                    'If selectedRow.Cells(1).Value.ToString().Contains("Multiple: ") Then
 
-                        'TextBox2.Text = regxMatch(multipleString, "Multiple{(.*)", True)
+                    '    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    '    'If MultipleString.Contains("Multiple: ") Then
+                    '    '     If MultipleString.Contains("Multiple: ") Then
+                    '    'nested, need to write another parser I think
 
-                    Else
-                        'SecondTableDialog.TableSecondaryMultiple = AnyAll.regxMatch(MultipleString, selectedRow.Cells(1).Value.ToString(), False)
-                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                        'Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}", False)
-                        'With myNest
-                        '    .InputString = selectedRow.Cells(1).Value.ToString()
-                        '    .RegexPattern = "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}"
-                        '    .MultipleNested = False
-                        'End With
-                        'Set secondform datatable
-                        SecondTableDialog.tableMultiple = myNest.MultiTable
-                        SecondTableDialog.EditTable = True
+                    '    'TextBox2.Text = regxMatch(multipleString, "Multiple{(.*)", True)
 
-                    End If
+                    'Else
+                    '    'SecondTableDialog.TableSecondaryMultiple = AnyAll.regxMatch(MultipleString, selectedRow.Cells(1).Value.ToString(), False)
+                    '    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    '    'Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}", False)
+                    '    'With myNest
+                    '    '    .InputString = selectedRow.Cells(1).Value.ToString()
+                    '    '    .RegexPattern = "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}"
+                    '    '    .MultipleNested = False
+                    '    'End With
+                    '    'Set secondform datatable
+                    '    SecondTableDialog.tableMultiple = myNest.MultiTable
+                    '    SecondTableDialog.EditTable = True
+
+                    'End If
+
+                    'Dim tTest As String = selectedRow.Cells(1).Value.ToString()
+                    'Dim tMultiple() As String
+                    'Dim ttTest As String = ""
+
+                    'If selectedRow.Cells(1).Value.ToString().Contains("Multiple: ") Then
+                    '    Dim Input As String = "Multiple: "
+                    '    Dim Occurance As Integer = New AnyAll(selectedRow.Cells(1).Value.ToString(), Input, 1).Occurence
+                    '    Dim teststring As String = ""
+
+                    '    For c = 0 To Occurance
+                    '        tMultiple(c) = New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})}|(Multiple: ){(.*?})M").ReturnMultiple.ToString
+                    '        MsgBox(tMultiple(c))
+                    '        teststring = tMultiple(c)
+                    '        ttTest = tTest.Replace("Multiple:", " ")
+                    '    Next
+                    '    Dim myNest As New AnyAll(tTest, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    '    For myC = 0 To tMultiple.Length()
+                    '        myNest.MultiTable.Rows.Add("Multiple: ", tMultiple(myC))
+                    '    Next
+
+                    'Else
+                    '    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    '    SecondTableDialog.tableMultiple = myNest.MultiTable
+                    'End If
 
 
+
+
+
+
+                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})}|(Multiple: ){(.*?})M|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    SecondTableDialog.tableMultiple = myNest.MultiTable
+                    SecondTableDialog.EditTable = True
                 Case Else
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
             End Select

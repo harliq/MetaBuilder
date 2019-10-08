@@ -96,7 +96,8 @@
         'frmMain.txtBoxCData.Visible = False
         'frmMain.ListBoxCTDataAnyAll.Visible = True
         frmMain.btnAddAnyAll.Visible = True
-
+        frmMain.btnEditAnyAll.Visible = True
+        frmMain.btnDeleteAnyAll.Visible = True
         'add Listbox for Any Conditons
 
     End Sub
