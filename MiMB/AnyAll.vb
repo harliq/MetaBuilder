@@ -89,6 +89,62 @@ Public Class AnyAll
         Dim tColTwoData As String = ""
         Dim tData As String = ""
 
+        ''''---------------------Old Way---------------------------
+        '''initiate the regex object
+        ''Dim r As Regex = New Regex(expr, RegexOptions.IgnoreCase)
+
+        '''match the regex pattern against string
+        ''Dim m As Match = r.Match(text)
+        ''Dim matchcount As Integer = 0
+        ''Dim i As Integer = matchcount
+        ''Do While m.Success 'if there is a regex match
+        ''    matchcount += 1
+        ''    i = matchcount
+        ''    Dim tempC As Integer = 0
+        ''    Dim myMod As Integer
+        ''    For i = 1 To m.Groups.Count ' ******THIS MAY NEED TO BE CHANGED**********  - 1-20 is not correct, but not sure how to count, but it works, and ignoring the blanks
+        ''        Dim g As Group = m.Groups(i)
+        ''        Dim cc As CaptureCollection = g.Captures
+        ''        Dim myC As Integer
+        ''        For myC = 0 To cc.Count - 1
+        ''            Dim c As Capture = cc(myC)
+        ''            myMod = tempC Mod 2
+        ''            'If isMultiple = True Then 'This checks to see if there is another nested "Multiple:"
+        ''            '    tData = tData & c.ToString() & vbCrLf
+        ''            'Else 'If not another "Multiple:"  Formats info for display in new data table
+        ''            '    If myMod = 0 Then
+        ''            '        tColOneData = c.ToString()
+        ''            '        tData = tData & c.ToString() & vbTab
+        ''            '        tColTwoData = ""
+        ''            '    Else
+        ''            '        tColTwoData = c.ToString()
+        ''            '        tData = tData & c.ToString() & vbCrLf
+        ''            '    End If
+        ''            'End If
+        ''            If myMod = 0 Then
+        ''                tColOneData = c.ToString()
+        ''                tData = tData & c.ToString() & vbTab
+        ''                tColTwoData = ""
+        ''            Else
+        ''                tColTwoData = c.ToString()
+        ''                tData = tData & c.ToString() & vbCrLf
+        ''            End If
+
+        ''            tempC = tempC + 1
+        ''            'Adding to data table
+        ''            If tColTwoData = "" Then
+        ''            Else
+        ''                multipleTable.Rows.Add(tColOneData, tColTwoData)
+        ''            End If
+        ''        Next
+        ''    Next
+        ''    m = m.NextMatch()
+        ''Loop
+        '''TextBox2.Text = TextBox2.Text & tData
+        ''Return multipleTable
+        '''------------------------------Old Way-----------------
+
+
 
         'initiate the regex object
         Dim r As Regex = New Regex(expr, RegexOptions.IgnoreCase)
@@ -97,51 +153,50 @@ Public Class AnyAll
         Dim m As Match = r.Match(text)
         Dim matchcount As Integer = 0
         Dim i As Integer = matchcount
-        Do While m.Success 'if there is a regex match
+        Do While m.Success ' if there is a regex match
             matchcount += 1
             i = matchcount
             Dim tempC As Integer = 0
             Dim myMod As Integer
-            For i = 1 To 500 ' ******THIS MAY NEED TO BE CHANGED**********  - 1-20 is not correct, but not sure how to count, but it works, and ignoring the blanks
+            For i = 1 To m.Groups.Count ' ******THIS MAY NEED TO BE CHANGED**********  - 1-4  I think this is for how many different patterns there are ( currently 4)
                 Dim g As Group = m.Groups(i)
                 Dim cc As CaptureCollection = g.Captures
                 Dim myC As Integer
                 For myC = 0 To cc.Count - 1
                     Dim c As Capture = cc(myC)
                     myMod = tempC Mod 2
-                    'If isMultiple = True Then 'This checks to see if there is another nested "Multiple:"
-                    '    tData = tData & c.ToString() & vbCrLf
-                    'Else 'If not another "Multiple:"  Formats info for display in new data table
-                    '    If myMod = 0 Then
-                    '        tColOneData = c.ToString()
-                    '        tData = tData & c.ToString() & vbTab
-                    '        tColTwoData = ""
-                    '    Else
-                    '        tColTwoData = c.ToString()
-                    '        tData = tData & c.ToString() & vbCrLf
-                    '    End If
-                    'End If
-                    If myMod = 0 Then
-                        tColOneData = c.ToString()
-                        tData = tData & c.ToString() & vbTab
-                        tColTwoData = ""
-                    Else
-                        tColTwoData = c.ToString()
+                    If isMultiple = True Then
                         tData = tData & c.ToString() & vbCrLf
+                    Else
+                        If myMod = 0 Then
+                            tColOneData = c.ToString()
+                            tData = tData & c.ToString() & vbTab
+                            tColTwoData = ""
+                        Else
+                            tColTwoData = c.ToString()
+                            tData = tData & c.ToString() & vbCrLf
+                            'tColOneData = ""
+                        End If
                     End If
 
+
+                    'tData = tData & "Capture" & myC & "='" & c.ToString() & "', Position=" & c.Index & vbCrLf
+                    'Console.WriteLine("Capture" & j & "='" & c.ToString() & "', Position=" & c.Index)
                     tempC = tempC + 1
-                    'Adding to data table
                     If tColTwoData = "" Then
                     Else
                         multipleTable.Rows.Add(tColOneData, tColTwoData)
                     End If
+                    'multipleTable.Rows.Add(tColOneData, tColTwoData)
                 Next
+
             Next
             m = m.NextMatch()
         Loop
-        'TextBox2.Text = TextBox2.Text & tData
+        'Form1.TextBox2.Text = tData
         Return multipleTable
+
+
     End Function
 
 End Class

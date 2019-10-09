@@ -1157,7 +1157,7 @@ Public Class frmMain
                 Case "All", "Any", "Not" ' For nested tables
 
 
-                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Any: ){(.*?})}|(Any: ){(.*?})A|(All: ){(.*?})}|(All: ){(.*?})A|(Not: ){(.*?})}|(Not: ){(.*?})A|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|(Not: ){(.*?}})|(Not: ){(.*?}})[A-Z]|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
                     SecondTableDialog.tableMultiple = myNest.MultiTable
                     SecondTableDialog.EditTable = True
 
@@ -1591,7 +1591,7 @@ Public Class frmMain
 
 
 
-                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})}|(Multiple: ){(.*?})M|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                     SecondTableDialog.tableMultiple = myNest.MultiTable
                     SecondTableDialog.EditTable = True
                 Case Else
