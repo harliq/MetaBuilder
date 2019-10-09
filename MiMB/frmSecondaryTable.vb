@@ -8,7 +8,7 @@
     Public Property tableMultiple As DataTable
     Public Property TableSecondaryMultiple As New DataTable("TableSecondaryMultiple")
     Public Property EditTable As Boolean = False
-    Public Property TableType As Integer = 0
+    Public Property TableType As Integer
 
 
     Dim indexMultiple As Integer = 0
@@ -474,22 +474,28 @@
 
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim ThirdTableDialog As New frmSecondaryTable()
+
+
+
         'NestedTableForm = False
         'ThirdTableDialog.Nested = False
 
         Select Case cBoxType.SelectedIndex
             Case 2, 3, 21
                 TableType = 1
-                ThirdTableDialog.cBoxType.Visible = False
+                GlobalVars.SetFormType = TableType
+                ThirdTableDialog.cBoxAType.Visible = False
+
                 ThirdTableDialog.Text = "ADD **NESTED** Condition Any/All/Not Dialog 2"
                 ThirdTableDialog.lblCbox.Text = "Choose Condition Type:"
                 ThirdTableDialog.TextBox1.Text = ""
-                ThirdTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaConditionTypeID)))
-                ThirdTableDialog.cBoxAType.SelectedIndex = 0
+                ThirdTableDialog.cBoxType.Items.AddRange([Enum].GetNames(GetType(MetaConditionTypeID)))
+                ThirdTableDialog.cBoxType.SelectedIndex = 0
         End Select
 
         If cBoxAType.SelectedIndex = 3 Then
             TableType = 2
+            GlobalVars.SetFormType = TableType
             ThirdTableDialog.cBoxType.Visible = False
             ThirdTableDialog.Text = "ADD **NESTED** Action Mulitiple Dialog 2"
             ThirdTableDialog.lblCbox.Text = "Choose Action Type:"
@@ -498,7 +504,7 @@
             ThirdTableDialog.cBoxAType.SelectedIndex = 0
         End If
 
-        GlobalVars.SetFormType = TableType
+        'GlobalVars.SetFormType = TableType
 
 
         If ThirdTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
@@ -522,9 +528,8 @@
                                 tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
                             End If
                         Next
+                        TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxType.Text & ": ", tempdata)
 
-
-                        TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxAType.Text & ": ", tempdata)
                     Case 11, 12, 28 'Double Values
                         TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxType.Text & ": ", Parse.CombineTwoVal(ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text, "a"))
                     Case 13, 14     'Triple Values
@@ -623,161 +628,240 @@
     Private Sub btnEdit_Click(sender As Object, e As EventArgs) Handles btnEdit.Click
 
         Dim selectedRow As DataGridViewRow
+        selectedRow = dgvMultiple.CurrentRow
 
         '------Opening new Window to edit Table Value---------
         Dim SecondTableDialog As New frmSecondaryTable()
+        SecondTableDialog.TableType = GlobalVars.SetFormType
+        'MsgBox("TABLETYPE= " & SecondTableDialog.TableType & "  Global = " & GlobalVars.SetFormType)
 
-        SecondTableDialog.Nested = False
-        selectedRow = dgvMultiple.Rows(indexMultiple)
-
-        GlobalVars.SetFormType = 2
-
-        If selectedRow.Cells(0).Value IsNot Nothing Then
-            SecondTableDialog.cBoxType.Visible = False
-            SecondTableDialog.Text = "EDIT **NESTED** Action Mulitiple Dialog 2"
-            SecondTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaActionTypeID)))
-            'SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString
-            SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString.Replace(": ", "")
-            SecondTableDialog.lblCbox.Text = "Choose Action Type:"
+        If SecondTableDialog.TableType = 1 Then
 
 
-            Select Case selectedRow.Cells(0).Value.ToString
-                Case "None: " ' Not USING
-                Case "ChatCommand: ", "EmbeddedNaveRoute: ", "ExpressionAct: ", "ChatWithExpression: ", "DestroyView: "
-                    SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
-                Case "SetState:", "Call State:"
-                    SecondTableDialog.cBoxMetaState.Text = selectedRow.Cells(1).Value.ToString
 
-                Case "GetVTOption: ", "SetVTOption: ", "CreateView: "
-                    Dim tempData As String = selectedRow.Cells(1).Value.ToString()
-                    Dim StringSplit() As String
-                    StringSplit = Split(tempData, ";")
-                    SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
-                    SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
-                    If StringSplit(1).ToString = "True" Then
-                        SecondTableDialog.rdbTrue.Checked = True
-                        SecondTableDialog.rdbFalse.Checked = False
-                    End If
-                Case "CreateView: "
-                    Dim tempData As String = selectedRow.Cells(1).Value.ToString()
-                    Dim StringSplit() As String
-                    StringSplit = Split(tempData, ";")
-                    SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
-                    SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
+            If selectedRow.Cells(0).Value IsNot Nothing Then
+                '---Dialog config for Condition
+                SecondTableDialog.cBoxAType.Visible = False
+                SecondTableDialog.Text = "EDIT **NESTED** Any/All/Not Conditoon Dialog 2"
+                SecondTableDialog.cBoxType.Items.AddRange([Enum].GetNames(GetType(MetaConditionTypeID)))
+                SecondTableDialog.cBoxType.Text = selectedRow.Cells(0).Value.ToString.Replace(": ", "")
+                SecondTableDialog.lblCbox.Text = "Choose Condition Type:"
 
-                Case "WatchdogSet: "
-                    Dim tempData As String = selectedRow.Cells(1).Value.ToString()
-                    Dim StringSplit() As String
-                    StringSplit = Split(tempData, ";")
-                    SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
-                    SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
-                    SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
-                Case "Multiple: " ' Needs Work to finish
+                Select Case selectedRow.Cells(0).Value.ToString
+                    Case "Never: ", "Always: " ' Not USING
 
-                    'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
-                    Dim tempDataString As String = selectedRow.Cells(1).Value.ToString() ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-
-                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})M|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                    SecondTableDialog.tableMultiple = myNest.MultiTable
-                    SecondTableDialog.EditTable = True
+                    Case "All: ", "Any: ", "Not: " ' For nested tables
 
 
-                    ''---------------------OLD WAY-------------------------------
-                    'If tempDataString.Contains("Multiple: ") = True Then
-                    '    MsgBox("Has Multiple:")
-                    '    tempDataString.Remove()
-                    'Else
-                    '    Dim sFirstSplit() As String
-                    '    SecondTableDialog.Nested = True
-                    '    'NestedTableForm = True 'Global Var so New Form uses Editing Table
-                    '    'TableNestedMultiple.Reset()
-                    '    Dim TableNestedMultiple As New DataTable("TableNestedMultiple")
-                    '    TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
-                    '    TableNestedMultiple.Columns.Add("Data", Type.GetType("System.String"))
+                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Any: ){(.*?})}|(Any: ){(.*?})A|(All: ){(.*?})}|(All: ){(.*?})A|(Not: ){(.*?})}|(Not: ){(.*?})A|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                        SecondTableDialog.tableMultiple = myNest.MultiTable
+                        SecondTableDialog.EditTable = True
 
-                    '    sFirstSplit = Split(tempDataString, "}") 'First Split using "{" to give me first set of substrings to analize
+                    Case "ChatMessage: ", "Expression: ", "LandBlockE: ", "LandCellE: "
+                        SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
+                    Case "ItemCountLE: ", "ItemCountGE: ", "ChatMessageCapture: "
+                        Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(tempData, ";")
+                        SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
+                        SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
+                    Case "MonsterCountWithinDistance: ", "MonstersWithPriorityWithinDistance: "
+                        Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(tempData, ";")
+                        SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
+                        SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
+                        SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
 
-                    '    For Each s As String In sFirstSplit
-                    '        Dim i As Integer = 0
-                    '        Dim sSecondSplit() As String
+                    Case Else
+                        SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
+                End Select
 
-                    '        sSecondSplit = Split(s, "{") 'Second Split using "{" to give me second set of substrings to analize
 
-                    '        If sFirstSplit(0) = "" Then
-                    '            Exit For
-                    '        Else
-                    '            For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
-                    '                'Dim sThirdSplit() As String
-                    '                'TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
-                    '                'sThirdSplit = Split(sSecondSplit(x), "{") 'Third and Final Split using "{" to give me final set of substrings to manipulate
-
-                    '                If sSecondSplit(0) = "" Then
-                    '                    Exit For
-                    '                    'If sThirdSplit(0) = "" Then
-                    '                    '    Exit For
-                    '                Else ' Adding Data to Table 
-                    '                    TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
-                    '                    'SecondTableDialog.dgvMultiple.Rows.Add(sThirdSplit(0).Replace(": ", ""), sThirdSplit(1))
-                    '                    'TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
-                    '                    'TableNestedMultiple.Rows.Add(sThirdSplit(0).Replace(": ", "").ToString, sThirdSplit(1))
-                    '                    'SecondTableDialog.tableMultiple = TableNestedMultiple
-                    '                End If
-                    '            Next
-                    '        End If
-                    '        i = i + 1
-                    '        SecondTableDialog.tableMultiple = TableNestedMultiple
-                    '    Next
-                    'End If
-                    ''--------------------------------------------------------------------
-                Case Else
-                    SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
-            End Select
+            End If
         Else
-            MsgBox("Please select the row and try again - btnEditAnyAll SelectedRowIndex is Null")
-            Exit Sub
+            If selectedRow.Cells(0).Value IsNot Nothing Then
+                SecondTableDialog.cBoxType.Visible = False
+                SecondTableDialog.Text = "EDIT **NESTED** Action Mulitiple Dialog 2"
+                SecondTableDialog.cBoxAType.Items.AddRange([Enum].GetNames(GetType(MetaActionTypeID)))
+                'SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString
+                SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString.Replace(": ", "")
+                SecondTableDialog.lblCbox.Text = "Choose Action Type:"
+
+
+                Select Case selectedRow.Cells(0).Value.ToString
+                    Case "None: " ' Not USING
+                    Case "ChatCommand: ", "EmbeddedNaveRoute: ", "ExpressionAct: ", "ChatWithExpression: ", "DestroyView: "
+                        SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
+                    Case "SetState:", "Call State:"
+                        SecondTableDialog.cBoxMetaState.Text = selectedRow.Cells(1).Value.ToString
+
+                    Case "GetVTOption: ", "SetVTOption: ", "CreateView: "
+                        Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(tempData, ";")
+                        SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
+                        SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
+                        If StringSplit(1).ToString = "True" Then
+                            SecondTableDialog.rdbTrue.Checked = True
+                            SecondTableDialog.rdbFalse.Checked = False
+                        End If
+                    Case "CreateView: "
+                        Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(tempData, ";")
+                        SecondTableDialog.TextBox2.Text = StringSplit(0).ToString
+                        SecondTableDialog.TextBox3.Text = StringSplit(1).ToString
+
+                    Case "WatchdogSet: "
+                        Dim tempData As String = selectedRow.Cells(1).Value.ToString()
+                        Dim StringSplit() As String
+                        StringSplit = Split(tempData, ";")
+                        SecondTableDialog.TextBox1.Text = StringSplit(0).ToString
+                        SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
+                        SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
+                    Case "Multiple: " ' Needs Work to finish
+
+                        'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
+                        Dim tempDataString As String = selectedRow.Cells(1).Value.ToString() ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
+
+                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})M|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                        SecondTableDialog.tableMultiple = myNest.MultiTable
+                        SecondTableDialog.EditTable = True
+
+
+                        ''---------------------OLD WAY-------------------------------
+                        'If tempDataString.Contains("Multiple: ") = True Then
+                        '    MsgBox("Has Multiple:")
+                        '    tempDataString.Remove()
+                        'Else
+                        '    Dim sFirstSplit() As String
+                        '    SecondTableDialog.Nested = True
+                        '    'NestedTableForm = True 'Global Var so New Form uses Editing Table
+                        '    'TableNestedMultiple.Reset()
+                        '    Dim TableNestedMultiple As New DataTable("TableNestedMultiple")
+                        '    TableNestedMultiple.Columns.Add("Type", Type.GetType("System.String"))
+                        '    TableNestedMultiple.Columns.Add("Data", Type.GetType("System.String"))
+
+                        '    sFirstSplit = Split(tempDataString, "}") 'First Split using "{" to give me first set of substrings to analize
+
+                        '    For Each s As String In sFirstSplit
+                        '        Dim i As Integer = 0
+                        '        Dim sSecondSplit() As String
+
+                        '        sSecondSplit = Split(s, "{") 'Second Split using "{" to give me second set of substrings to analize
+
+                        '        If sFirstSplit(0) = "" Then
+                        '            Exit For
+                        '        Else
+                        '            For x As Integer = 0 To sSecondSplit.Length - 1 'Second Split using the { to give me substrings
+                        '                'Dim sThirdSplit() As String
+                        '                'TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
+                        '                'sThirdSplit = Split(sSecondSplit(x), "{") 'Third and Final Split using "{" to give me final set of substrings to manipulate
+
+                        '                If sSecondSplit(0) = "" Then
+                        '                    Exit For
+                        '                    'If sThirdSplit(0) = "" Then
+                        '                    '    Exit For
+                        '                Else ' Adding Data to Table 
+                        '                    TableNestedMultiple.Rows.Add(sSecondSplit(0), sSecondSplit(1))
+                        '                    'SecondTableDialog.dgvMultiple.Rows.Add(sThirdSplit(0).Replace(": ", ""), sThirdSplit(1))
+                        '                    'TableNestedMultiple.Rows.Add(sThirdSplit(0), sThirdSplit(1))
+                        '                    'TableNestedMultiple.Rows.Add(sThirdSplit(0).Replace(": ", "").ToString, sThirdSplit(1))
+                        '                    'SecondTableDialog.tableMultiple = TableNestedMultiple
+                        '                End If
+                        '            Next
+                        '        End If
+                        '        i = i + 1
+                        '        SecondTableDialog.tableMultiple = TableNestedMultiple
+                        '    Next
+                        'End If
+                        ''--------------------------------------------------------------------
+                    Case Else
+                        SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
+                End Select
+            Else
+                MsgBox("Please select the row and try again - btnEditAnyAll SelectedRowIndex is Null")
+                Exit Sub
+
+            End If
+
         End If
 
 
-
-
-
+        SecondTableDialog.Nested = False
+        selectedRow = dgvMultiple.Rows(indexMultiple)
 
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             SecondTableDialog.Nested = False
             'NestedTableForm = False ' Resetting Global Variable to use default add table
+
             Dim newDataRow As DataGridViewRow
             newDataRow = dgvMultiple.Rows(indexMultiple)
 
-            newDataRow.Cells(0).Value = SecondTableDialog.cBoxAType.Text & ": "
 
-            ' -----------------------OLD WAY--------------------------------------------------------
-            Select Case SecondTableDialog.cBoxAType.SelectedIndex
-                Case 0, 6, 10, 15               'ZeroValue
-                    newDataRow.Cells(1).Value = "0"
-                Case 1, 5            ' SetState,CallState
-                    newDataRow.Cells(1).Value = SecondTableDialog.cBoxMetaState.Text
-                Case 2, 4, 7, 8, 14      'Single Values - "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
-                    newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
-                Case 11, 12, 13     'Double Values - "GetVTOption", "SetVTOption"
-                    newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
-                Case 9
-                    newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
-                Case 3         'Multiple  -- Supposed to be 3.  This is Temp till Nested Tables are in
-                    Dim tempdata As String = ""
-                    For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
-                        If r.Cells(0).Value IsNot Nothing Then
-                            tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
-                        Else
-                            'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
-                        End If
-                    Next
-                    newDataRow.Cells(1).Value = tempdata
-                Case Else           'Should not happen, but...
-                    MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
+            Select Case GlobalVars.SetFormType
+                Case 1
+
+                    newDataRow.Cells(0).Value = SecondTableDialog.cBoxType.Text & ": "
+                    Select Case SecondTableDialog.cBoxType.SelectedIndex
+                        Case 0, 1, 7 To 10, 15, 19, 20 'Empty Values Set As a ZERO
+                            newDataRow.Cells(1).Value = 0
+                        Case 11, 12, 28  'Double Values
+                            newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
+                        Case 13, 14     'Triple Values
+                            newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
+                        Case 2, 3, 21 ' Any/All/NOT
+                            Dim tempdata As String = ""
+                            For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
+                                If r.Cells(0).Value IsNot Nothing Then
+                                    'tempdata = tempdata & r.Cells(0).Value.ToString & r.Cells(1).Value.ToString
+                                    tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                                Else
+                                    'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                                End If
+                            Next
+                            newDataRow.Cells(1).Value = tempdata
+                        Case Else ' Single Values
+                            newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text ' Single Values
+                    End Select
+
+                Case 2
+                    newDataRow.Cells(0).Value = SecondTableDialog.cBoxAType.Text & ": "
+                    Select Case SecondTableDialog.cBoxAType.SelectedIndex
+                        Case 0, 6, 10, 15               'ZeroValue
+                            newDataRow.Cells(1).Value = "0"
+                        Case 1, 5            ' SetState,CallState
+                            newDataRow.Cells(1).Value = SecondTableDialog.cBoxMetaState.Text
+                        Case 2, 4, 7, 8, 14      'Single Values - "ChatCommand", "EmbeddedNaveRoute", "ExpressionAct", "ChatWithExpression"
+                            newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
+                        Case 3         'Multiple  -- Supposed to be 3.  This is Temp till Nested Tables are in
+                            Dim tempdata As String = ""
+                            For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
+                                If r.Cells(0).Value IsNot Nothing Then
+                                    tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                                Else
+                                    'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                                End If
+                            Next
+                            newDataRow.Cells(1).Value = tempdata
+                        Case 11, 12, 13     'Double Values - "GetVTOption", "SetVTOption"
+                            newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
+                        Case 9          'Triple Values
+                            newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
+
+                        Case Else           'Should not happen, but...
+                            MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
+                    End Select
+
+
+                Case Else
+                    MsgBox("Case Else, frmSecondaryTable - Line 823)")
             End Select
-            '-----------------------OLD WAY--------------------------------------------------------
+
+
 
 
         Else
@@ -853,5 +937,9 @@
             MsgBox("Rows out of range")
 
         End If
+    End Sub
+
+    Private Sub cBoxType_Format(sender As Object, e As ListControlConvertEventArgs) Handles cBoxType.Format
+
     End Sub
 End Class

@@ -926,16 +926,46 @@ Public Class frmMain
                     Dim cData As String = selectedRow.Cells(2).Value ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
                     Dim StringSplit() As String
                     TableAnyAll.Clear()
+                    '-------------------Add Regex-------------
+
+                    'Dim myAllNest As New AnyAll(cData, "(Not: ){(.*?})}|(Not: ){(.*?})A|(Any: ){(.*?})}|(Any: ){(.*?})A|(All: ){(.*?})}|(All: ){(.*?})A|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+
+                    '-------
                     StringSplit = Split(cData, "}")
+                    'For Each s As String In StringSplit
+                    '    Dim tempstring() As String
+                    '    tempstring = Split(s, "{")
+                    '    If tempstring(0) = "" Then
+                    '        Exit For
+                    '    Else
+                    '        TableAnyAll.Rows.Add(tempstring(0), tempstring(1))
+                    '    End If
+                    'Next
+
                     For Each s As String In StringSplit
                         Dim tempstring() As String
                         tempstring = Split(s, "{")
-                        If tempstring(0) = "" Then
+                        ' Spliting Mulitples
+                        If tempstring(0) = "Any" Then
+                            's = s.Length - 1
+                            TableAnyAll.Rows.Add("Any", cData.Remove(0, 4))
+                            Exit For
+                        ElseIf tempstring(0) = "All" Then
+                            's = s.Length - 1
+                            TableAnyAll.Rows.Add("All", cData.Remove(0, 4))
+                            Exit For
+                        ElseIf tempstring(0) = "Not" Then
+                            's = s.Length - 1
+                            TableAnyAll.Rows.Add("Not", cData.Remove(0, 4))
+                            Exit For
+                        ElseIf tempstring(0) = "" Then
                             Exit For
                         Else
                             TableAnyAll.Rows.Add(tempstring(0), tempstring(1))
                         End If
                     Next
+
+
                     dgvAnyAll.DataSource = TableAnyAll
                     dgvAnyAll.Refresh()
                 Case 3
@@ -1019,9 +1049,6 @@ Public Class frmMain
         End If
     End Sub
 
-    Private Sub dgvMetaRules_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvMetaRules.CellContentClick
-
-    End Sub
 
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If SaveWork = True Then
@@ -1125,7 +1152,14 @@ Public Class frmMain
             SecondTableDialog.lblCbox.Text = "Choose Condition Type:"
 
             Select Case selectedRow.Cells(0).Value.ToString
-                Case "Never", "Alway", "All", "Any", "Not" ' Not USING
+                Case "Never", "Always" ' Not USING
+
+                Case "All", "Any", "Not" ' For nested tables
+
+
+                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Any: ){(.*?})}|(Any: ){(.*?})A|(All: ){(.*?})}|(All: ){(.*?})A|(Not: ){(.*?})}|(Not: ){(.*?})A|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    SecondTableDialog.tableMultiple = myNest.MultiTable
+                    SecondTableDialog.EditTable = True
 
                 Case "ChatMessage", "Expression", "LandBlockE", "LandCellE"
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
@@ -1162,14 +1196,24 @@ Public Class frmMain
             Select Case SecondTableDialog.cBoxType.SelectedIndex
                 Case 2, 3, 21 ' Not USING 'AnyAllNot
 
-                    'Case 0, 1, 4 - 10, 13 - 20, 22 - 26          'Single Values - ChatMessage,
+                    Dim tempdata As String = ""
+                    For Each r As DataGridViewRow In SecondTableDialog.dgvMultiple.Rows
+                        If r.Cells(0).Value IsNot Nothing Then
+                            tempdata = tempdata & r.Cells(0).Value.ToString & "{" & r.Cells(1).Value.ToString & "}"
+                        Else
+                            'MsgBox("Value is Nothing - frmSecondaryTable.CombineMultipleAction")
+                        End If
+                    Next
+                    newDataRow.Cells(1).Value = tempdata
+
+                Case 0, 1, 4 - 10, 13 - 20, 22 - 26          'Single Values - ChatMessage,
                     newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
                 Case 11, 12, 28     'Double Values - ItemCountLE, ItemCountGE
                     newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
                 Case 13, 14
                     newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)
                 Case Else
-                    newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
+                    'newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
             End Select
 
             'MsgBox("Click OK")
