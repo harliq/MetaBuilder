@@ -923,15 +923,16 @@ Public Class frmMain
                     txtBoxCData.Text = StringSplit(0).ToString
                     txtBoxCData2.Text = StringSplit(1).ToString
                 Case 2 'table value
-                    Dim cData As String = selectedRow.Cells(2).Value ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-                    Dim StringSplit() As String
+                    Dim cData As String = selectedRow.Cells(2).Value.ToString ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
+                    'Dim StringSplit() As String
                     TableAnyAll.Clear()
                     '-------------------Add Regex-------------
+                    Dim myAllNest As New AnyAll(cData, RegXAnyAllNot, False)
 
-                    'Dim myAllNest As New AnyAll(cData, "(Not: ){(.*?})}|(Not: ){(.*?})A|(Any: ){(.*?})}|(Any: ){(.*?})A|(All: ){(.*?})}|(All: ){(.*?})A|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    'Dim myAllNest As New AnyAll(cData, "(Any: ){(.*?}})|(Any){(.*?}})|(Any: ){(.*?})[A-Z]|(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?}})[A-Z]|(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
 
                     '-------
-                    StringSplit = Split(cData, "}")
+                    'StringSplit = Split(cData, "}")
                     'For Each s As String In StringSplit
                     '    Dim tempstring() As String
                     '    tempstring = Split(s, "{")
@@ -942,31 +943,32 @@ Public Class frmMain
                     '    End If
                     'Next
 
-                    For Each s As String In StringSplit
-                        Dim tempstring() As String
-                        tempstring = Split(s, "{")
-                        ' Spliting Mulitples
-                        If tempstring(0) = "Any" Then
-                            's = s.Length - 1
-                            TableAnyAll.Rows.Add("Any", cData.Remove(0, 4))
-                            Exit For
-                        ElseIf tempstring(0) = "All" Then
-                            's = s.Length - 1
-                            TableAnyAll.Rows.Add("All", cData.Remove(0, 4))
-                            Exit For
-                        ElseIf tempstring(0) = "Not" Then
-                            's = s.Length - 1
-                            TableAnyAll.Rows.Add("Not", cData.Remove(0, 4))
-                            Exit For
-                        ElseIf tempstring(0) = "" Then
-                            Exit For
-                        Else
-                            TableAnyAll.Rows.Add(tempstring(0), tempstring(1))
-                        End If
-                    Next
+                    'For Each s As String In StringSplit
+                    '    Dim tempstring() As String
+                    '    tempstring = Split(s, "{")
+                    '    ' Spliting Mulitples
+                    '    If tempstring(0) = "Any" Then
+                    '        's = s.Length - 1
+                    '        TableAnyAll.Rows.Add("Any", cData.Remove(0, 4))
+                    '        Exit For
+                    '    ElseIf tempstring(0) = "All" Then
+                    '        's = s.Length - 1
+                    '        TableAnyAll.Rows.Add("All", cData.Remove(0, 4))
+                    '        Exit For
+                    '    ElseIf tempstring(0) = "Not" Then
+                    '        's = s.Length - 1
+                    '        TableAnyAll.Rows.Add("Not", cData)
+                    '        'TableAnyAll.Rows.Add("Not", cData.Remove(0, 4))
+                    '        Exit For
+                    '    ElseIf tempstring(0) = "" Then
+                    '        Exit For
+                    '    Else
+                    '        TableAnyAll.Rows.Add(tempstring(0), tempstring(1))
+                    '    End If
+                    'Next
 
 
-                    dgvAnyAll.DataSource = TableAnyAll
+                    dgvAnyAll.DataSource = myAllNest.MultiTable
                     dgvAnyAll.Refresh()
                 Case 3
                     Dim cData As String = selectedRow.Cells(2).Value
@@ -997,24 +999,28 @@ Public Class frmMain
                         txtBoxAData3.Text = StringSplit(2).ToString
                     Case 4      'table value
                         Dim Adata As String = selectedRow.Cells(3).Value ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-                        Dim StringSplit() As String
-                        TableATMultiple.Clear()
-                        StringSplit = Split(Adata, "}")
-                        For Each s As String In StringSplit
-                            Dim tempstring() As String
-                            tempstring = Split(s, "{")
-                            ' Spliting Mulitples
-                            If tempstring(0) = "Multiple" Then
-                                's = s.Length - 1
-                                TableATMultiple.Rows.Add("Multiple", Adata.Remove(0, 9))
-                                Exit For
-                            ElseIf tempstring(0) = "" Then
-                                Exit For
-                            Else
-                                TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
-                            End If
-                        Next
-                        dgvATMultiple.DataSource = TableATMultiple
+                        Dim myMultipleNest As New AnyAll(Adata, RegXMultiple, False)
+
+                        'Dim myMultipleNest As New AnyAll(Adata, RegXMultiple, False)
+
+                        'Dim StringSplit() As String
+                        'TableATMultiple.Clear()
+                        'StringSplit = Split(Adata, "}")
+                        'For Each s As String In StringSplit
+                        '    Dim tempstring() As String
+                        '    tempstring = Split(s, "{")
+                        '    ' Spliting Mulitples
+                        '    If tempstring(0) = "Multiple" Then
+                        '        's = s.Length - 1
+                        '        TableATMultiple.Rows.Add("Multiple", Adata.Remove(0, 9))
+                        '        Exit For
+                        '    ElseIf tempstring(0) = "" Then
+                        '        Exit For
+                        '    Else
+                        '        TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
+                        '    End If
+                        'Next
+                        dgvATMultiple.DataSource = myMultipleNest.MultiTable
                         dgvATMultiple.Refresh()
 
                     Case 5
@@ -1157,7 +1163,7 @@ Public Class frmMain
                 Case "All", "Any", "Not" ' For nested tables
 
 
-                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|(Not: ){(.*?}})|(Not: ){(.*?}})[A-Z]|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), RegXAnyAllNot, False)
                     SecondTableDialog.tableMultiple = myNest.MultiTable
                     SecondTableDialog.EditTable = True
 
@@ -1591,8 +1597,10 @@ Public Class frmMain
 
 
 
-                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
-                    SecondTableDialog.tableMultiple = myNest.MultiTable
+                    Dim myNestMultiple As New AnyAll(selectedRow.Cells(1).Value.ToString(), RegXNestedMultiple, False)
+                    'Dim myNestMultiple As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+
+                    SecondTableDialog.tableMultiple = myNestMultiple.MultiTable
                     SecondTableDialog.EditTable = True
                 Case Else
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString

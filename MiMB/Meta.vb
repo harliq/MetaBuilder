@@ -728,15 +728,40 @@
             If tempstring(0) = "" Then
                 Exit For
             Else
-                tString1 = tempstring(0)
-                tString2 = tempstring(1)
-                If c = 0 Then
-                    TempCData = TempCData & vbCrLf & ActionTypeEncode(tString1, tString2)
-                Else
-                    TempCData = TempCData & ActionTypeEncode(tString1, tString2)
-                End If
-                'TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
+                '----------------Nested Tables here ------------
+                If tempstring(0).ToString.Contains("Multiple") Then
 
+                    TempCData = TempCData & vbCrLf & "i" & vbCrLf & "3" & vbCrLf & Header & vbCrLf
+
+                    Dim myExportNest As New AnyAll(aData, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+                    Dim mytable As New DataTable
+                    mytable = myExportNest.MultiTable
+                    Dim rc As Integer = 1 'for record counts
+                    For Each row As DataRow In mytable.Rows
+                        tString1 = row.Item(0).ToString.Replace(": ", "")
+                        tString2 = row.Item(1).ToString
+
+                        If c = 0 Then
+                            'TempCData = TempCData & vbCrLf & ActionTypeEncode(tString1, tString2)
+                            TempCData = TempCData & rc & vbCrLf & ActionTypeEncode(tString1, tString2)
+                        Else
+                            'TempCData = TempCData & ActionTypeEncode(tString1, tString2)
+                            TempCData = TempCData & rc & vbCrLf & ActionTypeEncode(tString1, tString2)
+                        End If
+                        rc += 1
+
+                    Next
+
+                Else
+                    tString1 = tempstring(0)
+                    tString2 = tempstring(1)
+                    If c = 0 Then
+                        TempCData = TempCData & vbCrLf & ActionTypeEncode(tString1, tString2)
+                    Else
+                        TempCData = TempCData & ActionTypeEncode(tString1, tString2)
+                    End If
+                    'TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
+                End If
             End If
             c = c + 1
         Next
@@ -764,6 +789,7 @@
         Dim tempmeta As String = ""
         Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
         Dim sADataVaribleType As String = ""
+        Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
 
         Select Case (ATypeString)  ' Action Types
             Case "None"
@@ -775,6 +801,7 @@
                 tempmeta = tempmeta + i + "2" + vbCrLf
                 tAD = "s"
             Case "Multiple"
+                ATypeTable = 5
                 tempmeta = tempmeta + i + "3" + vbCrLf
             Case "EmbeddedNavRoute"
                 ATypeTable = 4
@@ -845,6 +872,7 @@
             Case 4  'Nav Routes
                 tempmeta = tempmeta & NavRoute(ATypeData, "a")
             Case 5 'Multiple
+                tempmeta = tempmeta & vbCrLf & Header
 
             Case 6 'Normal Stuff
                 tempmeta = tempmeta & tAD & vbCrLf & ATypeData & vbCrLf

@@ -8,6 +8,17 @@
     Public XMLFileNameLoad As String = "" 'For CommandLine Arugments
     Public MetaFileNameExport As String = "" 'For CommandLine Arugments
     Public CommandArgument As Boolean = False 'Default is False - For a check when doing XML -> Meta conversions via Command Line
+    Public ReadOnly RegXAnyAllNot As String = "(Any){(.*?}})|(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|" &
+                                              "(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|" &
+                                              "(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?})[A-Z]|" &
+                                              "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
+
+    Public ReadOnly RegXMultiple As String = "(Multiple: ){(.*?})[A-Z]|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
+                                             "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
+    Public ReadOnly RegXNestedMultiple As String = "(Multiple: ){(.*?}})|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
+
+    'Public ReadOnly RegXMultiple As String = "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
+
     'Public NestedTableForm As Boolean = False
 
 

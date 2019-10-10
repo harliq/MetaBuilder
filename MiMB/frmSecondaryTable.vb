@@ -653,7 +653,7 @@
                     Case "All: ", "Any: ", "Not: " ' For nested tables
 
 
-                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|(Not: ){(.*?}})|(Not: ){(.*?}})[A-Z]|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), RegXAnyAllNot, False)
                         SecondTableDialog.tableMultiple = myNest.MultiTable
                         SecondTableDialog.EditTable = True
 
@@ -724,8 +724,8 @@
 
                         'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
                         Dim tempDataString As String = selectedRow.Cells(1).Value.ToString() ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-                        MsgBox("Row String for Regex = " & selectedRow.Cells(1).Value.ToString())
-                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+                        'MsgBox("Row String for Regex = " & selectedRow.Cells(1).Value.ToString())
+                        Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), RegXMultiple, False)
                         SecondTableDialog.tableMultiple = myNest.MultiTable
                         SecondTableDialog.EditTable = True
 
