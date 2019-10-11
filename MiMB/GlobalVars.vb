@@ -20,6 +20,8 @@
                                              "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
                                              "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
                                              "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
+                                             "(ChatCommand){(.*?)}|(ChatCommand: ){(.*?)}|" &
+                                             "(EmbeddedNavRoute){([^}]*)}|(EmbeddedNavRoute: ){([^}]*)}|" &
                                              "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
 
 
