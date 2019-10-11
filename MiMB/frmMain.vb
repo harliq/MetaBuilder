@@ -1215,7 +1215,7 @@ Public Class frmMain
                     Next
                     newDataRow.Cells(1).Value = tempdata
 
-                Case 0, 1, 4 - 10, 13 - 20, 22 - 26          'Single Values - ChatMessage,
+                Case 0, 1, 4 To 10, 15 To 20, 22 To 26          'Single Values - ChatMessage,
                     newDataRow.Cells(1).Value = SecondTableDialog.TextBox1.Text
                 Case 11, 12, 28     'Double Values - ItemCountLE, ItemCountGE
                     newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
