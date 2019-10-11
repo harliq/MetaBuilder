@@ -119,6 +119,7 @@ Public Class frmMain
 
     Private Sub cBoxCType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxCType.SelectedIndexChanged
         TableAnyAll.Clear()
+        dgvAnyAll.DataSource = TableAnyAll
         SetForm.ResetCondition()
         SetForm.CTSet(cBoxCType.SelectedIndex.ToString)
         'RuleChange = True
@@ -927,6 +928,7 @@ Public Class frmMain
                     Dim cData As String = selectedRow.Cells(2).Value.ToString ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
                     'Dim StringSplit() As String
                     TableAnyAll.Clear()
+
                     '-------------------Add Regex-------------
                     Dim myAllNest As New RegX(cData, RegXAnyAllNot, False)
 

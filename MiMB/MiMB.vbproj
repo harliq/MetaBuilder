@@ -125,7 +125,8 @@
     <Compile Include="About.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MetaNest.vb" />
+    <Compile Include="NestedActionMetaExport.vb" />
+    <Compile Include="NestedConditionMetaExport.vb" />
     <Compile Include="RegX.vb" />
     <Compile Include="ApplicationEvents.vb" />
     <Compile Include="frmMain.Designer.vb">

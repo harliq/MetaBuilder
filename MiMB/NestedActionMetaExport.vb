@@ -1,4 +1,4 @@
-﻿Public Class MetaNest
+﻿Public Class NestedActionMetaExport
 
     Public Property InputString As String
     Public Property RegxMatch As String
@@ -38,7 +38,7 @@
             tString2 = row.Item(1).ToString
 
             If tString1.ToString.Contains("Multiple") Then
-                Dim myMetaNest As New MetaNest(tString2, regx)
+                Dim myMetaNest As New NestedActionMetaExport(tString2, regx)
                 tData = tData & myMetaNest.OutString
             Else
                 If c = 0 Then

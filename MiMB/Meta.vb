@@ -12,7 +12,6 @@
 
         TestingStuff.TextBoxTest.Text = Nothing
         'Meta File Header
-        'TestingStuff.TextBoxTest.Text = "1" & vbNewLine & "CondAct" & vbNewLine & "5" & vbNewLine & "CType" & vbNewLine & "AType" & vbNewLine & "CData" & vbNewLine & "AData" & vbNewLine & "State" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & rowcount & vbNewLine
         tempmeta = "1" & vbNewLine & "CondAct" & vbNewLine & "5" & vbNewLine & "CType" & vbNewLine & "AType" & vbNewLine & "CData" & vbNewLine & "AData" & vbNewLine & "State" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & RecordCount & vbNewLine
 
 
@@ -539,49 +538,101 @@
 
     Function CTAnyAllNot(ByVal ConditionData As String, ConditionType As String) As String
 
+        'Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
+        'Dim StringSplit() As String
+        'Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
+        'Dim tempstring() As String ' String to pass on to create records
+        ''Header
+        'Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
+        'Dim TempCData As String = ""
+        'Dim tString1 As String = ""
+        'Dim tString2 As String = ""
+
+        ''need a count of "{" to figure out number of records
+
+        'StringSplit = Split(cData, "}")
+        'For Each s As String In StringSplit
+
+        '    tempstring = Split(s, "{")
+        '    If tempstring(0) = "" Then
+        '        Exit For
+        '    Else
+        '        tString1 = tempstring(0)
+        '        tString2 = tempstring(1)
+        '        If c = 0 Then
+        '            TempCData = TempCData & vbCrLf & ConditionTypeEncode(tString1, tString2)
+        '        Else
+        '            TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
+        '        End If
+        '        'TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
+
+        '    End If
+        '    c = c + 1
+        'Next
+
+
+
+        'ConditionData = Header & vbCrLf & c & TempCData
+
+        'Return (ConditionData)
+
+
+
+        Dim tdata = ""
         Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-        Dim StringSplit() As String
         Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
-        Dim tempstring() As String ' String to pass on to create records
+
         'Header
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
-        Dim TempCData As String = ""
+        Dim tempData As String = ""
         Dim tString1 As String = ""
         Dim tString2 As String = ""
+        Dim regX As String = RegXAnyAllNot
+        'Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
+        Dim myExportConditionNest As New RegX(cData, RegXAnyAllNot, False)
 
-        'need a count of "{" to figure out number of records
+        Dim mytable As New DataTable
+        mytable = myExportConditionNest.MultiTable
+        Dim rc As Integer = 1 'for record counts
 
-        StringSplit = Split(cData, "}")
-        For Each s As String In StringSplit
 
-            tempstring = Split(s, "{")
-            If tempstring(0) = "" Then
-                Exit For
+        For Each row As DataRow In mytable.Rows
+            tString1 = row.Item(0).ToString.Replace(": ", "")
+            tString2 = row.Item(1).ToString
+
+
+            If tString2.ToString.Contains("Any") Or tString2.ToString.Contains("All") Or tString2.ToString.Contains("Not") Then
+
+                'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+                Dim myMetaNest As New NestedConditionMetaExport(tString2, regX)
+
+                'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
+                tdata = tdata & "i" & vbCrLf & "3" & vbCrLf & Header & vbCrLf & myMetaNest.OutString
+                Dim x As Integer = 4
+
             Else
-                tString1 = tempstring(0)
-                tString2 = tempstring(1)
-                If c = 0 Then
-                    TempCData = TempCData & vbCrLf & ConditionTypeEncode(tString1, tString2)
-                Else
-                    TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
-                End If
-                'TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
+                'make table
+
+                Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                Dim myNestedTable = myTempTable.MultiTable
+                For Each r As DataRow In myNestedTable.Rows
+
+                    If c = 0 Then
+                        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
+                    Else
+                        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
+                    End If
+
+                Next
 
             End If
             c = c + 1
         Next
 
-        ' for Double Values
+        tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata
 
-        'tString1 = tempstring(0)
-        'tString2 = tempstring(1)
-        'ConditionTypeEncode(tString1, tString2)
-        'Header = Header & vbCrLf & c & vbCrLf & tString1
+        Return tempData
 
-
-        ConditionData = Header & vbCrLf & c & TempCData
-
-        Return (ConditionData)
 
     End Function
     Function ConditionTypeEncode(ByVal CTypeString As String, ByVal CTypeData As String) As String
@@ -709,20 +760,22 @@
 
     Function ATMultiple(ByVal ActionData As String, ActionType As String) As String
 
+        'Dim tempstring() As String ' String to pass on to create records
+        'Dim StringSplit() As String
+        'Dim myExportActionNest As New RegX(aData, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+        'Dim myMetaNest As New MetaNest(tString1, RegX)
+
         Dim tdata = ""
         Dim aData As String = ActionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-        'Dim StringSplit() As String
         Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
-        Dim tempstring() As String ' String to pass on to create records
+
         'Header
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
         Dim tempData As String = ""
         Dim tString1 As String = ""
         Dim tString2 As String = ""
         Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
-        'Dim myExportActionNest As New RegX(aData, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
         Dim myExportActionNest As New RegX(aData, RegXMultiple, False)
-        'Dim myMetaNest As New MetaNest(tString1, RegX)
 
         Dim mytable As New DataTable
         mytable = myExportActionNest.MultiTable
@@ -733,11 +786,10 @@
             tString1 = row.Item(0).ToString.Replace(": ", "")
             tString2 = row.Item(1).ToString
 
-
             If tString2.ToString.Contains("Multiple") Then
 
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
-                Dim myMetaNest As New MetaNest(tString2, regX)
+                Dim myMetaNest As New NestedActionMetaExport(tString2, regX)
 
                 'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
                 tdata = tdata & "i" & vbCrLf & "3" & vbCrLf & Header & vbCrLf & myMetaNest.OutString
@@ -750,22 +802,16 @@
                 Dim myNestedTable = myTempTable.MultiTable
                 For Each r As DataRow In myNestedTable.Rows
 
-
                     If c = 0 Then
                         tempData = tempData & ActionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
-
                     Else
                         tempData = tempData & ActionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
-
                     End If
 
                 Next
 
-
             End If
             c = c + 1
-
-
         Next
 
         tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata

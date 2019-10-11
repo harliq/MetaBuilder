@@ -11,11 +11,23 @@
     Public ReadOnly RegXAnyAllNot As String = "(Any){(.*?}})|(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|" &
                                               "(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|" &
                                               "(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?})[A-Z]|" &
+                                              "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
+                                              "(ChatMessageCapture){(.*?)}|(ChatMessageCapture: ){(.*?)}|" &
                                               "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
 
+
     Public ReadOnly RegXMultiple As String = "(Multiple: ){(.*?})[A-Z]|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
+                                             "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
+                                             "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
+                                             "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
                                              "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
-    Public ReadOnly RegXNestedMultiple As String = "(Multiple: ){(.*?}})|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
+
+
+    Public ReadOnly RegXNestedMultiple As String = "(Multiple: ){(.*?}})|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
+                                                   "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
+                                                   "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
+                                                   "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
+                                                   "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
 
     'Public ReadOnly RegXMultiple As String = "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
 
