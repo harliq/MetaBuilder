@@ -93,6 +93,7 @@
                 Case "SecondsInStatePersistGE"
                     tempmeta = tempmeta + i + "22" + vbCrLf
                 Case "TimeLeftOnSpellGE"
+                    CTypeTable = 2
                     tempmeta = tempmeta + i + "23" + vbCrLf
                 Case "BurdenPercentGE"
                     tempmeta = tempmeta + i + "24" + vbCrLf
@@ -198,7 +199,8 @@
                     tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
                 Case 3 'Any/All/Not Sub Table
                     If r.Cells(2).Value = "" Then ' Find out if Any/All/Not Table is blank/zero records
-                        tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & "0" & vbCrLf
+                        tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf
+                        'tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & "0" & vbCrLf
                     Else
                         tempmeta = tempmeta & CTAnyAllNot(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString)
                     End If
@@ -300,6 +302,9 @@
         Select Case CTypeVar
             Case "ItemCountLE", "ItemCountGE"
                 ExportData = ExportData & vbCrLf & "n" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "c" & vbCrLf & "i" & vbCrLf & StringSplit(1).ToString ' next part, n = name for of Item to count, and s = var type of name (string)
+
+            Case "TimeLeftOnSpellGE"
+                ExportData = ExportData & vbCrLf & "sid" & vbCrLf & "i" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "sec" & vbCrLf & "i" & vbCrLf & StringSplit(1).ToString
 
             Case "ChatMessageCapture"
                 ExportData = ExportData & vbCrLf & "p" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "c" & vbCrLf & "s" & vbCrLf & StringSplit(1).ToString ' next part, p = pattern of text of chat capture, and s = var type of name (string)
@@ -603,27 +608,42 @@
 
             If tString2.ToString.Contains("Any") Or tString2.ToString.Contains("All") Or tString2.ToString.Contains("Not") Then
 
+                Dim varType As String
+                If tString2.ToString.Contains("All") Then
+                    varType = "2"
+                ElseIf tString2.ToString.Contains("Any") Then
+                    varType = "3"
+                ElseIf tString2.ToString.Contains("Not") Then
+                    varType = "21"
+                End If
+
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, regX)
 
                 'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
-                tdata = tdata & "i" & vbCrLf & "3" & vbCrLf & Header & vbCrLf & myMetaNest.OutString
+                tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & myMetaNest.OutString
                 Dim x As Integer = 4
 
             Else
                 'make table
 
-                Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                Dim myNestedTable = myTempTable.MultiTable
-                For Each r As DataRow In myNestedTable.Rows
+                'Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                'Dim myNestedTable = myTempTable.MultiTable
+                'For Each r As DataRow In myNestedTable.Rows
 
-                    If c = 0 Then
-                        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
-                    Else
-                        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
-                    End If
+                'If c = 0 Then
+                '        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
+                '    Else
+                '        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
+                '    End If
 
-                Next
+                'Next
+                If c = 0 Then
+                    tempData = tempData & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
+                Else
+                    tempData = tempData & ConditionTypeEncode(tString1.ToString, tString2.ToString)
+                End If
+
 
             End If
             c = c + 1
@@ -706,6 +726,7 @@
             Case "SecondsInStatePersistGE"
                 tempmeta = tempmeta + i + "22" + vbCrLf
             Case "TimeLeftOnSpellGE"
+                CTypeTable = 2 'Table records = 2
                 tempmeta = tempmeta + i + "23" + vbCrLf
             Case "BurdenPercentGE"
                 tempmeta = tempmeta + i + "24" + vbCrLf
@@ -746,7 +767,7 @@
             Case 2 ' Double Record Table
                 tempmeta = tempmeta & CTypeDoubleExport(CTypeData, CTypeString) & vbCrLf
             Case 3 'Any/All/Not Sub Table
-
+               ' tempmeta = tempmeta & vbCrLf & Header
             Case 4 'Triple Record
                 tempmeta = tempmeta & CTypeTripleExport(CTypeData, CTypeString) & vbCrLf
             Case Else
@@ -774,7 +795,8 @@
         Dim tempData As String = ""
         Dim tString1 As String = ""
         Dim tString2 As String = ""
-        Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
+        'Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
+        Dim regX As String = RegXNestedMultiple
         Dim myExportActionNest As New RegX(aData, RegXMultiple, False)
 
         Dim mytable As New DataTable
@@ -797,18 +819,25 @@
 
             Else
                 'make table
+                '------- Not sure if this needs to stay commented out
+                'Dim myTempTable As New RegX(tString2.ToString, regX, False)
+                'Dim myNestedTable = myTempTable.MultiTable
+                'For Each r As DataRow In myNestedTable.Rows
 
-                Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                Dim myNestedTable = myTempTable.MultiTable
-                For Each r As DataRow In myNestedTable.Rows
+                'If c = 0 Then
+                '        tempData = tempData & ActionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
+                '    Else
+                '        tempData = tempData & ActionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
+                '    End If
 
-                    If c = 0 Then
-                        tempData = tempData & ActionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
-                    Else
-                        tempData = tempData & ActionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
-                    End If
+                ' Next
 
-                Next
+                '----- Fix single Multiple ??? 1 nest deep
+                If c = 0 Then
+                    tempData = tempData & ActionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
+                Else
+                    tempData = tempData & ActionTypeEncode(tString1.ToString, tString2.ToString)
+                End If
 
             End If
             c = c + 1

@@ -85,7 +85,7 @@ Public Class frmMain
             Case 2, 3, 21
                 Parse.CombineAnyAll()
                 CData = AnyAllString
-            Case 11, 12, 28
+            Case 11, 12, 23, 28
                 CData = Parse.CombineTwoVal(txtBoxCData.Text, txtBoxCData2.Text, "a")
             Case 13, 14
                 CData = Parse.CombineThreeVal(txtBoxCData.Text, txtBoxCData2.Text, txtBoxCData3.Text)
@@ -351,7 +351,7 @@ Public Class frmMain
             Case 2, 3, 21
                 Parse.CombineAnyAll()
                 CData = AnyAllString
-            Case 11, 12, 28
+            Case 11, 12, 23, 28
                 CData = Parse.CombineTwoVal(txtBoxCData.Text, txtBoxCData2.Text, "a")
             Case 13, 14
                 CData = Parse.CombineThreeVal(txtBoxCData.Text, txtBoxCData2.Text, txtBoxCData3.Text)

@@ -498,8 +498,10 @@
                 SetForm.CTSingle()
                 frmMain.lblCData.Text = "Seconds in State Persist:"
             Case "23", "TimeLeftOnSpellGE"
-                SetForm.CTSingle()
-                frmMain.lblCData.Text = "Time Left on Spell Greater than or Equal To:"
+                SetForm.CTDouble()
+                frmMain.lblCData.Text = "SpellID"
+                frmMain.lblCData2.Text = "Number of Seconds left on spell >="
+
             Case "24", "BurdenPercentGE"
                 SetForm.CTSingle()
                 frmMain.lblCData.Text = "Burden Percentage Greater than or Equal To:"

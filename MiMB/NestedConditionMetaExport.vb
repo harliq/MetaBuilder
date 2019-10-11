@@ -21,7 +21,7 @@
         Dim tString1 As String
         Dim tString2 As String
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
-        Dim varType As String = "3" ' 3 = Multiple (this will need to be changed
+        Dim varType As String = "" ' 2 = all, 3 = any, 21 = not
 
 
         'Dim myExportActionNest As New RegX(input, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
@@ -38,7 +38,17 @@
             tString1 = row.Item(0).ToString.Replace(": ", "")
             tString2 = row.Item(1).ToString
 
-            If tString1.ToString.Contains("Multiple") Then
+            If tString1.ToString.Contains("All") Then
+                varType = "2"
+            ElseIf tString1.ToString.Contains("Any") Then
+                varType = "3"
+            ElseIf tString1.ToString.Contains("Not") Then
+                varType = "21"
+            End If
+
+
+
+            If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, regx)
                 tData = tData & myMetaNest.OutString
             Else

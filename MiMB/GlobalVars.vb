@@ -22,14 +22,17 @@
                                              "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
                                              "(ChatCommand){(.*?)}|(ChatCommand: ){(.*?)}|" &
                                              "(EmbeddedNavRoute){([^}]*)}|(EmbeddedNavRoute: ){([^}]*)}|" &
-                                             "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
+                                             "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|" &
+                                             "(\w+){(.*?;.*?)}|(\w+){(\w+;.*?;.*?)}"
 
 
     Public ReadOnly RegXNestedMultiple As String = "(Multiple: ){(.*?}})|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
                                                    "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
                                                    "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
                                                    "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
-                                                   "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
+                                                   "(ChatCommand){(.*?)}|(ChatCommand: ){(.*?)}|" &
+                                                   "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(\w+){(\w+;\w+)}|(\w+){(\w+;\w+;\w+)}|" &
+                                                   "(\w+){(.*?;.*?)}|(\w+){(\w+;.*?;.*?)}"
 
     'Public ReadOnly RegXMultiple As String = "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
 
