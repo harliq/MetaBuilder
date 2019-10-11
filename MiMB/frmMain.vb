@@ -455,6 +455,7 @@ Public Class frmMain
 
     Private Sub cBoxAType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxAType.SelectedIndexChanged
         TableATMultiple.Clear()
+        dgvATMultiple.DataSource = TableATMultiple
         SetForm.ResetAction()
         SetForm.ATSet(cBoxAType.SelectedIndex.ToString)
         'Select Case cBoxAType.SelectedIndex
@@ -927,7 +928,7 @@ Public Class frmMain
                     'Dim StringSplit() As String
                     TableAnyAll.Clear()
                     '-------------------Add Regex-------------
-                    Dim myAllNest As New AnyAll(cData, RegXAnyAllNot, False)
+                    Dim myAllNest As New RegX(cData, RegXAnyAllNot, False)
 
                     'Dim myAllNest As New AnyAll(cData, "(Any: ){(.*?}})|(Any){(.*?}})|(Any: ){(.*?})[A-Z]|(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?}})[A-Z]|(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
 
@@ -999,7 +1000,7 @@ Public Class frmMain
                         txtBoxAData3.Text = StringSplit(2).ToString
                     Case 4      'table value
                         Dim Adata As String = selectedRow.Cells(3).Value ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-                        Dim myMultipleNest As New AnyAll(Adata, RegXMultiple, False)
+                        Dim myMultipleNest As New RegX(Adata, RegXMultiple, False)
 
                         'Dim myMultipleNest As New AnyAll(Adata, RegXMultiple, False)
 
@@ -1163,7 +1164,7 @@ Public Class frmMain
                 Case "All", "Any", "Not" ' For nested tables
 
 
-                    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), RegXAnyAllNot, False)
+                    Dim myNest As New RegX(selectedRow.Cells(1).Value.ToString(), RegXAnyAllNot, False)
                     SecondTableDialog.tableMultiple = myNest.MultiTable
                     SecondTableDialog.EditTable = True
 
@@ -1597,7 +1598,7 @@ Public Class frmMain
 
 
 
-                    Dim myNestMultiple As New AnyAll(selectedRow.Cells(1).Value.ToString(), RegXNestedMultiple, False)
+                    Dim myNestMultiple As New RegX(selectedRow.Cells(1).Value.ToString(), RegXNestedMultiple, False)
                     'Dim myNestMultiple As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
 
                     SecondTableDialog.tableMultiple = myNestMultiple.MultiTable

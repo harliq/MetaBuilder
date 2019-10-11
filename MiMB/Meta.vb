@@ -231,6 +231,7 @@
                     tempmeta = tempmeta & NavRoute(r.Cells(3).Value, "a")
                 Case 5 'Multiple
                     tempmeta = tempmeta & ATMultiple(r.Cells(3).Value.ToString, r.Cells(1).Value.ToString) '& vbCrLf
+                    'tempmeta = tempmeta & ATMultiple(r.Cells(3).Value.ToString, r.Cells(1).Value.ToString) '& vbCrLf
                 Case 6 'Normal Stuff
                     tempmeta = tempmeta & tAD & vbCrLf & r.Cells(3).Value & vbCrLf
                 Case 7
@@ -708,76 +709,68 @@
 
     Function ATMultiple(ByVal ActionData As String, ActionType As String) As String
 
-
+        Dim tdata = ""
         Dim aData As String = ActionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-        Dim StringSplit() As String
+        'Dim StringSplit() As String
         Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
         Dim tempstring() As String ' String to pass on to create records
         'Header
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
-        Dim TempCData As String = ""
+        Dim tempData As String = ""
         Dim tString1 As String = ""
         Dim tString2 As String = ""
+        Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
+        'Dim myExportActionNest As New RegX(aData, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+        Dim myExportActionNest As New RegX(aData, RegXMultiple, False)
+        'Dim myMetaNest As New MetaNest(tString1, RegX)
 
-        'need a count of "{" to figure out number of records
+        Dim mytable As New DataTable
+        mytable = myExportActionNest.MultiTable
+        Dim rc As Integer = 1 'for record counts
 
-        StringSplit = Split(aData, "}")
-        For Each s As String In StringSplit
 
-            tempstring = Split(s, "{")
-            If tempstring(0) = "" Then
-                Exit For
+        For Each row As DataRow In mytable.Rows
+            tString1 = row.Item(0).ToString.Replace(": ", "")
+            tString2 = row.Item(1).ToString
+
+
+            If tString2.ToString.Contains("Multiple") Then
+
+                'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+                Dim myMetaNest As New MetaNest(tString2, regX)
+
+                'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
+                tdata = tdata & "i" & vbCrLf & "3" & vbCrLf & Header & vbCrLf & myMetaNest.OutString
+                Dim x As Integer = 4
+
             Else
-                '----------------Nested Tables here ------------
-                If tempstring(0).ToString.Contains("Multiple") Then
+                'make table
 
-                    TempCData = TempCData & vbCrLf & "i" & vbCrLf & "3" & vbCrLf & Header & vbCrLf
+                Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
+                Dim myNestedTable = myTempTable.MultiTable
+                For Each r As DataRow In myNestedTable.Rows
 
-                    Dim myExportNest As New AnyAll(aData, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
-                    Dim mytable As New DataTable
-                    mytable = myExportNest.MultiTable
-                    Dim rc As Integer = 1 'for record counts
-                    For Each row As DataRow In mytable.Rows
-                        tString1 = row.Item(0).ToString.Replace(": ", "")
-                        tString2 = row.Item(1).ToString
 
-                        If c = 0 Then
-                            'TempCData = TempCData & vbCrLf & ActionTypeEncode(tString1, tString2)
-                            TempCData = TempCData & rc & vbCrLf & ActionTypeEncode(tString1, tString2)
-                        Else
-                            'TempCData = TempCData & ActionTypeEncode(tString1, tString2)
-                            TempCData = TempCData & rc & vbCrLf & ActionTypeEncode(tString1, tString2)
-                        End If
-                        rc += 1
-
-                    Next
-
-                Else
-                    tString1 = tempstring(0)
-                    tString2 = tempstring(1)
                     If c = 0 Then
-                        TempCData = TempCData & vbCrLf & ActionTypeEncode(tString1, tString2)
+                        tempData = tempData & ActionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
+
                     Else
-                        TempCData = TempCData & ActionTypeEncode(tString1, tString2)
+                        tempData = tempData & ActionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
+
                     End If
-                    'TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
-                End If
+
+                Next
+
+
             End If
             c = c + 1
+
+
         Next
 
-        ' for Double Values
+        tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata
 
-        'tString1 = tempstring(0)
-        'tString2 = tempstring(1)
-        'ConditionTypeEncode(tString1, tString2)
-        'Header = Header & vbCrLf & c & vbCrLf & tString1
-
-
-        ActionData = Header & vbCrLf & c & TempCData
-
-
-        Return (ActionData)
+        Return tempData
 
     End Function
 
@@ -802,7 +795,7 @@
                 tAD = "s"
             Case "Multiple"
                 ATypeTable = 5
-                tempmeta = tempmeta + i + "3" + vbCrLf
+                tempmeta = tempmeta + i + "3" '+ vbCrLf
             Case "EmbeddedNavRoute"
                 ATypeTable = 4
                 tempmeta = tempmeta + i + "4" + vbCrLf
@@ -884,7 +877,7 @@
 
         ATypeString = tempmeta
         ActionDataType = ""
-        Return ATypeString
+        Return tempmeta
 
     End Function
 End Module

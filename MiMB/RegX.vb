@@ -1,6 +1,6 @@
 ﻿Imports System.Text.RegularExpressions
 
-Public Class AnyAll
+Public Class RegX
 
     Public InputString As String
     Public RegexPattern As String

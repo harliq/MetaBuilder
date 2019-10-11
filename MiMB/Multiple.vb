@@ -1,4 +1,4 @@
-﻿Public Class Multiple
+﻿Public Class aMultiple
     Private _myString As String
 
 
