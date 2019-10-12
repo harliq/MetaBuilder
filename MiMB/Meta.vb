@@ -8,7 +8,7 @@
         Dim RecordCount As Integer = frmMain.dgvMetaRules.Rows.Count - 1 ' Record Count I think.  May need to add -1 for it to match 
         'rowcount = frmMain.dgvMetaRules.DisplayedRowCount(False)
         Dim tempmeta As String
-
+        Dim cVarType As String = ""
 
         TestingStuff.TextBoxTest.Text = Nothing
         'Meta File Header
@@ -40,9 +40,11 @@
                     tempmeta = tempmeta + i + "1" + vbCrLf ' Always = 1
                 Case "All"
                     CTypeTable = 3
+                    cVarType = "2"
                     tempmeta = tempmeta + i + "2" + vbCrLf
                 Case "Any"
                     CTypeTable = 3
+                    cVarType = "3"
                     tempmeta = tempmeta + i + "3" + vbCrLf
                 Case "ChatMessage"
                     tempmeta = tempmeta + i + "4" + vbCrLf
@@ -89,6 +91,7 @@
                     tempmeta = tempmeta + i + "20" + vbCrLf
                 Case "Not"
                     CTypeTable = 3
+                    cVarType = "21"
                     tempmeta = tempmeta + i + "21" + vbCrLf
                 Case "SecondsInStatePersistGE"
                     tempmeta = tempmeta + i + "22" + vbCrLf
@@ -202,7 +205,7 @@
                         tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf
                         'tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & "0" & vbCrLf
                     Else
-                        tempmeta = tempmeta & CTAnyAllNot(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString)
+                        tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & cVarType & vbCrLf & CTAnyAllNot(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString)
                     End If
 
                 Case 4 'Triple Record Table
@@ -583,18 +586,18 @@
 
 
 
-        Dim tdata = ""
-        Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
+        Dim AnyAllNotEncode As String = ""
+        ' Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
         Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
 
         'Header
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
-        Dim tempData As String = ""
+        Dim ConditionEncode As String = ""
         Dim tString1 As String = ""
         Dim tString2 As String = ""
-        Dim regX As String = RegXAnyAllNot
+        'Dim regX As String = RegXAnyAllNot
         'Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
-        Dim myExportConditionNest As New RegX(cData, RegXAnyAllNot, False)
+        Dim myExportConditionNest As New RegX(ConditionData, RegXAnyAllNot, False)
 
         Dim mytable As New DataTable
         mytable = myExportConditionNest.MultiTable
@@ -616,13 +619,14 @@
                 ElseIf tString1.ToString.Contains("Not") Then
                     varType = "21"
                 End If
-
+                rc = rc + 1
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
-                Dim myMetaNest As New NestedConditionMetaExport(tString2, regX)
+                Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
 
                 'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
-                tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & myMetaNest.OutString
-                Dim x As Integer = 4
+                Dim x As Integer = c + 1
+                'tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & x & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
+                AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & rc & vbCrLf & myMetaNest.OutString
 
             Else
                 'make table
@@ -639,9 +643,9 @@
 
                 'Next
                 If c = 0 Then
-                    tempData = tempData & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
+                    ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
                 Else
-                    tempData = tempData & ConditionTypeEncode(tString1.ToString, tString2.ToString)
+                    ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString)
                 End If
 
 
@@ -649,9 +653,9 @@
             c = c + 1
         Next
 
-        tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata
+        ConditionEncode = Header & vbCrLf & c & vbCrLf & AnyAllNotEncode & tdata
 
-        Return tempData
+        Return ConditionEncode
 
 
     End Function
@@ -843,7 +847,14 @@
             c = c + 1
         Next
 
+        ''-------- Fix for random 2 in exports??
+        'If c > 1 Then
+        '    tempData = Header & vbCrLf & tempData & tdata
+        'Else
         tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata
+        'End If
+
+
 
         Return tempData
 
