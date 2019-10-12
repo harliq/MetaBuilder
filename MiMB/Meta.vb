@@ -606,14 +606,14 @@
             tString2 = row.Item(1).ToString
 
 
-            If tString2.ToString.Contains("Any") Or tString2.ToString.Contains("All") Or tString2.ToString.Contains("Not") Then
+            If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
 
                 Dim varType As String
-                If tString2.ToString.Contains("All") Then
+                If tString1.ToString.Contains("All") Then
                     varType = "2"
-                ElseIf tString2.ToString.Contains("Any") Then
+                ElseIf tString1.ToString.Contains("Any") Then
                     varType = "3"
-                ElseIf tString2.ToString.Contains("Not") Then
+                ElseIf tString1.ToString.Contains("Not") Then
                     varType = "21"
                 End If
 
@@ -796,7 +796,7 @@
         Dim tString1 As String = ""
         Dim tString2 As String = ""
         'Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
-        Dim regX As String = RegXNestedMultiple
+        Dim regX As String = RegXMultiple 'RegXNestedMultiple
         Dim myExportActionNest As New RegX(aData, RegXMultiple, False)
 
         Dim mytable As New DataTable
@@ -808,7 +808,7 @@
             tString1 = row.Item(0).ToString.Replace(": ", "")
             tString2 = row.Item(1).ToString
 
-            If tString2.ToString.Contains("Multiple") Then
+            If tString1.ToString.Contains("Multiple") Then
 
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                 Dim myMetaNest As New NestedActionMetaExport(tString2, regX)
