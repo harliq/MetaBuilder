@@ -562,7 +562,7 @@
 
         Dim mytable As New DataTable
         mytable = myExportConditionNest.MultiTable
-        Dim rc As Integer = 1 'for record counts
+        Dim rc As Integer = 0 'for record counts
 
         Dim conditionNestVarType As String
 
@@ -582,6 +582,7 @@
         For Each row As DataRow In mytable.Rows
             tString1 = row.Item(0).ToString.Replace(": ", "")
             tString2 = row.Item(1).ToString
+            rc = rc + 1
 
             If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
 
@@ -593,7 +594,7 @@
                 ElseIf tString1.ToString.Contains("Not") Then
                     varType = "21"
                 End If
-                rc = rc + 1
+                'rc = rc + 1
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
 
@@ -623,7 +624,7 @@
                     'ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString).TrimEnd(vbCrLf.ToCharArray)
                     ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString)
                 End If
-
+                ' rc = rc + 1
             End If
             AnyAllNotRecordCount = AnyAllNotRecordCount + 1
         Next
