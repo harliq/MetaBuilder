@@ -205,7 +205,7 @@
                         tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf
                         'tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & "0" & vbCrLf
                     Else
-                        tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & cVarType & vbCrLf & CTAnyAllNot(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString)
+                        tempmeta = tempmeta & CTAnyAllNot(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString)
                     End If
 
                 Case 4 'Triple Record Table
@@ -546,53 +546,14 @@
 
     Function CTAnyAllNot(ByVal ConditionData As String, ConditionType As String) As String
 
-        'Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-        'Dim StringSplit() As String
-        'Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
-        'Dim tempstring() As String ' String to pass on to create records
-        ''Header
-        'Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
-        'Dim TempCData As String = ""
-        'Dim tString1 As String = ""
-        'Dim tString2 As String = ""
-
-        ''need a count of "{" to figure out number of records
-
-        'StringSplit = Split(cData, "}")
-        'For Each s As String In StringSplit
-
-        '    tempstring = Split(s, "{")
-        '    If tempstring(0) = "" Then
-        '        Exit For
-        '    Else
-        '        tString1 = tempstring(0)
-        '        tString2 = tempstring(1)
-        '        If c = 0 Then
-        '            TempCData = TempCData & vbCrLf & ConditionTypeEncode(tString1, tString2)
-        '        Else
-        '            TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
-        '        End If
-        '        'TempCData = TempCData & ConditionTypeEncode(tString1, tString2)
-
-        '    End If
-        '    c = c + 1
-        'Next
-
-
-
-        'ConditionData = Header & vbCrLf & c & TempCData
-
-        'Return (ConditionData)
-
-
-
         Dim AnyAllNotEncode As String = ""
         ' Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
-        Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
+        Dim AnyAllNotRecordCount As Integer = 0 ' to count how many records of Each Subtable - Needed in header
 
         'Header
-        Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
+        Dim AnyAllNotHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
         Dim ConditionEncode As String = ""
+        Dim FinalConditionEncode As String = ""
         Dim tString1 As String = ""
         Dim tString2 As String = ""
         'Dim regX As String = RegXAnyAllNot
@@ -603,11 +564,24 @@
         mytable = myExportConditionNest.MultiTable
         Dim rc As Integer = 1 'for record counts
 
+        Dim conditionNestVarType As String
+
+        Select Case ConditionType
+            Case "All"
+                conditionNestVarType = "2"
+            Case "Any"
+                conditionNestVarType = "3"
+            Case "Not"
+                conditionNestVarType = "21"
+            Case Else
+                conditionNestVarType = "Invalid Condition Type"
+        End Select
+        'AnyAllNotEncode = "i" & vbCrLf & conditionNestVarType
+        'Dim NestedHeader As String = "i" & vbCrLf & conditionNestVarType & vbCrLf & AnyAllNotHeader
 
         For Each row As DataRow In mytable.Rows
             tString1 = row.Item(0).ToString.Replace(": ", "")
             tString2 = row.Item(1).ToString
-
 
             If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
 
@@ -624,10 +598,11 @@
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
 
                 'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
-                Dim x As Integer = c + 1
+                'Dim x As Integer = c + 1
                 'tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & x & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
-                AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & rc & vbCrLf & myMetaNest.OutString
-
+                'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & rc & vbCrLf & myMetaNest.OutString
+                AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString
+                'AnyAllNotEncode = AnyAllNotEncode & vbCrLf & myMetaNest.OutString
             Else
                 'make table
 
@@ -642,20 +617,27 @@
                 '    End If
 
                 'Next
-                If c = 0 Then
+                If AnyAllNotRecordCount = 0 Then
                     ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
                 Else
+                    'ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString).TrimEnd(vbCrLf.ToCharArray)
                     ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString)
                 End If
 
-
             End If
-            c = c + 1
+            AnyAllNotRecordCount = AnyAllNotRecordCount + 1
         Next
 
-        ConditionEncode = Header & vbCrLf & c & vbCrLf & AnyAllNotEncode & tdata
+        If AnyAllNotEncode = "" Then
+            FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode
+        Else
+            FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode & AnyAllNotEncode & vbCrLf
+        End If
 
-        Return ConditionEncode
+        'FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode & AnyAllNotEncode & vbCrLf ' & AnyAllNotRecordCount  '& tdata
+        'FinalConditionEncode = AnyAllNotRecordCount & vbCrLf & NestedHeader & vbCrLf & rc & vbCrLf & ConditionEncode & vbCrLf & AnyAllNotEncode & vbCrLf ' & AnyAllNotRecordCount  '& tdata
+
+        Return FinalConditionEncode
 
 
     End Function

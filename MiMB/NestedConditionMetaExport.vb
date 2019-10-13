@@ -17,12 +17,16 @@
     Function GetMultiple(ByVal input As String, ByVal regx As String) As String
 
         Dim tData As String = ""
+        Dim FinalEncode As String = ""
+        Dim tPeekData As String = ""
+
+
         'Dim aData As String
         Dim tString1 As String
         Dim tString2 As String
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
-        Dim varType As String  ' 2 = all, 3 = any, 21 = not
-
+        Dim varType As String = "" ' 2 = all, 3 = any, 21 = not
+        'Dim aanTdata As String
 
         'Dim myExportActionNest As New RegX(input, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
 
@@ -30,7 +34,7 @@
         Dim mytable As New DataTable
         mytable = myExportConditionNest.MultiTable
 
-        Dim rc As Integer = 1 'for record counts
+        Dim rc As Integer = 0 'for record counts
         Dim c As Integer = 0
 
 
@@ -51,24 +55,31 @@
             If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, regx)
                 'tData = tData & vbCrLf & myMetaNest.OutString
+                tPeekData = myMetaNest.OutString
                 tData = tData & rc & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
             Else
                 If c = 0 Then
-                    Dim tConditionEncode = ConditionTypeEncode(tString1, tString2)
-                    tData = tData & ConditionTypeEncode(tString1, tString2)
+                    'Dim tConditionEncode = ConditionTypeEncode(tString1, tString2)
+                    tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
+                    'tData = "i" & vbCrLf & varType & vbCrLf & tData & ConditionTypeEncode(tString1, tString2)
                     Dim x As Integer = 0
                 Else
-                    tData = tData & rc & ConditionTypeEncode(tString1, tString2)
-
+                    'tData = tData & rc & vbCrLf & ConditionTypeEncode(tString1, tString2)
+                    tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
                 End If
+                c = c + 1
 
             End If
             rc = rc + 1
         Next
 
-        tData = tData
+        FinalEncode = rc & tData
+        'FinalEncode = Header & vbCrLf & rc & tData
+        'FinalEncode = Header & vbCrLf & rc & vbCrLf & tData
+        'FinalEncode = Header & vbCrLf & rc & vbCrLf & tData
+        'tData = tData
 
-        Return tData
+        Return FinalEncode
 
     End Function
 
