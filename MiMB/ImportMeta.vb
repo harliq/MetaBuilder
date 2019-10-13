@@ -1,4 +1,7 @@
-﻿Module ImportMeta
+﻿Imports System.IO
+Imports System.Text
+
+Module ImportMeta
 
 
     Function LoadMeta(table As DataTable) As DataTable
@@ -44,12 +47,12 @@
         'Dim loaddt As New DataTable
         table.Clear()
 
-            'Start Reading MetaFile Here
-            '---------------------------
+        'Start Reading MetaFile Here
+        '---------------------------
 
-            If (ofd.ShowDialog = DialogResult.OK) Then
-                Dim reader As IO.StreamReader = New IO.StreamReader(ofd.FileName)
-                Try
+        If (ofd.ShowDialog = DialogResult.OK) Then
+            Dim reader As IO.StreamReader = New IO.StreamReader(ofd.FileName)
+            Try
                 Do
                     'This Loop bypasses Meta File Header
                     Do
@@ -128,16 +131,16 @@
                 TestingStuff.Show()
                 'rtboxMetaData.Text = TempS
                 MessageBox.Show("Finished!", "Finished", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                Catch
-                    MessageBox.Show("ERROR!", "ERROR File Empty!!", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Catch
+                MessageBox.Show("ERROR!", "ERROR File Empty!!", MessageBoxButtons.OK, MessageBoxIcon.Error)
 
-                    reader.Close()
-                End Try
+                reader.Close()
+            End Try
 
 
-            Else
-                MessageBox.Show("Canceled File Open", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            End If
+        Else
+            MessageBox.Show("Canceled File Open", "Canceled", MessageBoxButtons.OK, MessageBoxIcon.Stop)
+        End If
 
         MessageBox.Show("You entered a blank Meta State Name " + TempAL)
 
@@ -402,5 +405,83 @@
 
 
     End Sub
+
+    Function Load(table As DataTable) As DataTable
+
+        Dim ofd As New OpenFileDialog()
+        ofd.Filter = "Meta Files|*.met"
+        ofd.InitialDirectory = My.Settings.MetaExportDir
+        ofd.Title = "Import VT Meta"
+
+
+
+        If ofd.ShowDialog = DialogResult.OK Then
+
+            Dim converter As New MetToXML.Converter(ofd.FileName)
+
+            If Not converter.Convert() Then
+                ' show message box here
+                MsgBox("Error, File Not Found")
+                ' Alert("Error Converting: " & converter.LastError)
+
+                ' return empty table
+                Return table
+            End If
+
+            ' load converted xml into a memory stream
+            Dim stream As New MemoryStream(Encoding.UTF8.GetBytes(converter.XML))
+
+            ' load converted xml stream into the table
+            table.Clear()
+            table.ReadXml(stream)
+
+            Dim items = table.AsEnumerable().Select(Function(d) DirectCast(d(4).ToString(), Object)).ToArray()
+
+            'Populating State Boxes
+            frmMain.cBoxCTMetaState.Items.Clear()
+            frmMain.cBoxATMetaState.Items.Clear()
+            frmMain.cboxReturnMetaState.Items.Clear()
+            frmMain.cBoxCTMetaState.Items.AddRange(items)
+            frmMain.cBoxATMetaState.Items.AddRange(items)
+            frmMain.cboxReturnMetaState.Items.AddRange(items)
+
+            'Populating Table from XML File
+            Dim i As Long
+            Dim j As Long
+            With frmMain.cBoxATMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
+            With frmMain.cboxReturnMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
+            With frmMain.cBoxCTMetaState
+                For i = 0 To .Items.Count - 2 Step 1
+                    For j = .Items.Count - 1 To i + 1 Step -1
+                        If .Items(i).ToString = .Items(j).ToString Then
+                            .Items.RemoveAt(j)
+                        End If
+                    Next
+                Next
+            End With
+
+        Else
+
+        End If
+        Return table
+
+
+    End Function
 
 End Module

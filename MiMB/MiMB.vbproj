@@ -255,6 +255,12 @@
     <Content Include="favicon.ico" />
     <Content Include="mimb_icon_.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\MetToXML\mettoxml\MetToXML\MetToXML.csproj">
+      <Project>{94dd43ab-71b5-478b-9f09-5a47b404b682}</Project>
+      <Name>MetToXML</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

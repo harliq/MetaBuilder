@@ -1,6 +1,7 @@
 ﻿Imports System.ComponentModel
 Imports System.Data.DataTable
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
+Imports MetToXML
 
 Public Class frmMain
 
@@ -1723,9 +1724,22 @@ Public Class frmMain
 
     Private Sub ToolStripButtonImport_Click(sender As Object, e As EventArgs) Handles ToolStripButtonImport.Click
 
-        'MessageBox.Show("Not Implemented")
-        'dgvMetaRules.DataSource = ImportMeta.LoadMeta(table)
-        ImportMeta.TempImport()
+        If SaveWork = True Then
+            Select Case MessageBox.Show("You have not saved this file, save changes?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                Case Windows.Forms.DialogResult.Yes
+                    xml.SaveXML()
+                    dgvMetaRules.DataSource = LoadXML(table)
+                Case Windows.Forms.DialogResult.No
+                    dgvMetaRules.DataSource = LoadXML(table)
+
+            End Select
+        Else
+            dgvMetaRules.DataSource = ImportMeta.Load(table)
+        End If
+        'xml.LoadXML(table)
+        dgvMetaRules.Rows(0).Selected = True
+        cBoxCTMetaState.Text = "Default"
+
     End Sub
 
 
