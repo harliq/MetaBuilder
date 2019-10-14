@@ -447,6 +447,7 @@
         TestCharCountString = StringSplit(1).ToString
         ExportData = ExportData & vbCrLf & "n" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "x" & vbCrLf & "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & StringSplit(1).ToString ' next part, o = option, and s = var type of name (string)
         Rule = TableHeader & vbCrLf & ExportData
+        Dim stringbytes As Integer = (Len(TestCharCountString))
 
         Return (Rule)
 
@@ -869,7 +870,7 @@
                 tAD = "s"
             Case "ReturnFromCall"
                 tempmeta = tempmeta + i + "6" + vbCrLf
-                tAD = "s"
+                'tAD = "s"
             Case "ExpressionAct"
                 ATypeTable = 1
                 tempmeta = tempmeta + i + "7" + vbCrLf

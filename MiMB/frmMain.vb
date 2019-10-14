@@ -754,8 +754,12 @@ Public Class frmMain
         Dim ATypeTable As Integer = 0           ' 0=no data (a zero 0), 1 = 1 value, 2 = 2 values, 3 = 3 values, 4 = Multiple Table
         Dim CAnyAllTable As Integer = 0         ' 0= single value, 1 = Double Value, 2 = Any/All Table, 3 = Triple Value
         'Dim AMultipleTable As Boolean = False   '  To Flag if it is Multiple table - If so, split contents and add to new table.
-
-        selectedRow = dgvMetaRules.Rows(index)
+        Try
+            selectedRow = dgvMetaRules.Rows(index)
+        Catch ex As Exception
+            MsgBox("Exception! dgvMetaRules_CellClick, dgvMetaRules.Rows index = " & index)
+        End Try
+        'selectedRow = dgvMetaRules.Rows(index)
         SetForm.ResetAll()
         SetForm.CTSet(selectedRow.Cells(0).Value.ToString())
         cBoxCType.Text = selectedRow.Cells(0).Value.ToString()

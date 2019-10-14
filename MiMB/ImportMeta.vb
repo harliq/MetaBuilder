@@ -416,6 +416,7 @@ Module ImportMeta
 
 
         If ofd.ShowDialog = DialogResult.OK Then
+            frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & ofd.FileName
 
             Dim converter As New MetToXML.Converter(ofd.FileName)
 
