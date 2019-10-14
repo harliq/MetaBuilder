@@ -790,7 +790,15 @@
 
 
         SecondTableDialog.Nested = False
-        selectedRow = dgvMultiple.Rows(indexMultiple)
+
+        Try
+            selectedRow = dgvMultiple.Rows(indexMultiple)
+        Catch ex As Exception
+            MsgBox("Exception! FrmMain.btnEdit_Click, dgvMultiple.Rows index = " & indexMultiple)
+
+        End Try
+
+        'selectedRow = dgvMultiple.Rows(indexMultiple)
 
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then

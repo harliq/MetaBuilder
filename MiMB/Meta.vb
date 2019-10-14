@@ -539,7 +539,7 @@
 
     Function CTAnyAllNot(ByVal ConditionData As String, ConditionType As String) As String
 
-        Dim AnyAllNotEncode As String = ""
+        Dim AnyAllNotEncode As String
         ' Dim cData As String = ConditionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
         Dim AnyAllNotRecordCount As Integer = 0 ' to count how many records of Each Subtable - Needed in header
 
@@ -595,7 +595,7 @@
                 'Dim x As Integer = c + 1
                 'tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & x & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
                 'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & rc & vbCrLf & myMetaNest.OutString
-                AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString
+                AnyAllNotEncode = AnyAllNotEncode + "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString & vbCrLf
                 'AnyAllNotEncode = AnyAllNotEncode & vbCrLf & myMetaNest.OutString
             Else
                 'make table
@@ -625,7 +625,7 @@
         If AnyAllNotEncode = "" Then
             FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode
         Else
-            FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode & AnyAllNotEncode & vbCrLf
+            FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode & AnyAllNotEncode
         End If
 
         'FinalConditionEncode = AnyAllNotHeader & vbCrLf & rc & vbCrLf & ConditionEncode & AnyAllNotEncode & vbCrLf ' & AnyAllNotRecordCount  '& tdata
