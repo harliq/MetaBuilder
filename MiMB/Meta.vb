@@ -511,10 +511,22 @@
             End If
 
             TestCharCountString = navString & vbCrLf & NavRouteName & vbCrLf & RecordCount
+            If Result = "Embedded" Then
+                Header = NavRouteName & vbCrLf & RecordCount
+                'Result = Header & vbCrLf & navString
+                embeddedNavFile = Header & vbCrLf & navString
 
-            Header = "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & NavRouteName & vbCrLf & RecordCount
-            Result = Header & vbCrLf & navString
-            embeddedNavFile = Header & vbCrLf & navString
+            Else
+
+                Header = "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & NavRouteName & vbCrLf & RecordCount
+                'Result = Header & vbCrLf & navString
+                embeddedNavFile = Header & vbCrLf & navString
+            End If
+
+
+            'Header = "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & NavRouteName & vbCrLf & RecordCount
+            'Result = Header & vbCrLf & navString
+            'embeddedNavFile = Header & vbCrLf & navString
         End If
         'Result = Header & vbCrLf & navString
 

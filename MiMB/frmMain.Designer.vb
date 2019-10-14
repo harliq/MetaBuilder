@@ -81,7 +81,7 @@ Partial Class frmMain
         Me.btnSaveXML = New System.Windows.Forms.Button()
         Me.btnLoadXML = New System.Windows.Forms.Button()
         Me.btnChooseNav = New System.Windows.Forms.Button()
-        Me.btnTest = New System.Windows.Forms.Button()
+        Me.btnNavSave = New System.Windows.Forms.Button()
         Me.btnAddATAnyAll = New System.Windows.Forms.Button()
         Me.btnEditATAnyAll = New System.Windows.Forms.Button()
         Me.btnDeleteATAnyAll = New System.Windows.Forms.Button()
@@ -116,6 +116,7 @@ Partial Class frmMain
         Me.lblATReturnToState = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
+        Me.lblSaveNav = New System.Windows.Forms.Label()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -600,17 +601,17 @@ Partial Class frmMain
         Me.btnChooseNav.Text = "&Embed Nav"
         Me.btnChooseNav.UseVisualStyleBackColor = True
         '
-        'btnTest
+        'btnNavSave
         '
-        Me.btnTest.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.btnTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnTest.Location = New System.Drawing.Point(747, 22)
-        Me.btnTest.Name = "btnTest"
-        Me.btnTest.Size = New System.Drawing.Size(92, 32)
-        Me.btnTest.TabIndex = 29
-        Me.btnTest.Text = "Test"
-        Me.btnTest.UseVisualStyleBackColor = True
-        Me.btnTest.Visible = False
+        Me.btnNavSave.Anchor = System.Windows.Forms.AnchorStyles.None
+        Me.btnNavSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnNavSave.Location = New System.Drawing.Point(475, 24)
+        Me.btnNavSave.Name = "btnNavSave"
+        Me.btnNavSave.Size = New System.Drawing.Size(92, 32)
+        Me.btnNavSave.TabIndex = 29
+        Me.btnNavSave.Text = "Save Nav"
+        Me.btnNavSave.UseVisualStyleBackColor = True
+        Me.btnNavSave.Visible = False
         '
         'btnAddATAnyAll
         '
@@ -925,6 +926,7 @@ Partial Class frmMain
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.SplitContainer1.Panel2.Controls.Add(Me.lblSaveNav)
         Me.SplitContainer1.Panel2.Controls.Add(Me.rdbFalse)
         Me.SplitContainer1.Panel2.Controls.Add(Me.rdbTrue)
         Me.SplitContainer1.Panel2.Controls.Add(Me.lstBoxCommonOptions)
@@ -935,7 +937,7 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnATCreateState)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnDeleteATAnyAll)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnEditATAnyAll)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.btnTest)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnNavSave)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnChooseNav)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnLoadXML)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnSaveXML)
@@ -1039,6 +1041,16 @@ Partial Class frmMain
         Me.cboxReturnMetaState.Sorted = True
         Me.cboxReturnMetaState.TabIndex = 30
         Me.cboxReturnMetaState.Visible = False
+        '
+        'lblSaveNav
+        '
+        Me.lblSaveNav.AutoSize = True
+        Me.lblSaveNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSaveNav.Location = New System.Drawing.Point(791, 18)
+        Me.lblSaveNav.Name = "lblSaveNav"
+        Me.lblSaveNav.Size = New System.Drawing.Size(122, 16)
+        Me.lblSaveNav.TabIndex = 47
+        Me.lblSaveNav.Text = "Save Nav as a File"
         '
         'frmMain
         '
@@ -1160,7 +1172,7 @@ Partial Class frmMain
     Friend WithEvents btnSaveXML As Button
     Friend WithEvents btnLoadXML As Button
     Friend WithEvents btnChooseNav As Button
-    Friend WithEvents btnTest As Button
+    Friend WithEvents btnNavSave As Button
     Friend WithEvents btnAddATAnyAll As Button
     Friend WithEvents btnEditATAnyAll As Button
     Friend WithEvents btnDeleteATAnyAll As Button
@@ -1197,4 +1209,5 @@ Partial Class frmMain
     Friend WithEvents SaveAsToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents lblProgressBar As Label
     Friend WithEvents ProgressBar1 As ProgressBar
+    Friend WithEvents lblSaveNav As Label
 End Class

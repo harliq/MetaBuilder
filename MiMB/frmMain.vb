@@ -1243,25 +1243,52 @@ Public Class frmMain
         ofd.Title = "Select Nav File to Embed"
         ofd.InitialDirectory = My.Settings.MetaExportDir
 
-        If ofd.ShowDialog = DialogResult.OK Then
-            txtBoxAData.Text = ofd.FileName
 
+        If ofd.ShowDialog = DialogResult.OK Then
+            '            txtBoxAData.Text = ofd.FileName
+
+            txtBoxAData.Text = Meta.NavRoute(ofd.FileName, "Embedded")
         Else
         End If
     End Sub
 
-    Private Sub btnTest_Click(sender As Object, e As EventArgs) Handles btnTest.Click
+    Private Sub btnTest_Click(sender As Object, e As EventArgs) Handles btnNavSave.Click
 
-        'Meta.NavRoute()
-        Dim ofd As New OpenFileDialog()
+        Dim sfd As New SaveFileDialog()
+        sfd.Filter = "NAV Files|*.nav"
+        sfd.InitialDirectory = My.Settings.MetaExportDir
 
-        ofd.Filter = "Nav Files|*.nav"
-        'ofd.InitialDirectory = My.Settings.XMLOpenSave
-        If ofd.ShowDialog = DialogResult.OK Then
-            txtBoxAData.Text = ofd.FileName
+        Dim navArray As String() = Split(txtBoxAData.Text, vbCrLf.ToCharArray)
+        Dim navroute As String
+        Dim line As Integer
 
+        For line = 0 To UBound(navArray)
+            If line = 2 Then
+                navroute = navArray(line)
+            ElseIf line > 2 Then
+                navroute = navroute & vbCrLf & navArray(line)
+
+            Else
+            End If
+        Next
+
+        If sfd.ShowDialog = DialogResult.OK Then
+            If txtBoxAData.Text = "" Then
+
+                MsgBox("There is no embedded nav route to save")
+
+            Else
+                Try
+                    Dim navWriter As New System.IO.StreamWriter(sfd.FileName)
+                    navWriter.Write(navroute)
+                    navWriter.Close()
+                Catch ex As Exception
+                    MsgBox("Not able to save Nav route " & FileName & ". Aborted")
+                End Try
+
+            End If
+        Else
         End If
-
     End Sub
 
 

@@ -267,11 +267,14 @@
         frmMain.txtBoxAData2.Visible = False
         frmMain.txtBoxAData3.Visible = False
         'Testing for making txtboxadata multiline for emedded navs
+        frmMain.btnNavSave.Visible = False
+
         frmMain.txtBoxAData.Enabled = True
         frmMain.txtBoxAData.Height = 22
         frmMain.txtBoxAData.Multiline = False
         frmMain.cBoxATMetaState.Visible = False
         frmMain.cboxReturnMetaState.Visible = False
+        frmMain.lblSaveNav.Visible = False
         frmMain.lblAdata2.Visible = False
         frmMain.lblAData3.Visible = False
         frmMain.lblATMetaState.Visible = False
@@ -368,6 +371,8 @@
                 frmMain.txtBoxAData.Height = 90
                 frmMain.txtBoxAData.Enabled = False
                 frmMain.btnChooseNav.Visible = True
+                frmMain.btnNavSave.Visible = True
+                'frmMain.lblSaveNav.Visible = True
 
                 frmMain.lblAData.Text = "Embedded Nav - Choose File"
             Case "5", "CallState"
