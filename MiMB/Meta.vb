@@ -144,7 +144,7 @@
                     sADataTableVarTwo = "ret"
                 Case "ReturnFromCall"
                     tempmeta = tempmeta + i + "6" + vbCrLf
-                    tAD = "s"
+                    'tAD = "s"
                 Case "ExpressionAct"
                     ATypeTable = 1
                     tempmeta = tempmeta + i + "7" + vbCrLf

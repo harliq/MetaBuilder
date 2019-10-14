@@ -1759,9 +1759,9 @@ Public Class frmMain
             Select Case MessageBox.Show("You have not saved this file, save changes?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 Case Windows.Forms.DialogResult.Yes
                     xml.SaveXML()
-                    dgvMetaRules.DataSource = LoadXML(table)
+                    dgvMetaRules.DataSource = ImportMeta.Load(table)
                 Case Windows.Forms.DialogResult.No
-                    dgvMetaRules.DataSource = LoadXML(table)
+                    dgvMetaRules.DataSource = ImportMeta.Load(table)
 
             End Select
         Else
@@ -1817,9 +1817,9 @@ Public Class frmMain
             Select Case MessageBox.Show("You have not saved this file, save changes?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
                 Case Windows.Forms.DialogResult.Yes
                     xml.SaveXML()
-                    dgvMetaRules.DataSource = LoadXML(table)
+                    dgvMetaRules.DataSource = ImportMeta.Load(table)
                 Case Windows.Forms.DialogResult.No
-                    dgvMetaRules.DataSource = LoadXML(table)
+                    dgvMetaRules.DataSource = ImportMeta.Load(table)
 
             End Select
         Else
