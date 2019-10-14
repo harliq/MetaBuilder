@@ -239,7 +239,7 @@
                 Case 6 'Normal Stuff
                     tempmeta = tempmeta & tAD & vbCrLf & r.Cells(3).Value & vbCrLf
                 Case 7
-                    tempmeta = tempmeta & ATypeCreateViewExport(r.Cells(3).Value & vbCrLf)  'Table 3 records (WatchDog Set)
+                    tempmeta = tempmeta & ATypeCreateViewExport(r.Cells(3).Value)  'Table 3 records (WatchDog Set)
                 Case 8
                     tempmeta = tempmeta & ATypeDoubleExportVTwo(r.Cells(3).Value, sADataTableVarOne, sADataTableVarTwo)
                     'tempmeta = tempmeta & ATypeDoubleExportV2(r.Cells(3).Value, sADataTableVarOne, sADataTableVarTwo, & vbCrLf)
@@ -444,7 +444,7 @@
         ExportData = "s" ' This is always a string
 
         StringSplit = Split(Rule, ";")
-        TestCharCountString = StringSplit(1).ToString
+        TestCharCountString = StringSplit(1).ToString.TrimEnd(vbCrLf.ToCharArray)
         ExportData = ExportData & vbCrLf & "n" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "x" & vbCrLf & "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & StringSplit(1).ToString ' next part, o = option, and s = var type of name (string)
         Rule = TableHeader & vbCrLf & ExportData
         Dim stringbytes As Integer = (Len(TestCharCountString))
