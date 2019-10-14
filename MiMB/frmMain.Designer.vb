@@ -117,6 +117,7 @@ Partial Class frmMain
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
         Me.lblSaveNav = New System.Windows.Forms.Label()
+        Me.btnImportMeta = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -551,7 +552,7 @@ Partial Class frmMain
         '
         Me.buttonTest.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.buttonTest.Location = New System.Drawing.Point(1093, 205)
+        Me.buttonTest.Location = New System.Drawing.Point(1093, 211)
         Me.buttonTest.Name = "buttonTest"
         Me.buttonTest.Size = New System.Drawing.Size(129, 30)
         Me.buttonTest.TabIndex = 20
@@ -562,7 +563,7 @@ Partial Class frmMain
         '
         Me.btnExportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportMeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExportMeta.Location = New System.Drawing.Point(1093, 154)
+        Me.btnExportMeta.Location = New System.Drawing.Point(1093, 175)
         Me.btnExportMeta.Name = "btnExportMeta"
         Me.btnExportMeta.Size = New System.Drawing.Size(129, 30)
         Me.btnExportMeta.TabIndex = 26
@@ -573,7 +574,7 @@ Partial Class frmMain
         '
         Me.btnSaveXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSaveXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSaveXML.Location = New System.Drawing.Point(1093, 107)
+        Me.btnSaveXML.Location = New System.Drawing.Point(1093, 104)
         Me.btnSaveXML.Name = "btnSaveXML"
         Me.btnSaveXML.Size = New System.Drawing.Size(129, 30)
         Me.btnSaveXML.TabIndex = 24
@@ -584,7 +585,7 @@ Partial Class frmMain
         '
         Me.btnLoadXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnLoadXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoadXML.Location = New System.Drawing.Point(1093, 72)
+        Me.btnLoadXML.Location = New System.Drawing.Point(1093, 70)
         Me.btnLoadXML.Name = "btnLoadXML"
         Me.btnLoadXML.Size = New System.Drawing.Size(129, 30)
         Me.btnLoadXML.TabIndex = 25
@@ -605,7 +606,7 @@ Partial Class frmMain
         '
         Me.btnNavSave.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnNavSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNavSave.Location = New System.Drawing.Point(475, 24)
+        Me.btnNavSave.Location = New System.Drawing.Point(469, 22)
         Me.btnNavSave.Name = "btnNavSave"
         Me.btnNavSave.Size = New System.Drawing.Size(92, 32)
         Me.btnNavSave.TabIndex = 29
@@ -926,6 +927,7 @@ Partial Class frmMain
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnImportMeta)
         Me.SplitContainer1.Panel2.Controls.Add(Me.lblSaveNav)
         Me.SplitContainer1.Panel2.Controls.Add(Me.rdbFalse)
         Me.SplitContainer1.Panel2.Controls.Add(Me.rdbTrue)
@@ -1051,6 +1053,17 @@ Partial Class frmMain
         Me.lblSaveNav.Size = New System.Drawing.Size(122, 16)
         Me.lblSaveNav.TabIndex = 47
         Me.lblSaveNav.Text = "Save Nav as a File"
+        '
+        'btnImportMeta
+        '
+        Me.btnImportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnImportMeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImportMeta.Location = New System.Drawing.Point(1093, 139)
+        Me.btnImportMeta.Name = "btnImportMeta"
+        Me.btnImportMeta.Size = New System.Drawing.Size(129, 30)
+        Me.btnImportMeta.TabIndex = 48
+        Me.btnImportMeta.Text = "Import Meta"
+        Me.btnImportMeta.UseVisualStyleBackColor = True
         '
         'frmMain
         '
@@ -1210,4 +1223,5 @@ Partial Class frmMain
     Friend WithEvents lblProgressBar As Label
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents lblSaveNav As Label
+    Friend WithEvents btnImportMeta As Button
 End Class
