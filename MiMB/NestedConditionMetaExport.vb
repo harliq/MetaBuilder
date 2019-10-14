@@ -56,7 +56,8 @@
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, regx)
                 'tData = tData & vbCrLf & myMetaNest.OutString
                 tPeekData = myMetaNest.OutString
-                tData = tData & rc & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
+                'tData = tData & rc & vbCrLf & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & myMetaNest.OutString
+                tData = tData & vbCrLf & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & myMetaNest.OutString
             Else
                 If c = 0 Then
                     'Dim tConditionEncode = ConditionTypeEncode(tString1, tString2)

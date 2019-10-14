@@ -595,7 +595,15 @@
                 'Dim x As Integer = c + 1
                 'tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & x & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
                 'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & rc & vbCrLf & myMetaNest.OutString
+
+
                 AnyAllNotEncode = AnyAllNotEncode + "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString & vbCrLf
+                'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString
+
+                '  Move the appending code (table header) to NestedCondition Class
+
+
+
                 'AnyAllNotEncode = AnyAllNotEncode & vbCrLf & myMetaNest.OutString
             Else
                 'make table
