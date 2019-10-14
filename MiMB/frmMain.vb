@@ -971,8 +971,8 @@ Public Class frmMain
                     '    End If
                     'Next
 
-
-                    dgvAnyAll.DataSource = myAllNest.MultiTable
+                    TableAnyAll = myAllNest.MultiTable
+                    dgvAnyAll.DataSource = TableAnyAll
                     dgvAnyAll.Refresh()
                 Case 3
                     Dim cData As String = selectedRow.Cells(2).Value
@@ -1024,7 +1024,8 @@ Public Class frmMain
                         '        TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
                         '    End If
                         'Next
-                        dgvATMultiple.DataSource = myMultipleNest.MultiTable
+                        TableATMultiple = myMultipleNest.MultiTable
+                        dgvATMultiple.DataSource = TableATMultiple
                         dgvATMultiple.Refresh()
 
                     Case 5
@@ -1089,6 +1090,7 @@ Public Class frmMain
         SecondTableDialog.cBoxType.Items.AddRange([Enum].GetNames(GetType(MetaConditionTypeID)))
         SecondTableDialog.cBoxType.SelectedIndex = 0
         SecondTableDialog.TableType = 1
+
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
             Select Case SecondTableDialog.cBoxType.SelectedIndex
@@ -1690,9 +1692,7 @@ Public Class frmMain
 
     End Sub
 
-    Private Sub dgvAnyAll_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvAnyAll.CellContentClick
 
-    End Sub
 
     Private Sub dgvATMultiple_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvATMultiple.CellClick
         tATMultipleIndex = e.RowIndex
