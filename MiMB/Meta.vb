@@ -457,6 +457,7 @@
         Dim ofd As New OpenFileDialog()
         Dim navString As String = ""
         Dim TempL
+        Dim embeddedNavFile As String
         Dim FileNum As Integer = FreeFile()
         Dim LineCount As Integer = 0
         Dim Header As String
@@ -469,77 +470,56 @@
         ofd.Filter = "Nav Files|*.nav"
         'ofd.InitialDirectory = My.Settings.XMLOpenSave
 
-        If filename = "" Then
-            RecordCount = "0"
-            NavRouteName = ""
-            CharCountAdjustment = 4
+
+
+        If filename.Contains(vbCr.ToCharArray) Then
+
+            embeddedNavFile = "ba" & vbCrLf & (Len(filename)) & vbCrLf & filename
+
         Else
-            Try
-                FileOpen(FileNum, filename, OpenMode.Input)
 
-                Do Until EOF(FileNum)
-
-                    TempL = LineInput(FileNum)
-                    navString = navString & TempL & vbCrLf
-                    LineCount = LineCount + 1
-                    If LineCount = 3 Then
-                        RecordCount = TempL
-
-                    End If
-
-                Loop
-                FileClose(FileNum)
-                NavRouteName = System.IO.Path.GetFileName(filename)
-            Catch e As Exception
+            If filename = "" Then
                 RecordCount = "0"
                 NavRouteName = ""
                 CharCountAdjustment = 4
-                MsgBox("Nav File Not Found - " & filename & ". Skipped")
 
-            End Try
+            Else
+                Try
+                    FileOpen(FileNum, filename, OpenMode.Input)
+
+                    Do Until EOF(FileNum)
+
+                        TempL = LineInput(FileNum)
+                        navString = navString & TempL & vbCrLf
+                        LineCount = LineCount + 1
+                        If LineCount = 3 Then
+                            RecordCount = TempL
+
+                        End If
+
+                    Loop
+                    FileClose(FileNum)
+                    NavRouteName = System.IO.Path.GetFileName(filename)
+                Catch e As Exception
+                    RecordCount = "0"
+                    NavRouteName = ""
+                    CharCountAdjustment = 4
+                    MsgBox("Nav File Not Found - " & filename & ". Skipped")
+
+                End Try
+
+            End If
+
+            TestCharCountString = navString & vbCrLf & NavRouteName & vbCrLf & RecordCount
+
+            Header = "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & NavRouteName & vbCrLf & RecordCount
+            Result = Header & vbCrLf & navString
+            embeddedNavFile = Header & vbCrLf & navString
         End If
+        'Result = Header & vbCrLf & navString
 
+        Return embeddedNavFile
 
-
-        'Select Case RecordCount
-        '    Case 0 To 9
-        '        CharCountNumRecords = 1
-        '    Case 10 To 99
-        '        CharCountNumRecords = 2
-        '    Case 100 To 999
-        '        CharCountNumRecords = 3
-        '    Case 1000 To 9999
-        '        CharCountNumRecords = 4
-        '    Case 10000 To 99999
-        '        CharCountNumRecords = 5
-        '    Case 100000 To 999999
-        '        CharCountNumRecords = 6
-        '    Case 1000000 To 9999999
-        '        CharCountNumRecords = 7
-        '    Case Else
-        '        MsgBox("Out of Range - You have more than 10 Million Nav Points in your Nav File")
-        'End Select
-
-        TestCharCountString = navString & vbCrLf & NavRouteName & vbCrLf & RecordCount
-        'MsgBox("Char Count = " & Len(TestCharCountString))
-
-        Header = "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & NavRouteName & vbCrLf & RecordCount
-        'Header = "ba" & vbCrLf & (Len(navString) + CharCountAdjustment + CharCountNumRecords) & vbCrLf & NavRouteName & vbCrLf & RecordCount
-        Result = Header & vbCrLf & navString
-        'MsgBox("Number of chars in Nav File = " & Len(navString) & "  Number of Lines= " & LineCount & "  Total = " & Len(navString) + 11) '11 = 6 chars for [None], 3 line returns for Name, # of records, and 
-        'TestingStuff.TextBoxTest.Text = navString
-        'TestingStuff.Show()
-
-        Result = Header & vbCrLf & navString
-
-        Return (Result)
-        'Dim FileNum As Integer = FreeFile()
-
-        'If (SaveFileDialog1.ShowDialog = DialogResult.OK) Then
-        '    FileOpen(FileNum, SaveFileDialog1.FileName, OpenMode.Output)
-        '    FileSystem.Write(FileNum, rtboxMetaData.Text)
-        '    FileClose(FileNum)
-        'End If
 
 
     End Function

@@ -266,7 +266,9 @@
         frmMain.txtBoxAData.Visible = False
         frmMain.txtBoxAData2.Visible = False
         frmMain.txtBoxAData3.Visible = False
-        'Testing for making txtboxadata2 multiline for emedded navs
+        'Testing for making txtboxadata multiline for emedded navs
+        frmMain.txtBoxAData.Enabled = True
+        frmMain.txtBoxAData.Height = 22
         frmMain.txtBoxAData.Multiline = False
         frmMain.cBoxATMetaState.Visible = False
         frmMain.cboxReturnMetaState.Visible = False
@@ -363,7 +365,10 @@
             Case "4", "EmbeddedNavRoute"
                 SetForm.ATSingleRule()
                 frmMain.txtBoxAData.Multiline = True
+                frmMain.txtBoxAData.Height = 90
+                frmMain.txtBoxAData.Enabled = False
                 frmMain.btnChooseNav.Visible = True
+
                 frmMain.lblAData.Text = "Embedded Nav - Choose File"
             Case "5", "CallState"
                 SetForm.ATCallStateRule()

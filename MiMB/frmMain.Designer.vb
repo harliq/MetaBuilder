@@ -350,7 +350,7 @@ Partial Class frmMain
         Me.ToolStripButtonImport.Name = "ToolStripButtonImport"
         Me.ToolStripButtonImport.Size = New System.Drawing.Size(23, 22)
         Me.ToolStripButtonImport.Text = "ToolStripButton1"
-        Me.ToolStripButtonImport.ToolTipText = "Convert Meta to XML"
+        Me.ToolStripButtonImport.ToolTipText = "Import Meta"
         '
         'tsbNew
         '
