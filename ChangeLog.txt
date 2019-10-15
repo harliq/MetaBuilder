@@ -2,11 +2,30 @@ Update:
 **Mission Impossible - Meta Builder**
 *MiMB Changelog*
 
+**MAJOR UPDATE**
+2.0.0.0
+10/14/2019
+**Features**
+*Infinite Nests of ANY/ALL/NOT Conditions/Actions*
+*Import Meta (Thanks to Sunnuj/Trevis for this, as he made a .dll to make this possible)*
+*Embedded Nav Routes (Nav Routes will now be embedded into XML)*
+*Embedded Nav Routes can be saved to nav file that can be used in other metas*
+*Auto file backup when importing meta files.  Directory is "\backup" folder in your default XML folder.  Ex C:\MetaBuilder\backup*
+
+Big thanks to Sunnuj/Trevis for his help.  I really do appreciate it.
+
+*Notes*
+A lot of changes this version. Yes its everything everyone has been wanting.  Just short of making metas for you.
+
+
 1.2.3.5
 9/18/2019
 **Bugs**
 *Fixed - Call State didnt have a return field under multiple
 *Fixed - Long outstanding bug that if you edited a multiple that was set state, the set state wouldn't populate, it would just stay at default
+**Other**
+Started the long road of changing the way data is handled internally.  Doing this so project can be converted to C#
+
 
 1.2.3.0
 5/18/2019
