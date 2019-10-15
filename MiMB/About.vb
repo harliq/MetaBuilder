@@ -24,6 +24,6 @@
     End Sub
 
     Private Sub LinkLabel1_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel1.LinkClicked
-        Process.Start("http://www.harliq.net/mimb/")
+        Process.Start("https://harliq.github.io/MetaBuilder/index.html")
     End Sub
 End Class
