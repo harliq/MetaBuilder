@@ -70,7 +70,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>mimb_icon_.ico</ApplicationIcon>
+    <ApplicationIcon>mimb_iconv2_r4m_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>C8DAB11F5AA85566730EC4B95D4FE6F13A020919</ManifestCertificateThumbprint>
@@ -253,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
+    <Content Include="mimb_iconv2_r4m_icon.ico" />
     <Content Include="mimb_icon_.ico" />
   </ItemGroup>
   <ItemGroup>
