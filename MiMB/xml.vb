@@ -46,14 +46,8 @@ Module xml
             savedt.AcceptChanges()
             savedt.WriteXml(GlobalVars.FileNameAndPath, System.Data.XmlWriteMode.WriteSchema, False)
             SetForm.SaveWork = False
-            'MsgBox("XML Saved")
 
 
-
-
-            'frmMain.Text = "Mission:Impossible - Meta Builder   FILE= " & sfd.FileName
-            'GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
-            'GlobalVars.FileNameAndPath = sfd.FileName
         End If
         frmMain.ProgressBar1.Increment(30)
         frmMain.Refresh()
@@ -118,8 +112,8 @@ Module xml
             With frmMain.cBoxATMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -127,8 +121,8 @@ Module xml
             With frmMain.cboxReturnMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -136,8 +130,8 @@ Module xml
             With frmMain.cBoxCTMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -154,12 +148,6 @@ Module xml
         frmMain.cBoxCTMetaState.Items.Clear()
         frmMain.cBoxATMetaState.Items.Clear()
         frmMain.cboxReturnMetaState.Items.Clear()
-
-        'table.Columns.Add("Condition Type", Type.GetType("System.String"))
-        'table.Columns.Add("Action Type", Type.GetType("System.String"))
-        'table.Columns.Add("Condition Data", Type.GetType("System.String"))
-        'table.Columns.Add("Action Data", Type.GetType("System.String"))
-        'table.Columns.Add("State", Type.GetType("System.String"))
 
         ' Add rows to the datatable with some data
         table.Rows.Add("Never", "None", "0", "0", "Default")
@@ -208,8 +196,8 @@ Module xml
             With frmMain.cBoxATMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -217,8 +205,8 @@ Module xml
             With frmMain.cboxReturnMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -226,8 +214,8 @@ Module xml
             With frmMain.cBoxCTMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next

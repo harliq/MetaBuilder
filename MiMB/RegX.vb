@@ -33,11 +33,7 @@ Public Class RegX
         Occurence = countString(input, stringpat)
     End Sub
 
-    'Public Sub New(ByVal input As String, ByVal stringpat As String)
-    '    InputString = input
-    '    StringPattern = stringpat
-    '    Occurence = regxStrip(input, stringpat)
-    'End Sub
+
 
     Function countString(ByVal input As String, ByVal stringToBeSearchedInsideTheInputString As String) As Integer
         Return System.Text.RegularExpressions.Regex.Split(InputString, stringToBeSearchedInsideTheInputString).Length - 1
@@ -126,9 +122,6 @@ Public Class RegX
                         End If
                     End If
 
-
-                    'tData = tData & "Capture" & myC & "='" & c.ToString() & "', Position=" & c.Index & vbCrLf
-                    'Console.WriteLine("Capture" & j & "='" & c.ToString() & "', Position=" & c.Index)
                     tempC = tempC + 1
                     If tColTwoData = "" Then
                     Else

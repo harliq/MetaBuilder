@@ -41,7 +41,6 @@ Module ImportMeta
             If Not converter.Convert() Then
                 ' show message box here
                 MsgBox("Error, File Not Found")
-                ' Alert("Error Converting: " & converter.LastError)
 
                 ' return empty table
                 Return table
@@ -70,8 +69,8 @@ Module ImportMeta
             With frmMain.cBoxATMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -79,8 +78,8 @@ Module ImportMeta
             With frmMain.cboxReturnMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next
@@ -88,8 +87,8 @@ Module ImportMeta
             With frmMain.cBoxCTMetaState
                 For i = 0 To .Items.Count - 2 Step 1
                     For j = .Items.Count - 1 To i + 1 Step -1
-                        If .Items(i).ToString = .Items(j).ToString Then
-                            .Items.RemoveAt(j)
+                        If .Items(CInt(i)).ToString = .Items(CInt(j)).ToString Then
+                            .Items.RemoveAt(CInt(j))
                         End If
                     Next
                 Next

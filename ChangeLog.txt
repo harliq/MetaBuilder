@@ -15,8 +15,11 @@ Update:
 Big thanks to Sunnuj/Trevis for his help.  I really do appreciate it.
 
 *Notes*
+You will need to run the installer as it includes the required .dll for meta import
 A lot of changes this version. Yes its everything everyone has been wanting.  Just short of making metas for you.
 
+Get it here: https://harliq.github.io/MetaBuilder/download.html
+Project is here: https://github.com/harliq/MetaBuilder
 
 1.2.3.5
 9/18/2019

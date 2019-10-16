@@ -1,10 +1,10 @@
 ﻿Public Class Rule
 
-    Public Property CondType
-    Public Property ActType
-    Public Property CondData
-    Public Property ActData
-    Public Property State
+    Public Property CondType As String
+    Public Property ActType As String
+    Public Property CondData As String
+    Public Property ActData As String
+    Public Property State As String
 
 End Class
 Public Enum MetaConditionTypeID

@@ -75,10 +75,6 @@
         Next
 
         FinalEncode = rc & tData
-        'FinalEncode = Header & vbCrLf & rc & tData
-        'FinalEncode = Header & vbCrLf & rc & vbCrLf & tData
-        'FinalEncode = Header & vbCrLf & rc & vbCrLf & tData
-        'tData = tData
 
         Return FinalEncode
 

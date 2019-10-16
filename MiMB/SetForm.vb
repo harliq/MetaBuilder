@@ -342,12 +342,7 @@
 
     End Sub
     Sub ATMultiple()
-        ''frmMain.txtBoxAData.Enabled = True
-        'frmMain.txtBoxAData.Visible = True
-        'frmMain.cBoxATMetaState.Visible = False
-        'frmMain.lblATMetaState.Visible = False
-        'frmMain.lblAData.Visible = True
-        'frmMain.lblAData.Text = "Multiple"
+
         frmMain.dgvATMultiple.Visible = True
 
         frmMain.btnAddATAnyAll.Visible = True

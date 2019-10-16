@@ -10,20 +10,7 @@
         Result = String1 + ";" + String2
         Return (Result)
     End Function
-    Function SplitTwoVal(ByVal TwoValues As Array) As Array
 
-        'Cant get this to work, and easy to do in code
-
-        Dim String1 As String = TwoValues(0)
-        'Dim cData As String = selectedRow.Cells(2).Value
-        'Dim StringSplit() As String
-        TwoValues = Split(String1, ";")
-        'txtBoxCData.Text = StringSplit(0)
-        'txtBoxCData2.Text = StringSplit(1)
-        'Result1 = ""
-        'result2 = ""
-        Return (TwoValues)
-    End Function
 
     Function CombineThreeVal(ByVal String1 As String, ByVal String2 As String, ByVal Result As String) As String
         Result = String1 + ";" + String2 + ";" + Result

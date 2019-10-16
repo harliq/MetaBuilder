@@ -30,8 +30,7 @@
             Dim sADataTableVarTwo As String = ""
             'Dim sADataTableVarThree As String = ""
 
-
-            Select Case (r.Cells(0).Value) ' Condition Types
+            Select Case (r.Cells(0).Value.ToString) ' Condition Types
                 Case Nothing ' To remove blank lines
                     Continue For
                 Case "Never"
@@ -120,7 +119,7 @@
                     MessageBox.Show("Out of Range - Meta Export Condition Type")
             End Select
 
-            Select Case (r.Cells(1).Value)  ' Action Types
+            Select Case (r.Cells(1).Value.ToString)  ' Action Types
                 Case "None"
                     tempmeta = tempmeta + i + "0" + vbCrLf
                 Case "SetState"
@@ -189,19 +188,19 @@
             Select Case CTypeTable 'To find the correct Export function for Exporting the Condition Type
                 Case 0 ' No Table
                     If r.Cells(0).Value.ToString = "LandBlockE" Then 'Or "LandCellE" Then 
-                        tempmeta = tempmeta & tCD & vbCrLf & Convert.ToInt32(r.Cells(2).Value, 16) & vbCrLf
+                        tempmeta = tempmeta & tCD & vbCrLf & Convert.ToInt32(r.Cells(2).Value.ToString, 16) & vbCrLf
                     ElseIf r.Cells(0).Value.ToString = "LandCellE" Then
-                        tempmeta = tempmeta & tCD & vbCrLf & Convert.ToInt32(r.Cells(2).Value, 16) & vbCrLf
+                        tempmeta = tempmeta & tCD & vbCrLf & Convert.ToInt32(r.Cells(2).Value.ToString, 16) & vbCrLf
                     Else
-                        tempmeta = tempmeta & tCD & vbCrLf & r.Cells(2).Value & vbCrLf
+                        tempmeta = tempmeta & tCD & vbCrLf & r.Cells(2).Value.ToString & vbCrLf
                     End If
 
                 Case 1 ' Single Record Table
-                    tempmeta = tempmeta & SingleExport(r.Cells(2).Value & vbCrLf, sCDataTableVarOne)
+                    tempmeta = tempmeta & SingleExport(r.Cells(2).Value.ToString & vbCrLf, sCDataTableVarOne)
                 Case 2 ' Double Record Table
                     tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
                 Case 3 'Any/All/Not Sub Table
-                    If r.Cells(2).Value = "" Then ' Find out if Any/All/Not Table is blank/zero records
+                    If r.Cells(2).Value.ToString = "" Then ' Find out if Any/All/Not Table is blank/zero records
                         tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf
                         'tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf & "i" & vbCrLf & "0" & vbCrLf
                     Else
@@ -214,41 +213,35 @@
                     MsgBox("Out Of Range - Meta.MetaExport- Case CTypeTable")
             End Select
 
-            '-------------------------This Should be able to be removed-----------------------
-            'If CTypeTable = True Then
-            '    tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
-            'Else
-            '    tempmeta = tempmeta & tCD & vbCrLf & r.Cells(2).Value & vbCrLf      'ConditionData
-            'End If
-            '---------------------------------------------------------------------------------
+
 
             Select Case ATypeTable 'To Find correct Meta Export Function for ActionData
                 Case 0
-                    tempmeta = tempmeta & ATypeZeroExport(r.Cells(3).Value & vbCrLf)      'Uses Table but zero records (Watchdog Clear)
+                    tempmeta = tempmeta & ATypeZeroExport(r.Cells(3).Value.ToString & vbCrLf)      'Uses Table but zero records (Watchdog Clear)
                 Case 1
-                    tempmeta = tempmeta & SingleExport(r.Cells(3).Value & vbCrLf, sRecordOneAdataType)  'Table 1 record
+                    tempmeta = tempmeta & SingleExport(r.Cells(3).Value.ToString & vbCrLf, sRecordOneAdataType)  'Table 1 record
                 Case 2
-                    tempmeta = tempmeta & ATypeDoubleExport(r.Cells(3).Value & vbCrLf)  'Table 2 records (Gets/Set VT Options
+                    tempmeta = tempmeta & ATypeDoubleExport(r.Cells(3).Value.ToString & vbCrLf)  'Table 2 records (Gets/Set VT Options
                 Case 3
-                    tempmeta = tempmeta & ATypeTripleExport(r.Cells(3).Value & vbCrLf)  'Table 3 records (WatchDog Set)
+                    tempmeta = tempmeta & ATypeTripleExport(r.Cells(3).Value.ToString & vbCrLf)  'Table 3 records (WatchDog Set)
                 Case 4  'Nav Routes 
-                    tempmeta = tempmeta & NavRoute(r.Cells(3).Value, "a")
+                    tempmeta = tempmeta & NavRoute(r.Cells(3).Value.ToString, "a")
                 Case 5 'Multiple
                     tempmeta = tempmeta & ATMultiple(r.Cells(3).Value.ToString, r.Cells(1).Value.ToString) '& vbCrLf
                     'tempmeta = tempmeta & ATMultiple(r.Cells(3).Value.ToString, r.Cells(1).Value.ToString) '& vbCrLf
                 Case 6 'Normal Stuff
-                    tempmeta = tempmeta & tAD & vbCrLf & r.Cells(3).Value & vbCrLf
+                    tempmeta = tempmeta & tAD & vbCrLf & r.Cells(3).Value.ToString & vbCrLf
                 Case 7
-                    tempmeta = tempmeta & ATypeCreateViewExport(r.Cells(3).Value)  'Table 3 records (WatchDog Set)
+                    tempmeta = tempmeta & ATypeCreateViewExport(r.Cells(3).Value.ToString)  'Table 3 records (WatchDog Set)
                 Case 8
-                    tempmeta = tempmeta & ATypeDoubleExportVTwo(r.Cells(3).Value, sADataTableVarOne, sADataTableVarTwo)
+                    tempmeta = tempmeta & ATypeDoubleExportVTwo(r.Cells(3).Value.ToString, sADataTableVarOne, sADataTableVarTwo)
                     'tempmeta = tempmeta & ATypeDoubleExportV2(r.Cells(3).Value, sADataTableVarOne, sADataTableVarTwo, & vbCrLf)
                 Case Else
                     MsgBox("Out Of Range - Meta.MetaExport- Case ATypeTable")
             End Select
 
 
-            tempmeta = tempmeta & tState & vbCrLf & r.Cells(4).Value & vbCrLf   'State
+            tempmeta = tempmeta & tState & vbCrLf & r.Cells(4).Value.ToString & vbCrLf   'State
 
 
 
@@ -457,7 +450,7 @@
 
         Dim ofd As New OpenFileDialog()
         Dim navString As String = ""
-        Dim TempL
+        Dim TempL As String
         Dim embeddedNavFile As String
         Dim FileNum As Integer = FreeFile()
         Dim LineCount As Integer = 0
@@ -591,34 +584,12 @@
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
 
-                'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
-                'Dim x As Integer = c + 1
-                'tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & x & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
-                'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & rc & vbCrLf & myMetaNest.OutString
 
 
                 AnyAllNotEncode = AnyAllNotEncode + "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString & vbCrLf
                 'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString
-
-                '  Move the appending code (table header) to NestedCondition Class
-
-
-
-                'AnyAllNotEncode = AnyAllNotEncode & vbCrLf & myMetaNest.OutString
             Else
-                'make table
 
-                'Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                'Dim myNestedTable = myTempTable.MultiTable
-                'For Each r As DataRow In myNestedTable.Rows
-
-                'If c = 0 Then
-                '        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
-                '    Else
-                '        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
-                '    End If
-
-                'Next
                 If AnyAllNotRecordCount = 0 Then
                     ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
                 Else
@@ -650,12 +621,8 @@
         Dim tCD As String = "i" 'temp var for setting the Condition Data Var type -Set when Condition Type is figured out.
         Dim CTypeTable As Integer = 0  'This is to flag if Condition Type uses a Record Table. No record table=0, Single=1, Double=3 or Multiple Table=3.  Used to call correct Functions, Init as 0
         Dim sCDataTableVarOne As String = "" ' For setting the proper Var Type for each subtable Variable
-        'Dim sADataTableVarThree As String = ""
 
-        'Dim ATypeTable As Integer = 6  'This is a flag if Action Type is a Zero=0, Single=1, Double=2 or Triple=3 Record Data Table. Used in Select Case to use Appropiate Export Function
-        'Dim cdType As MetaConditionTypeID
-        'Dim cdType As Condition
-        'Dim never As String
+
 
         Select Case (CTypeString) ' Condition Types
             Case Nothing ' To remove blank lines
@@ -768,12 +735,6 @@
 
 
     Function ATMultiple(ByVal ActionData As String, ActionType As String) As String
-
-        'Dim tempstring() As String ' String to pass on to create records
-        'Dim StringSplit() As String
-        'Dim myExportActionNest As New RegX(aData, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
-        'Dim myMetaNest As New MetaNest(tString1, RegX)
-
         Dim tdata = ""
         Dim aData As String = ActionData ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
         Dim c As Integer = 0 ' to count how many records of Each Subtable - Needed in header
@@ -798,7 +759,7 @@
 
             If tString1.ToString.Contains("Multiple") Then
 
-                'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
+
                 Dim myMetaNest As New NestedActionMetaExport(tString2, regX)
 
                 'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
@@ -806,19 +767,7 @@
                 Dim x As Integer = 4
 
             Else
-                'make table
-                '------- Not sure if this needs to stay commented out
-                'Dim myTempTable As New RegX(tString2.ToString, regX, False)
-                'Dim myNestedTable = myTempTable.MultiTable
-                'For Each r As DataRow In myNestedTable.Rows
 
-                'If c = 0 Then
-                '        tempData = tempData & ActionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
-                '    Else
-                '        tempData = tempData & ActionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
-                '    End If
-
-                ' Next
 
                 '----- Fix single Multiple ??? 1 nest deep
                 If c = 0 Then
@@ -831,10 +780,6 @@
             c = c + 1
         Next
 
-        ''-------- Fix for random 2 in exports??
-        'If c > 1 Then
-        '    tempData = Header & vbCrLf & tempData & tdata
-        'Else
         tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata
         'End If
 
