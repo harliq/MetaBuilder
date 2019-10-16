@@ -5,12 +5,10 @@
     Public AnyAllString As String
     Public MultipleString As String
 
-
     Function CombineTwoVal(ByVal String1 As String, ByVal String2 As String, ByVal Result As String) As String
         Result = String1 + ";" + String2
         Return (Result)
     End Function
-
 
     Function CombineThreeVal(ByVal String1 As String, ByVal String2 As String, ByVal Result As String) As String
         Result = String1 + ";" + String2 + ";" + Result
@@ -27,7 +25,6 @@
             Else
                 'MsgBox("Value is Nothing - Parse.CombineAnyAll")
             End If
-
         Next
         AnyAllString = tempdata
     End Sub
@@ -45,12 +42,6 @@
         Next
         MultipleString = tempdata
     End Sub
-    Function NestedMultiple(MultiOne As String) As String
-
-
-
-        Return MultiOne
-    End Function
 
     Sub SplitingStrings()
         Dim StringSplit As String = ""
@@ -69,7 +60,6 @@
                 'TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
             End If
         Next
-
 
     End Sub
 End Module

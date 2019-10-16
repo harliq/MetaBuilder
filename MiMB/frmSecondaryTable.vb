@@ -12,7 +12,6 @@
     Private indexMultiple As Integer = 0
     'Define a new class member named NewDataTable as follows:
 
-
     Private Sub Add_Update_Delete_DataGridView_Row_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
     End Sub
@@ -39,13 +38,10 @@
                 TextBox2.Text = ""
                 TextBox3.Text = ""
 
-
         End Select
     End Sub
 
     Private Sub frmSecondaryTable_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-
 
         Dim tNested As Boolean = Nested 'testing only
 
@@ -266,7 +262,6 @@
         lblTextThree.Visible = True
         TextBox3.Visible = True
 
-
     End Sub
 
     Public Sub FormThreeRule()
@@ -278,7 +273,6 @@
         TextBox3.Visible = True
         TextBox2.Text = ""
         TextBox3.Text = ""
-
 
     End Sub
 
@@ -454,8 +448,6 @@
     Private Sub btnAdd_Click(sender As Object, e As EventArgs) Handles btnAdd.Click
         Dim ThirdTableDialog As New frmSecondaryTable()
 
-
-
         'NestedTableForm = False
         'ThirdTableDialog.Nested = False
 
@@ -484,7 +476,6 @@
         End If
 
         'GlobalVars.SetFormType = TableType
-
 
         If ThirdTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
 
@@ -517,8 +508,6 @@
                         TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxType.Text & ": ", ThirdTableDialog.TextBox1.Text)
 
                 End Select
-
-
 
             Else
                 ''---------------------------------Action Types------------------------------
@@ -596,8 +585,6 @@
 
         If SecondTableDialog.TableType = 1 Then
 
-
-
             If selectedRow.Cells(0).Value IsNot Nothing Then
                 '---Dialog config for Condition
                 SecondTableDialog.cBoxAType.Visible = False
@@ -636,7 +623,6 @@
                         SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
                 End Select
 
-
             End If
         Else
             If selectedRow.Cells(0).Value IsNot Nothing Then
@@ -646,7 +632,6 @@
                 'SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString
                 SecondTableDialog.cBoxAType.Text = selectedRow.Cells(0).Value.ToString.Replace(": ", "")
                 SecondTableDialog.lblCbox.Text = "Choose Action Type:"
-
 
                 Select Case selectedRow.Cells(0).Value.ToString
                     Case "None: " ' Not USING
@@ -699,7 +684,6 @@
 
         End If
 
-
         SecondTableDialog.Nested = False
 
         Try
@@ -723,7 +707,6 @@
 
             Select Case GlobalVars.SetFormType
                 Case 1
-
                     newDataRow.Cells(0).Value = SecondTableDialog.cBoxType.Text & ": "
                     Select Case SecondTableDialog.cBoxType.SelectedIndex
                         Case 0, 1, 7 To 10, 15, 19, 20 'Empty Values Set As a ZERO
@@ -775,20 +758,15 @@
                             MsgBox("Out Of Range - btnAddATAnyAll_Click Case SecondTableDialog")
                     End Select
 
-
                 Case Else
                     MsgBox("Case Else, frmSecondaryTable - Line 823)")
             End Select
-
-
-
 
         Else
             'MsgBox("Click Cancel")
         End If
 
         SecondTableDialog.Dispose()
-
 
     End Sub
 

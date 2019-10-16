@@ -33,10 +33,7 @@ Module xml
                 GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
                 GlobalVars.FileNameAndPath = sfd.FileName
             Else
-
-
             End If
-
         Else
 
             frmMain.ProgressBar1.Increment(40)
@@ -46,21 +43,17 @@ Module xml
             savedt.AcceptChanges()
             savedt.WriteXml(GlobalVars.FileNameAndPath, System.Data.XmlWriteMode.WriteSchema, False)
             SetForm.SaveWork = False
-
-
         End If
+
         frmMain.ProgressBar1.Increment(30)
         frmMain.Refresh()
         Threading.Thread.Sleep(400)
-        'frmMain.ProgressBar1.Increment(100)
         frmMain.ProgressBar1.Refresh()
-
         Threading.Thread.Sleep(200)
-        'frmMain.ProgressBar1.Increment(80)
         frmMain.Cursor = Cursors.Default
-        'MsgBox("ProgressBar = " & frmMain.ProgressBar1.Value)
         frmMain.ProgressBar1.Visible = False
         frmMain.lblProgressBar.Visible = False
+
     End Sub
 
     Public Sub SaveAsXML()
@@ -77,8 +70,6 @@ Module xml
             GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
             GlobalVars.FileNameAndPath = sfd.FileName
         Else
-
-
         End If
     End Sub
 

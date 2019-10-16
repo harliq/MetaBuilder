@@ -29,8 +29,6 @@
                                               "(\w+){(.*?;.*?;\.*?)}|"
 
 
-    '"(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
-
     Public ReadOnly RegXMultiple As String = "(Multiple: ){(.*?})[A-Z]|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
                                              "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
                                              "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
@@ -45,9 +43,6 @@
                                              "(\w+){(.*?;.*?;.*?)}|" &
                                              "(\w+){(.*?;.*?;.*?)}"
 
-    '"(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|" &
-    '"(\w+){(.*?;.*?)}|(\w+){(\w+;.*?;.*?)}"
-
 
     Public ReadOnly RegXNestedMultiple As String = "(Multiple: ){(.*?}})|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
                                                    "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
@@ -60,7 +55,5 @@
                                                    "(\w+: ){(.*?;.*?;.*?)}|" &
                                                    "(\w+){(.*?;.*?;.*?)}|"
     '"(Expression){(.*?)}|(Expression: ){(.*?)}|" &
-
-
 
 End Module

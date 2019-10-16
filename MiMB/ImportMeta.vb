@@ -3,12 +3,9 @@ Imports System.Text
 
 Module ImportMeta
 
-
-
     Function Load(table As DataTable) As DataTable
 
         '---------- Make copy of file for back up directory
-
         'check for backup directory     
         If (Not System.IO.Directory.Exists(My.Settings.XMLOpenSave & "\backup")) Then
             Try
@@ -22,7 +19,6 @@ Module ImportMeta
         ofd.Filter = "Meta Files|*.met"
         ofd.InitialDirectory = My.Settings.MetaExportDir
         ofd.Title = "Import VT Meta"
-
 
         If ofd.ShowDialog = DialogResult.OK Then
 
@@ -98,7 +94,6 @@ Module ImportMeta
 
         End If
         Return table
-
 
     End Function
 

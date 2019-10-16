@@ -26,8 +26,6 @@ Public Class frmMain
         'MessageBox.Show("after exit")
     End Sub
 
-
-
     Private Sub btnCreateState_Click(sender As Object, e As EventArgs) Handles btnCreateState.Click
 
         Dim MetaList As New ArrayList()
@@ -114,7 +112,6 @@ Public Class frmMain
 
         table.Rows.Add(cBoxCType.Text, cBoxAType.Text, CData, AData, cBoxCTMetaState.Text) ' Used Case to Simplify What's under this
 
-
     End Sub
 
     Private Sub cBoxCType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxCType.SelectedIndexChanged
@@ -171,13 +168,10 @@ Public Class frmMain
 
     End Sub
 
-
-
     Private Sub Add_Update_Delete_DataGridView_Row_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ' Add columns to your datatable, 
         ' with the name of the columns and their type 
-
 
         table.Columns.Add("Condition Type", Type.GetType("System.String"))
         table.Columns.Add("Action Type", Type.GetType("System.String"))
@@ -210,9 +204,6 @@ Public Class frmMain
         dgvMetaRules.Columns(2).SortMode = DataGridViewColumnSortMode.NotSortable
         dgvMetaRules.Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
         dgvMetaRules.Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
-
-
-
 
         'AnyAll Rule Table
         TableAnyAll.Columns.Add("Type", Type.GetType("System.String"))
@@ -257,10 +248,6 @@ Public Class frmMain
         cBoxAType.SelectedIndex = 0
         dgvMetaRules.Rows(0).Selected = True
 
-
-
-
-
         'Check if command line arguments were specified
         Dim CommandArgs() As String = Environment.GetCommandLineArgs()
         If CommandArgs.Length > 1 Then
@@ -282,16 +269,9 @@ Public Class frmMain
                     Me.Close()
             End Select
 
-
-
         Else
 
-
         End If
-
-
-
-
 
     End Sub
 
@@ -315,9 +295,6 @@ Public Class frmMain
         End If
     End Sub
 
-
-
-
     Private Sub btnUpdateRule_Click(sender As Object, e As EventArgs) Handles btnUpdateRule.Click
         SaveWork = True
         ' update the datagridview selected row using textbox
@@ -325,7 +302,6 @@ Public Class frmMain
         Dim newDataRow As DataGridViewRow
         Dim CData As String
         Dim AData As String
-        '
 
         newDataRow = dgvMetaRules.Rows(index)
 
@@ -343,7 +319,6 @@ Public Class frmMain
                 CData = Parse.CombineThreeVal(txtBoxCData.Text, txtBoxCData2.Text, txtBoxCData3.Text)
             Case Else
                 CData = txtBoxCData.Text
-
         End Select
 
         Select Case cBoxAType.SelectedIndex
@@ -388,7 +363,6 @@ Public Class frmMain
         'xml.LoadXML(table)
         dgvMetaRules.Rows(0).Selected = True
         cBoxCTMetaState.Text = "Default"
-
 
     End Sub
 
@@ -445,7 +419,6 @@ Public Class frmMain
         dgvATMultiple.DataSource = TableATMultiple
         SetForm.ResetAction()
         SetForm.ATSet(cBoxAType.SelectedIndex.ToString)
-
 
     End Sub
 
@@ -612,18 +585,13 @@ Public Class frmMain
 
     Private Sub btnInsertRule_Click(sender As Object, e As EventArgs) Handles btnInsertRule.Click
 
-
         Dim allRow As DataRow = table.NewRow
         allRow(0) = cBoxCType.Text
         allRow(1) = cBoxAType.Text
-
-
-
         allRow(2) = txtBoxCData.Text
         allRow(3) = cBoxAType.Text
         allRow(4) = cBoxCTMetaState.Text
         table.Rows.InsertAt(allRow, (dgvMetaRules.CurrentRow.Index))
-
 
     End Sub
 
@@ -669,8 +637,6 @@ Public Class frmMain
         SetForm.ResetAll()
         SetForm.CTSet(selectedRow.Cells(0).Value.ToString())
         cBoxCType.Text = selectedRow.Cells(0).Value.ToString()
-
-
 
         'sMetaStateFlag = False
 
@@ -915,7 +881,6 @@ Public Class frmMain
         End If
     End Sub
 
-
     Private Sub frmMain_FormClosing(sender As Object, e As FormClosingEventArgs) Handles Me.FormClosing
         If SaveWork = True Then
             Select Case MessageBox.Show("You have not saved your work, are you sure you want to exit?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -968,8 +933,6 @@ Public Class frmMain
                         End If
                     Next
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, tempdata)
-
-
 
                 Case Else ' Single Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, SecondTableDialog.TextBox1.Text) ' Single Values
@@ -1148,8 +1111,6 @@ Public Class frmMain
         End If
     End Sub
 
-
-
     Sub SetAnyAllTable()
 
         Dim TableAnyAll As New DataTable("TableAnyAll")
@@ -1178,10 +1139,7 @@ Public Class frmMain
 
     End Sub
 
-
-
     Private Sub ToolStripButtonNew_Click(sender As Object, e As EventArgs) Handles ToolStripButtonNew.Click
-
 
         If SaveWork = True Then
             Select Case MessageBox.Show("You have not saved current file, save changes?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
@@ -1216,7 +1174,6 @@ Public Class frmMain
             dgvMetaRules.DataSource = LoadXML(table)
 
         End If
-
 
     End Sub
 
@@ -1439,8 +1396,6 @@ Public Class frmMain
             Exit Sub
         End If
 
-
-
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
             SecondTableDialog.Nested = True
@@ -1487,8 +1442,6 @@ Public Class frmMain
     Private Sub dgvATMultiple_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvATMultiple.CellContentClick
 
     End Sub
-
-
 
     Private Sub dgvATMultiple_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvATMultiple.CellClick
         tATMultipleIndex = e.RowIndex

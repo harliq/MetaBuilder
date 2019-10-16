@@ -11,9 +11,6 @@ Public Class RegX
     Public Occurence As Integer
     Public NestedExport() As String
 
-
-
-
     Public Sub New(ByVal input As String, ByVal regex As String, ByVal multipleNested As Boolean)
         InputString = input
         RegexPattern = regex
@@ -33,13 +30,10 @@ Public Class RegX
         Occurence = countString(input, stringpat)
     End Sub
 
-
-
     Function countString(ByVal input As String, ByVal stringToBeSearchedInsideTheInputString As String) As Integer
         Return System.Text.RegularExpressions.Regex.Split(InputString, stringToBeSearchedInsideTheInputString).Length - 1
 
     End Function
-
 
     Function regxStrip(ByVal text As String, ByVal expr As String) As String
 
@@ -61,19 +55,14 @@ Public Class RegX
                 Dim myC As Integer
                 For myC = 0 To cc.Count - 1
                     Dim c As Capture = cc(myC)
-
                     rmatch = c.ToString()
-
-
                     tempC = tempC + 1
-
                 Next
             Next
             m = m.NextMatch()
         Loop
         'TextBox2.Text = TextBox2.Text & tData
         Return rmatch
-
 
     End Function
 
@@ -87,7 +76,6 @@ Public Class RegX
         Dim tColOneData As String = ""
         Dim tColTwoData As String = ""
         Dim tData As String = ""
-
 
         'initiate the regex object
         Dim r As Regex = New Regex(expr, RegexOptions.IgnoreCase)
@@ -136,9 +124,5 @@ Public Class RegX
         'Form1.TextBox2.Text = tData
         Return multipleTable
 
-
     End Function
-
-
-
 End Class

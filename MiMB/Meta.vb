@@ -184,7 +184,6 @@
 
             End Select
 
-
             Select Case CTypeTable 'To find the correct Export function for Exporting the Condition Type
                 Case 0 ' No Table
                     If r.Cells(0).Value.ToString = "LandBlockE" Then 'Or "LandCellE" Then 
@@ -213,8 +212,6 @@
                     MsgBox("Out Of Range - Meta.MetaExport- Case CTypeTable")
             End Select
 
-
-
             Select Case ATypeTable 'To Find correct Meta Export Function for ActionData
                 Case 0
                     tempmeta = tempmeta & ATypeZeroExport(r.Cells(3).Value.ToString & vbCrLf)      'Uses Table but zero records (Watchdog Clear)
@@ -240,10 +237,7 @@
                     MsgBox("Out Of Range - Meta.MetaExport- Case ATypeTable")
             End Select
 
-
             tempmeta = tempmeta & tState & vbCrLf & r.Cells(4).Value.ToString & vbCrLf   'State
-
-
 
         Next
         metafile = tempmeta
@@ -281,7 +275,6 @@
             TestingStuff.Show()
         Else
         End If
-
 
     End Sub
 
@@ -350,7 +343,6 @@
         Rule = TableHeader
         Return (Rule)
 
-
     End Function
 
     Function SingleExport(Rule As String, RecordOneADataType As String) As String 'RecordOneAdataType - e=Expression, n=name
@@ -368,7 +360,6 @@
 
         Rule = TableHeader & vbCrLf & ExportData
         Return (Rule)
-
 
     End Function
 
@@ -464,8 +455,6 @@
         ofd.Filter = "Nav Files|*.nav"
         'ofd.InitialDirectory = My.Settings.XMLOpenSave
 
-
-
         If filename.Contains(vbCr.ToCharArray) Then
 
             embeddedNavFile = "ba" & vbCrLf & (Len(filename)) & vbCrLf & filename
@@ -517,7 +506,6 @@
                 embeddedNavFile = Header & vbCrLf & navString
             End If
 
-
             'Header = "ba" & vbCrLf & (Len(TestCharCountString)) & vbCrLf & NavRouteName & vbCrLf & RecordCount
             'Result = Header & vbCrLf & navString
             'embeddedNavFile = Header & vbCrLf & navString
@@ -525,8 +513,6 @@
         'Result = Header & vbCrLf & navString
 
         Return embeddedNavFile
-
-
 
     End Function
 
@@ -584,8 +570,6 @@
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
 
-
-
                 AnyAllNotEncode = AnyAllNotEncode + "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString & vbCrLf
                 'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString
             Else
@@ -612,7 +596,6 @@
 
         Return FinalConditionEncode
 
-
     End Function
     Function ConditionTypeEncode(ByVal CTypeString As String, ByVal CTypeData As String) As String
         Dim tempmeta As String = ""
@@ -621,8 +604,6 @@
         Dim tCD As String = "i" 'temp var for setting the Condition Data Var type -Set when Condition Type is figured out.
         Dim CTypeTable As Integer = 0  'This is to flag if Condition Type uses a Record Table. No record table=0, Single=1, Double=3 or Multiple Table=3.  Used to call correct Functions, Init as 0
         Dim sCDataTableVarOne As String = "" ' For setting the proper Var Type for each subtable Variable
-
-
 
         Select Case (CTypeString) ' Condition Types
             Case Nothing ' To remove blank lines
@@ -705,7 +686,6 @@
         End Select
 
 
-
         Select Case CTypeTable 'To find the correct Export function for Exporting the Condition Type
             Case 0 ' No Table
 
@@ -752,7 +732,6 @@
         mytable = myExportActionNest.MultiTable
         Dim rc As Integer = 1 'for record counts
 
-
         For Each row As DataRow In mytable.Rows
             tString1 = row.Item(0).ToString.Replace(": ", "")
             tString2 = row.Item(1).ToString
@@ -768,7 +747,6 @@
 
             Else
 
-
                 '----- Fix single Multiple ??? 1 nest deep
                 If c = 0 Then
                     tempData = tempData & ActionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
@@ -782,8 +760,6 @@
 
         tempData = Header & vbCrLf & c & vbCrLf & tempData & tdata
         'End If
-
-
 
         Return tempData
 
@@ -816,7 +792,6 @@
                 tempmeta = tempmeta + i + "4" + vbCrLf
                 tAD = "s"
             Case "CallState"
-
                 ActionDataType = "CallState"
                 ATypeTable = 2
                 tempmeta = tempmeta + i + "5" + vbCrLf
@@ -864,9 +839,6 @@
                 MessageBox.Show("Out of Range - Function = Meta.ActionTypeEncode")
 
         End Select
-
-
-
 
         Select Case ATypeTable 'To Find correct Meta Export Function for ActionData
             Case 0

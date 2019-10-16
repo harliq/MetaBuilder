@@ -1,10 +1,8 @@
 ﻿Public Class NestedConditionMetaExport
 
-
     Public Property InputString As String
     Public Property RegxMatch As String
     Public Property OutString As String
-
 
     Public Sub New(ByVal inString As String, ByVal regx As String)
         InputString = inString
@@ -19,15 +17,11 @@
         Dim tData As String = ""
         Dim FinalEncode As String = ""
         Dim tPeekData As String = ""
-
-
-        'Dim aData As String
         Dim tString1 As String
         Dim tString2 As String
         Dim Header As String = "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n"
         Dim varType As String = "" ' 2 = all, 3 = any, 21 = not
         'Dim aanTdata As String
-
         'Dim myExportActionNest As New RegX(input, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
 
         Dim myExportConditionNest As New RegX(input, regx, False)
@@ -36,7 +30,6 @@
 
         Dim rc As Integer = 0 'for record counts
         Dim c As Integer = 0
-
 
         For Each row As DataRow In mytable.Rows
             tString1 = row.Item(0).ToString.Replace(": ", "")
@@ -49,8 +42,6 @@
             ElseIf tString1.ToString.Contains("Not") Then
                 varType = "21"
             End If
-
-
 
             If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, regx)
