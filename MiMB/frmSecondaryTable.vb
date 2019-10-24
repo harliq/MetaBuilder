@@ -37,6 +37,9 @@
                 TextBox3.Text = "5"
             Case 17, 18 ' Landblock & LandCell
                 TextBox1.Text = "00000000"
+            Case 23
+                TextBox2.Text = "0"
+                TextBox3.Text = "0"
             Case 28 'Chat Message Capture
                 TextBox2.Text = ""
                 TextBox3.Text = ""
@@ -200,8 +203,9 @@
                     FormOneRule()
                     lblTextOne.Text = "Seconds in State Persistent Greater than or Equal to:"
                 Case 23
-                    FormOneRule()
-                    lblTextOne.Text = "Time Left on Spell Greater than or Equal to:"
+                    FormTwoRule()
+                    lblTextTwo.Text = "Spell ID"
+                    lblTextThree.Text = "Time Left on Spell Greater than or Equal to:"
                 Case 24
                     FormOneRule()
                     lblTextOne.Text = "Burden Percent is Great than or Equal to:"
@@ -530,7 +534,7 @@
                         Next
                         TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxType.Text & ": ", tempdata)
 
-                    Case 11, 12, 28 'Double Values
+                    Case 11, 12, 23, 28 'Double Values
                         TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxType.Text & ": ", Parse.CombineTwoVal(ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text, "a"))
                     Case 13, 14     'Triple Values
                         TableSecondaryMultiple.Rows.Add(ThirdTableDialog.cBoxType.Text & ": ", Parse.CombineThreeVal(ThirdTableDialog.TextBox1.Text, ThirdTableDialog.TextBox2.Text, ThirdTableDialog.TextBox3.Text))
@@ -659,7 +663,7 @@
 
                     Case "ChatMessage: ", "Expression: ", "LandBlockE: ", "LandCellE: "
                         SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
-                    Case "ItemCountLE: ", "ItemCountGE: ", "ChatMessageCapture: "
+                    Case "ItemCountLE: ", "ItemCountGE: ", "ChatMessageCapture: ", "TimeLeftOnSpellGE: "
                         Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                         Dim StringSplit() As String
                         StringSplit = Split(tempData, ";")
@@ -817,7 +821,7 @@
                     Select Case SecondTableDialog.cBoxType.SelectedIndex
                         Case 0, 1, 7 To 10, 15, 19, 20 'Empty Values Set As a ZERO
                             newDataRow.Cells(1).Value = 0
-                        Case 11, 12, 28  'Double Values
+                        Case 11, 12, 23, 28  'Double Values
                             newDataRow.Cells(1).Value = Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a")
                         Case 13, 14     'Triple Values
                             newDataRow.Cells(1).Value = Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text)

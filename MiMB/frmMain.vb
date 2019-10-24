@@ -861,6 +861,7 @@ Public Class frmMain
                     'SetForm.CTSecondsInStatePersistGE()
                     'cBoxCType.Text = selectedRow.Cells(0).Value.ToString()
                 Case "TimeLeftOnSpellGE"
+                    CAnyAllTable = 1
                     'SetForm.CTTimeLeftOnSpellGE()
                     'cBoxCType.Text = selectedRow.Cells(0).Value.ToString()
                 Case "BurdenPercentGE"
@@ -1101,7 +1102,7 @@ Public Class frmMain
                 Case 0, 1, 7 To 10, 15, 19, 20 'Empty Values Set As a ZERO
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, "0")
 
-                Case 11, 12, 28  'Double Values
+                Case 11, 12, 23, 28  'Double Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineTwoVal(SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text, "a"))
                 Case 13, 14     'Triple Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, Parse.CombineThreeVal(SecondTableDialog.TextBox1.Text, SecondTableDialog.TextBox2.Text, SecondTableDialog.TextBox3.Text))
@@ -1179,7 +1180,7 @@ Public Class frmMain
 
                 Case "ChatMessage", "Expression", "LandBlockE", "LandCellE"
                     SecondTableDialog.TextBox1.Text = selectedRow.Cells(1).Value.ToString
-                Case "ItemCountLE", "ItemCountGE", "ChatMessageCapture"
+                Case "ItemCountLE", "ItemCountGE", "ChatMessageCapture", "TimeLeftOnSpellGE"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
                     Dim StringSplit() As String
                     StringSplit = Split(tempData, ";")
