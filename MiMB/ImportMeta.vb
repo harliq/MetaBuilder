@@ -3,10 +3,8 @@ Imports System.Text
 
 Module ImportMeta
 
-
-
     Function Load(table As DataTable) As DataTable
-
+        FileName = ""
         '---------- Make copy of file for back up directory
 
         'check for backup directory     
