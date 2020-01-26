@@ -1598,7 +1598,17 @@ Public Class frmMain
                 Else
                     table.Rows.Add(clipArray(1), clipArray(3), clipArray(2), clipArray(4), clipArray(0))
                 End If
-
+                If cBoxCTMetaState.Items.Contains(clipArray(0)) Then
+                    'do nothing
+                Else
+                    'add meta state
+                    'Adding New Meta State to list boxes
+                    'MetaList.Add(clipArray(0))
+                    cBoxCTMetaState.Items.Add(clipArray(0))
+                    cBoxATMetaState.Items.Add(clipArray(0))
+                    cboxReturnMetaState.Items.Add(clipArray(0))
+                    cBoxCTMetaState.SelectedItem = clipArray(0)
+                End If
             Catch ex As Exception
                 MsgBox("The data you tried to paste is not a rule")
             End Try
@@ -1615,12 +1625,29 @@ Public Class frmMain
             Try
                 Dim clipArray() As String
                 clipArray = Clipboard.GetText().Split(vbTab)
+
                 If clipArray(0) = "Type" Then
                     Dim tArray() As String
                     tArray = clipArray(1).Split(vbCrLf)
+                    Dim tAction As String = tArray(1).Replace(vbLf, "")
+                    Select Case tAction
+                        Case "None", "SetState", "ChatCommand", "Multiple", "EmbeddedNavRoute", "CallState", "ReturnFromCall", "ExpressionAct", "ChatWithExpression", "WatchdogSet", "WatchdogClear", "GetVTOption", "SetVTOption", "CreateView", "DestroyView", "DestroyAllViews"
+                            TableAnyAll.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                        Case Else
+                            MsgBox("The data you tried to paste is not an Action Type")
+                            Return
+                    End Select
+
                     TableATMultiple.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
                 Else
-                    TableATMultiple.Rows.Add(clipArray(0), clipArray(1))
+                    Select Case clipArray(0)
+                        Case "None", "SetState", "ChatCommand", "Multiple", "EmbeddedNavRoute", "CallState", "ReturnFromCall", "ExpressionAct", "ChatWithExpression", "WatchdogSet", "WatchdogClear", "GetVTOption", "SetVTOption", "CreateView", "DestroyView", "DestroyAllViews"
+                            TableATMultiple.Rows.Add(clipArray(0), clipArray(1))
+                        Case Else
+                            MsgBox("The data you tried to paste is not an Action Type")
+                            Return
+                    End Select
+
                 End If
 
             Catch ex As Exception
@@ -1638,11 +1665,27 @@ Public Class frmMain
             Try
                 Dim clipArray() As String
                 clipArray = Clipboard.GetText().Split(vbTab)
+
                 If clipArray(0) = "Type" Then
                     Dim tArray() As String
                     tArray = clipArray(1).Split(vbCrLf)
-                    TableAnyAll.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                    Dim tCondition As String = tArray(1).Replace(vbLf, "")
+                    Select Case tCondition
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            TableAnyAll.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                        Case Else
+                            MsgBox("The data you tried to paste is not a Condition Type")
+                            Return
+                    End Select
                 Else
+                    Select Case clipArray(0)
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                        Case Else
+                            MsgBox("The data you tried to paste is not a Condition Type")
+                            Return
+                    End Select
+
+
                     TableAnyAll.Rows.Add(clipArray(0), clipArray(1))
                 End If
 
