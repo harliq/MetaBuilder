@@ -314,7 +314,7 @@ Public Class frmMain
         newDataRow.Cells(1).Value = cBoxAType.Text
 
         Select Case cBoxCType.SelectedIndex
-            Case 0, 1, 2, 7 To 10, 15, 19, 20, 27
+            Case 0, 1, 7 To 10, 15, 19, 20, 27
                 CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
@@ -1594,9 +1594,23 @@ Public Class frmMain
                 If clipArray(1) = "Condition Type" Then
                     Dim tArray() As String
                     tArray = clipArray(4).Split(vbCrLf)
-                    table.Rows.Add(clipArray(5), clipArray(7), clipArray(6), clipArray(8), tArray(1))
+                    Dim tCondition As String = tArray(5).Replace(vbLf, "")
+                    Select Case tCondition
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            table.Rows.Add(clipArray(5), clipArray(7), clipArray(6), clipArray(8), tArray(1))
+                        Case Else
+                            MsgBox("The data you tried to paste is not a rule")
+                            Return
+                    End Select
                 Else
-                    table.Rows.Add(clipArray(1), clipArray(3), clipArray(2), clipArray(4), clipArray(0))
+                    Select Case clipArray(1)
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            table.Rows.Add(clipArray(1), clipArray(3), clipArray(2), clipArray(4), clipArray(0))
+                        Case Else
+                            MsgBox("The data you tried to paste is not a rule")
+                            Return
+                    End Select
+
                 End If
                 If cBoxCTMetaState.Items.Contains(clipArray(0)) Then
                     'do nothing
@@ -1680,18 +1694,19 @@ Public Class frmMain
                 Else
                     Select Case clipArray(0)
                         Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            TableAnyAll.Rows.Add(clipArray(0), clipArray(1))
                         Case Else
                             MsgBox("The data you tried to paste is not a Condition Type")
                             Return
                     End Select
 
-
-                    TableAnyAll.Rows.Add(clipArray(0), clipArray(1))
                 End If
 
             Catch ex As Exception
                 MsgBox("The data you tried to paste is not a Condition Type")
             End Try
         End If
+        dgvAnyAll.DataSource = TableAnyAll
+        dgvAnyAll.Refresh()
     End Sub
 End Class
