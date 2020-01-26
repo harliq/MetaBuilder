@@ -110,14 +110,14 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.lblProgressBar = New System.Windows.Forms.Label()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.btnImportMeta = New System.Windows.Forms.Button()
+        Me.lblSaveNav = New System.Windows.Forms.Label()
         Me.rdbFalse = New System.Windows.Forms.RadioButton()
         Me.rdbTrue = New System.Windows.Forms.RadioButton()
         Me.lstBoxCommonOptions = New System.Windows.Forms.ListBox()
         Me.lblATReturnToState = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
-        Me.lblSaveNav = New System.Windows.Forms.Label()
-        Me.btnImportMeta = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -179,7 +179,7 @@ Partial Class frmMain
         '
         Me.ToolsToolStripMenuItem1.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.OptionsToolStripMenuItem})
         Me.ToolsToolStripMenuItem1.Name = "ToolsToolStripMenuItem1"
-        Me.ToolsToolStripMenuItem1.Size = New System.Drawing.Size(47, 20)
+        Me.ToolsToolStripMenuItem1.Size = New System.Drawing.Size(46, 20)
         Me.ToolsToolStripMenuItem1.Text = "&Tools"
         '
         'OptionsToolStripMenuItem
@@ -397,6 +397,7 @@ Partial Class frmMain
         '
         'dgvMetaRules
         '
+        Me.dgvMetaRules.AllowUserToAddRows = False
         Me.dgvMetaRules.AllowUserToResizeRows = False
         Me.dgvMetaRules.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvMetaRules.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
@@ -977,6 +978,27 @@ Partial Class frmMain
         Me.ProgressBar1.Size = New System.Drawing.Size(243, 14)
         Me.ProgressBar1.TabIndex = 32
         '
+        'btnImportMeta
+        '
+        Me.btnImportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.btnImportMeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnImportMeta.Location = New System.Drawing.Point(1093, 139)
+        Me.btnImportMeta.Name = "btnImportMeta"
+        Me.btnImportMeta.Size = New System.Drawing.Size(129, 30)
+        Me.btnImportMeta.TabIndex = 48
+        Me.btnImportMeta.Text = "Import Meta"
+        Me.btnImportMeta.UseVisualStyleBackColor = True
+        '
+        'lblSaveNav
+        '
+        Me.lblSaveNav.AutoSize = True
+        Me.lblSaveNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblSaveNav.Location = New System.Drawing.Point(791, 18)
+        Me.lblSaveNav.Name = "lblSaveNav"
+        Me.lblSaveNav.Size = New System.Drawing.Size(122, 16)
+        Me.lblSaveNav.TabIndex = 47
+        Me.lblSaveNav.Text = "Save Nav as a File"
+        '
         'rdbFalse
         '
         Me.rdbFalse.AutoSize = True
@@ -1043,27 +1065,6 @@ Partial Class frmMain
         Me.cboxReturnMetaState.Sorted = True
         Me.cboxReturnMetaState.TabIndex = 30
         Me.cboxReturnMetaState.Visible = False
-        '
-        'lblSaveNav
-        '
-        Me.lblSaveNav.AutoSize = True
-        Me.lblSaveNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaveNav.Location = New System.Drawing.Point(791, 18)
-        Me.lblSaveNav.Name = "lblSaveNav"
-        Me.lblSaveNav.Size = New System.Drawing.Size(122, 16)
-        Me.lblSaveNav.TabIndex = 47
-        Me.lblSaveNav.Text = "Save Nav as a File"
-        '
-        'btnImportMeta
-        '
-        Me.btnImportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.btnImportMeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImportMeta.Location = New System.Drawing.Point(1093, 139)
-        Me.btnImportMeta.Name = "btnImportMeta"
-        Me.btnImportMeta.Size = New System.Drawing.Size(129, 30)
-        Me.btnImportMeta.TabIndex = 48
-        Me.btnImportMeta.Text = "Import Meta"
-        Me.btnImportMeta.UseVisualStyleBackColor = True
         '
         'frmMain
         '

@@ -81,7 +81,7 @@ Public Class frmMain
         Dim AData As String
 
         Select Case cBoxCType.SelectedIndex
-            Case 0
+            Case 0, 1, 2, 7 To 10, 15, 19, 20, 27
                 CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
@@ -96,7 +96,7 @@ Public Class frmMain
         End Select
 
         Select Case cBoxAType.SelectedIndex
-            Case 0
+            Case 0, 6, 15
                 AData = "0"
             Case 1       'Set State or Call State
                 AData = cBoxATMetaState.Text
@@ -315,7 +315,7 @@ Public Class frmMain
         'Delete Rule 'Need to add try statement to see if it is deleteing last row. If so, throw an error
         If dgvMetaRules.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top row... Yet")
+            MsgBox("You can not delete the top row.")
 
         ElseIf dgvMetaRules.CurrentRow.Index >= 0 Then
             Try
@@ -349,6 +349,8 @@ Public Class frmMain
         newDataRow.Cells(1).Value = cBoxAType.Text
 
         Select Case cBoxCType.SelectedIndex
+            Case 0, 1, 2, 7 To 10, 15, 19, 20, 27
+                CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
                 CData = AnyAllString
@@ -362,7 +364,9 @@ Public Class frmMain
         End Select
 
         Select Case cBoxAType.SelectedIndex
-            Case 1
+            Case 0, 6, 15
+                AData = "0"
+            Case 1       'Set State or Call State
                 AData = cBoxATMetaState.Text
             Case 3
                 Parse.CombineMultiple()

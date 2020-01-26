@@ -11,8 +11,8 @@ Imports System.Runtime.InteropServices
 <Assembly: AssemblyTitle("MiMB")>
 <Assembly: AssemblyDescription("Mission Impossible - Meta Builder")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("MiMB-Test")>
-<Assembly: AssemblyCopyright("Copyright ©  2018")>
+<Assembly: AssemblyProduct("MiMB")>
+<Assembly: AssemblyCopyright("Copyright ©  2020")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -31,5 +31,5 @@ Imports System.Runtime.InteropServices
 ' by using the '*' as shown below:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("2.0.0.5")>
-<Assembly: AssemblyFileVersion("2.0.0.5")>
+<Assembly: AssemblyVersion("2.0.1.0")>
+<Assembly: AssemblyFileVersion("2.0.1.0")>
