@@ -1145,7 +1145,7 @@ Public Class frmMain
 
         If dgvAnyAll.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top or bottom (blank) row... Yet")
+            MsgBox("You can not delete the top row.")
         ElseIf dgvAnyAll.CurrentRow.Index >= 0 Then
             Try
                 dgvAnyAll.Rows.RemoveAt(tAnyAllIndex)
@@ -1712,7 +1712,7 @@ Public Class frmMain
     Private Sub btnDeleteATAnyAll_Click(sender As Object, e As EventArgs) Handles btnDeleteATAnyAll.Click
         If dgvATMultiple.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top or bottom (blank) row... Yet")
+            MsgBox("You can not delete the top row.")
 
         ElseIf dgvATMultiple.CurrentRow.Index >= 0 Then
             Try
@@ -1859,9 +1859,53 @@ Public Class frmMain
                 MsgBox("The data you tried to paste is not a rule")
             End Try
 
-
             'cBoxCType.Text, cBoxAType.Text, CData, AData, cBoxCTMetaState.Text
-            ' 2, 3, 
+
+        End If
+    End Sub
+
+    Private Sub dgvATMultiple_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvATMultiple.KeyDown
+        If e.Control And e.KeyCode = Keys.V Then
+
+            Try
+                Dim clipArray() As String
+                clipArray = Clipboard.GetText().Split(vbTab)
+                If clipArray(0) = "Type" Then
+                    Dim tArray() As String
+                    tArray = clipArray(1).Split(vbCrLf)
+                    TableATMultiple.Rows.Add(tArray(1), clipArray(2))
+                Else
+                    TableATMultiple.Rows.Add(clipArray(0), clipArray(1))
+                End If
+
+
+
+            Catch ex As Exception
+                MsgBox("The data you tried to paste is not an Action Type")
+            End Try
+        End If
+
+    End Sub
+
+    Private Sub dgvAnyAll_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvAnyAll.KeyDown
+        If e.Control And e.KeyCode = Keys.V Then
+
+            Try
+                Dim clipArray() As String
+                clipArray = Clipboard.GetText().Split(vbTab)
+                If clipArray(0) = "Type" Then
+                    Dim tArray() As String
+                    tArray = clipArray(1).Split(vbCrLf)
+                    TableAnyAll.Rows.Add(tArray(1), clipArray(2))
+                Else
+                    TableAnyAll.Rows.Add(clipArray(0), clipArray(1))
+                End If
+
+
+
+            Catch ex As Exception
+                MsgBox("The data you tried to paste is not a Condition Type")
+            End Try
         End If
     End Sub
 End Class

@@ -432,6 +432,7 @@ Partial Class frmMain
         '
         'dgvATMultiple
         '
+        Me.dgvATMultiple.AllowUserToAddRows = False
         Me.dgvATMultiple.AllowUserToResizeRows = False
         Me.dgvATMultiple.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvATMultiple.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
@@ -660,6 +661,7 @@ Partial Class frmMain
         '
         'dgvAnyAll
         '
+        Me.dgvAnyAll.AllowUserToAddRows = False
         Me.dgvAnyAll.AllowUserToResizeRows = False
         Me.dgvAnyAll.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill
         Me.dgvAnyAll.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
