@@ -2,6 +2,7 @@
 Imports System.Data.DataTable
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
 Imports MetToXML
+Imports Microsoft.VisualBasic.Devices
 
 Public Class frmMain
 
@@ -671,7 +672,7 @@ Public Class frmMain
         Dim optionsDialog As New Options()
         optionsDialog.txtXMLdir.Text = My.Settings.XMLOpenSave
         optionsDialog.txtMetaDir.Text = My.Settings.MetaExportDir
-        optionsDialog.txtNavDir.text = My.Settings.NavDir
+        optionsDialog.txtNavDir.Text = My.Settings.NavDir
         If optionsDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
             My.Settings.XMLOpenSave = optionsDialog.txtXMLdir.Text
             My.Settings.MetaExportDir = optionsDialog.txtMetaDir.Text
@@ -761,7 +762,8 @@ Public Class frmMain
         Try
             selectedRow = dgvMetaRules.Rows(index)
         Catch ex As Exception
-            MsgBox("Exception! dgvMetaRules_CellClick, dgvMetaRules.Rows index = " & index)
+            'MsgBox("Exception! dgvMetaRules_CellClick, dgvMetaRules.Rows index = " & index)
+            Return
         End Try
         'selectedRow = dgvMetaRules.Rows(index)
         SetForm.ResetAll()
@@ -1833,5 +1835,33 @@ Public Class frmMain
         'xml.LoadXML(table)
         dgvMetaRules.Rows(0).Selected = True
         cBoxCTMetaState.Text = "Default"
+    End Sub
+
+    Private Sub dgvMetaRules_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvMetaRules.KeyDown
+
+
+        If e.Control And e.KeyCode = Keys.V Then
+
+            Try
+                Dim clipArray() As String
+                clipArray = Clipboard.GetText().Split(vbTab)
+                If clipArray(1) = "Condition Type" Then
+                    Dim tArray() As String
+                    tArray = clipArray(4).Split(vbCrLf)
+                    table.Rows.Add(clipArray(5), clipArray(7), clipArray(6), clipArray(8), tArray(1))
+                Else
+                    table.Rows.Add(clipArray(1), clipArray(3), clipArray(2), clipArray(4), clipArray(0))
+                End If
+
+
+
+            Catch ex As Exception
+                MsgBox("The data you tried to paste is not a rule")
+            End Try
+
+
+            'cBoxCType.Text, cBoxAType.Text, CData, AData, cBoxCTMetaState.Text
+            ' 2, 3, 
+        End If
     End Sub
 End Class
