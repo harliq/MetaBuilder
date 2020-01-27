@@ -1598,6 +1598,9 @@ Public Class frmMain
                     Select Case tCondition
                         Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
                             table.Rows.Add(clipArray(5), clipArray(7), clipArray(6), clipArray(8), tArray(1))
+                            If clipArray(7) = "SetState" Then
+                                AddMetaState(clipArray(8))
+                            End If
                         Case Else
                             MsgBox("The data you tried to paste is not a rule")
                             Return
@@ -1606,6 +1609,12 @@ Public Class frmMain
                     Select Case clipArray(1)
                         Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
                             table.Rows.Add(clipArray(1), clipArray(3), clipArray(2), clipArray(4), clipArray(0))
+                            If clipArray(3) = "SetState" Then
+                                AddMetaState(clipArray(4))
+                            End If
+                            If clipArray(4).Contains("SetState") Then
+                                MultipleAddMetaState(clipArray(4))
+                            End If
                         Case Else
                             MsgBox("The data you tried to paste is not a rule")
                             Return
@@ -1647,6 +1656,9 @@ Public Class frmMain
                     Select Case tAction
                         Case "None", "SetState", "ChatCommand", "Multiple", "EmbeddedNavRoute", "CallState", "ReturnFromCall", "ExpressionAct", "ChatWithExpression", "WatchdogSet", "WatchdogClear", "GetVTOption", "SetVTOption", "CreateView", "DestroyView", "DestroyAllViews"
                             TableAnyAll.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                            If tAction = "SetState" Then
+                                AddMetaState(clipArray(2))
+                            End If
                         Case Else
                             MsgBox("The data you tried to paste is not an Action Type")
                             Return
@@ -1657,6 +1669,12 @@ Public Class frmMain
                     Select Case clipArray(0)
                         Case "None", "SetState", "ChatCommand", "Multiple", "EmbeddedNavRoute", "CallState", "ReturnFromCall", "ExpressionAct", "ChatWithExpression", "WatchdogSet", "WatchdogClear", "GetVTOption", "SetVTOption", "CreateView", "DestroyView", "DestroyAllViews"
                             TableATMultiple.Rows.Add(clipArray(0), clipArray(1))
+                            ' Adding state if not already in list
+                            If clipArray(0) = "SetState" Then
+                                AddMetaState(clipArray(1))
+                            ElseIf clipArray(1).Contains("Multiple") Then 'checking to see if there are any SetStates to add in Multiple
+
+                            End If
                         Case Else
                             MsgBox("The data you tried to paste is not an Action Type")
                             Return
@@ -1708,5 +1726,31 @@ Public Class frmMain
         End If
         dgvAnyAll.DataSource = TableAnyAll
         dgvAnyAll.Refresh()
+    End Sub
+
+    Private Sub AddMetaState(ByVal metastate)
+        If cBoxCTMetaState.Items.Contains(metastate) Then
+            'do nothing
+        Else
+            cBoxCTMetaState.Items.Add(metastate)
+            cBoxATMetaState.Items.Add(metastate)
+            cboxReturnMetaState.Items.Add(metastate)
+        End If
+    End Sub
+
+    Private Sub MultipleAddMetaState(ByVal actionMultiple)
+
+        Dim regxPatteren As String = "(SetState){(.*?)}|(SetState: ){(.*?)}"
+        Dim statesTable As New RegX(actionMultiple, regxPatteren, False)
+
+        For Each row As DataRow In statesTable.MultiTable.Rows
+
+            If row.Item(0).ToString = "SetState" Then
+                AddMetaState(row.Item(1).ToString)
+            ElseIf row.Item(0).ToString = "SetState: " Then
+                AddMetaState(row.Item(1).ToString)
+            End If
+
+        Next
     End Sub
 End Class
