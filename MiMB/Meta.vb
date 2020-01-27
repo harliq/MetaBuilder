@@ -5,7 +5,7 @@
 
         Dim metafile As String
 
-        Dim RecordCount As Integer = frmMain.dgvMetaRules.Rows.Count - 1 ' Record Count I think.  May need to add -1 for it to match 
+        Dim RecordCount As Integer = frmMain.dgvMetaRules.Rows.Count '- 1 ' Record Count I think.  May need to add -1 for it to match 
         'rowcount = frmMain.dgvMetaRules.DisplayedRowCount(False)
         Dim tempmeta As String
         Dim cVarType As String = ""
