@@ -80,7 +80,7 @@ Public Class frmMain
         Dim AData As String
 
         Select Case cBoxCType.SelectedIndex
-            Case 0, 1, 2, 7 To 10, 15, 19, 20, 27
+            Case 0, 1, 7 To 10, 15, 19, 20, 27
                 CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
