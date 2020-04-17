@@ -118,6 +118,10 @@ Partial Class frmMain
         Me.lblATReturnToState = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.cboxReturnMetaState = New System.Windows.Forms.ComboBox()
+        Me.StatusStrip1 = New System.Windows.Forms.StatusStrip()
+        Me.ToolStripProgressBarSave = New System.Windows.Forms.ToolStripProgressBar()
+        Me.ToolStripStatusLabelInfo = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.ToolStripStatusLabelVersion = New System.Windows.Forms.ToolStripStatusLabel()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -127,6 +131,7 @@ Partial Class frmMain
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
+        Me.StatusStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'MenuStrip1
@@ -198,7 +203,7 @@ Partial Class frmMain
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(107, 22)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.AboutToolStripMenuItem1.Text = "&About"
         '
         'FileToolStripMenuItem
@@ -403,7 +408,7 @@ Partial Class frmMain
         Me.dgvMetaRules.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvMetaRules.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvMetaRules.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvMetaRules.Location = New System.Drawing.Point(12, 49)
+        Me.dgvMetaRules.Location = New System.Drawing.Point(12, 48)
         Me.dgvMetaRules.MultiSelect = False
         Me.dgvMetaRules.Name = "dgvMetaRules"
         Me.dgvMetaRules.RowHeadersVisible = False
@@ -438,7 +443,7 @@ Partial Class frmMain
         Me.dgvATMultiple.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvATMultiple.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvATMultiple.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvATMultiple.Location = New System.Drawing.Point(13, 75)
+        Me.dgvATMultiple.Location = New System.Drawing.Point(13, 74)
         Me.dgvATMultiple.MultiSelect = False
         Me.dgvATMultiple.Name = "dgvATMultiple"
         Me.dgvATMultiple.RowHeadersVisible = False
@@ -453,7 +458,7 @@ Partial Class frmMain
         '
         Me.lblAType.AutoSize = True
         Me.lblAType.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAType.Location = New System.Drawing.Point(10, 3)
+        Me.lblAType.Location = New System.Drawing.Point(10, 2)
         Me.lblAType.Name = "lblAType"
         Me.lblAType.Size = New System.Drawing.Size(92, 20)
         Me.lblAType.TabIndex = 1
@@ -463,7 +468,7 @@ Partial Class frmMain
         '
         Me.lblAData.AutoSize = True
         Me.lblAData.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAData.Location = New System.Drawing.Point(10, 112)
+        Me.lblAData.Location = New System.Drawing.Point(10, 111)
         Me.lblAData.Name = "lblAData"
         Me.lblAData.Size = New System.Drawing.Size(93, 20)
         Me.lblAData.TabIndex = 2
@@ -472,7 +477,7 @@ Partial Class frmMain
         'txtBoxAData
         '
         Me.txtBoxAData.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxAData.Location = New System.Drawing.Point(14, 133)
+        Me.txtBoxAData.Location = New System.Drawing.Point(14, 132)
         Me.txtBoxAData.Name = "txtBoxAData"
         Me.txtBoxAData.Size = New System.Drawing.Size(950, 22)
         Me.txtBoxAData.TabIndex = 4
@@ -481,7 +486,7 @@ Partial Class frmMain
         '
         Me.lblATMetaState.AutoSize = True
         Me.lblATMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblATMetaState.Location = New System.Drawing.Point(337, 3)
+        Me.lblATMetaState.Location = New System.Drawing.Point(337, 2)
         Me.lblATMetaState.Name = "lblATMetaState"
         Me.lblATMetaState.Size = New System.Drawing.Size(84, 20)
         Me.lblATMetaState.TabIndex = 5
@@ -494,7 +499,7 @@ Partial Class frmMain
         Me.cBoxATMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxATMetaState.FormattingEnabled = True
         Me.cBoxATMetaState.Items.AddRange(New Object() {"Default"})
-        Me.cBoxATMetaState.Location = New System.Drawing.Point(341, 22)
+        Me.cBoxATMetaState.Location = New System.Drawing.Point(341, 21)
         Me.cBoxATMetaState.MaxDropDownItems = 100
         Me.cBoxATMetaState.Name = "cBoxATMetaState"
         Me.cBoxATMetaState.Size = New System.Drawing.Size(175, 28)
@@ -509,7 +514,7 @@ Partial Class frmMain
         Me.cBoxAType.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxAType.FormattingEnabled = True
         Me.cBoxAType.IntegralHeight = False
-        Me.cBoxAType.Location = New System.Drawing.Point(15, 22)
+        Me.cBoxAType.Location = New System.Drawing.Point(15, 21)
         Me.cBoxAType.Name = "cBoxAType"
         Me.cBoxAType.Size = New System.Drawing.Size(301, 28)
         Me.cBoxAType.TabIndex = 0
@@ -517,7 +522,7 @@ Partial Class frmMain
         'txtBoxAData2
         '
         Me.txtBoxAData2.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxAData2.Location = New System.Drawing.Point(14, 178)
+        Me.txtBoxAData2.Location = New System.Drawing.Point(14, 177)
         Me.txtBoxAData2.Name = "txtBoxAData2"
         Me.txtBoxAData2.Size = New System.Drawing.Size(950, 22)
         Me.txtBoxAData2.TabIndex = 5
@@ -526,7 +531,7 @@ Partial Class frmMain
         '
         Me.lblAdata2.AutoSize = True
         Me.lblAdata2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAdata2.Location = New System.Drawing.Point(10, 158)
+        Me.lblAdata2.Location = New System.Drawing.Point(10, 157)
         Me.lblAdata2.Name = "lblAdata2"
         Me.lblAdata2.Size = New System.Drawing.Size(93, 20)
         Me.lblAdata2.TabIndex = 9
@@ -535,7 +540,7 @@ Partial Class frmMain
         'txtBoxAData3
         '
         Me.txtBoxAData3.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxAData3.Location = New System.Drawing.Point(15, 221)
+        Me.txtBoxAData3.Location = New System.Drawing.Point(15, 220)
         Me.txtBoxAData3.Name = "txtBoxAData3"
         Me.txtBoxAData3.Size = New System.Drawing.Size(950, 22)
         Me.txtBoxAData3.TabIndex = 6
@@ -544,7 +549,7 @@ Partial Class frmMain
         '
         Me.lblAData3.AutoSize = True
         Me.lblAData3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblAData3.Location = New System.Drawing.Point(11, 200)
+        Me.lblAData3.Location = New System.Drawing.Point(11, 199)
         Me.lblAData3.Name = "lblAData3"
         Me.lblAData3.Size = New System.Drawing.Size(93, 20)
         Me.lblAData3.TabIndex = 11
@@ -554,7 +559,7 @@ Partial Class frmMain
         '
         Me.buttonTest.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.buttonTest.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.buttonTest.Location = New System.Drawing.Point(1093, 211)
+        Me.buttonTest.Location = New System.Drawing.Point(1093, 210)
         Me.buttonTest.Name = "buttonTest"
         Me.buttonTest.Size = New System.Drawing.Size(129, 30)
         Me.buttonTest.TabIndex = 20
@@ -565,7 +570,7 @@ Partial Class frmMain
         '
         Me.btnExportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnExportMeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnExportMeta.Location = New System.Drawing.Point(1093, 175)
+        Me.btnExportMeta.Location = New System.Drawing.Point(1093, 174)
         Me.btnExportMeta.Name = "btnExportMeta"
         Me.btnExportMeta.Size = New System.Drawing.Size(129, 30)
         Me.btnExportMeta.TabIndex = 26
@@ -576,7 +581,7 @@ Partial Class frmMain
         '
         Me.btnSaveXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnSaveXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnSaveXML.Location = New System.Drawing.Point(1093, 104)
+        Me.btnSaveXML.Location = New System.Drawing.Point(1093, 103)
         Me.btnSaveXML.Name = "btnSaveXML"
         Me.btnSaveXML.Size = New System.Drawing.Size(129, 30)
         Me.btnSaveXML.TabIndex = 24
@@ -587,7 +592,7 @@ Partial Class frmMain
         '
         Me.btnLoadXML.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnLoadXML.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnLoadXML.Location = New System.Drawing.Point(1093, 70)
+        Me.btnLoadXML.Location = New System.Drawing.Point(1093, 69)
         Me.btnLoadXML.Name = "btnLoadXML"
         Me.btnLoadXML.Size = New System.Drawing.Size(129, 30)
         Me.btnLoadXML.TabIndex = 25
@@ -597,7 +602,7 @@ Partial Class frmMain
         'btnChooseNav
         '
         Me.btnChooseNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnChooseNav.Location = New System.Drawing.Point(341, 22)
+        Me.btnChooseNav.Location = New System.Drawing.Point(341, 21)
         Me.btnChooseNav.Name = "btnChooseNav"
         Me.btnChooseNav.Size = New System.Drawing.Size(92, 32)
         Me.btnChooseNav.TabIndex = 3
@@ -608,7 +613,7 @@ Partial Class frmMain
         '
         Me.btnNavSave.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnNavSave.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnNavSave.Location = New System.Drawing.Point(469, 22)
+        Me.btnNavSave.Location = New System.Drawing.Point(469, 21)
         Me.btnNavSave.Name = "btnNavSave"
         Me.btnNavSave.Size = New System.Drawing.Size(92, 32)
         Me.btnNavSave.TabIndex = 29
@@ -619,7 +624,7 @@ Partial Class frmMain
         'btnAddATAnyAll
         '
         Me.btnAddATAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddATAnyAll.Location = New System.Drawing.Point(932, 75)
+        Me.btnAddATAnyAll.Location = New System.Drawing.Point(932, 74)
         Me.btnAddATAnyAll.Name = "btnAddATAnyAll"
         Me.btnAddATAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnAddATAnyAll.TabIndex = 8
@@ -630,7 +635,7 @@ Partial Class frmMain
         'btnEditATAnyAll
         '
         Me.btnEditATAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEditATAnyAll.Location = New System.Drawing.Point(932, 111)
+        Me.btnEditATAnyAll.Location = New System.Drawing.Point(932, 110)
         Me.btnEditATAnyAll.Name = "btnEditATAnyAll"
         Me.btnEditATAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnEditATAnyAll.TabIndex = 9
@@ -641,7 +646,7 @@ Partial Class frmMain
         'btnDeleteATAnyAll
         '
         Me.btnDeleteATAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteATAnyAll.Location = New System.Drawing.Point(932, 149)
+        Me.btnDeleteATAnyAll.Location = New System.Drawing.Point(932, 148)
         Me.btnDeleteATAnyAll.Name = "btnDeleteATAnyAll"
         Me.btnDeleteATAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnDeleteATAnyAll.TabIndex = 10
@@ -652,7 +657,7 @@ Partial Class frmMain
         'btnATCreateState
         '
         Me.btnATCreateState.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnATCreateState.Location = New System.Drawing.Point(535, 18)
+        Me.btnATCreateState.Location = New System.Drawing.Point(535, 17)
         Me.btnATCreateState.Name = "btnATCreateState"
         Me.btnATCreateState.Size = New System.Drawing.Size(92, 32)
         Me.btnATCreateState.TabIndex = 2
@@ -667,7 +672,7 @@ Partial Class frmMain
         Me.dgvAnyAll.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells
         Me.dgvAnyAll.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvAnyAll.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically
-        Me.dgvAnyAll.Location = New System.Drawing.Point(14, 79)
+        Me.dgvAnyAll.Location = New System.Drawing.Point(14, 78)
         Me.dgvAnyAll.MultiSelect = False
         Me.dgvAnyAll.Name = "dgvAnyAll"
         Me.dgvAnyAll.RowHeadersVisible = False
@@ -683,7 +688,7 @@ Partial Class frmMain
         '
         Me.btnUp.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUp.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUp.Location = New System.Drawing.Point(1093, 134)
+        Me.btnUp.Location = New System.Drawing.Point(1093, 133)
         Me.btnUp.Name = "btnUp"
         Me.btnUp.Size = New System.Drawing.Size(129, 30)
         Me.btnUp.TabIndex = 28
@@ -694,7 +699,7 @@ Partial Class frmMain
         '
         Me.lblCType.AutoSize = True
         Me.lblCType.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCType.Location = New System.Drawing.Point(12, 3)
+        Me.lblCType.Location = New System.Drawing.Point(12, 2)
         Me.lblCType.Name = "lblCType"
         Me.lblCType.Size = New System.Drawing.Size(114, 20)
         Me.lblCType.TabIndex = 12
@@ -704,7 +709,7 @@ Partial Class frmMain
         '
         Me.lblCTMetaState.AutoSize = True
         Me.lblCTMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCTMetaState.Location = New System.Drawing.Point(338, 3)
+        Me.lblCTMetaState.Location = New System.Drawing.Point(338, 2)
         Me.lblCTMetaState.Name = "lblCTMetaState"
         Me.lblCTMetaState.Size = New System.Drawing.Size(88, 20)
         Me.lblCTMetaState.TabIndex = 14
@@ -713,7 +718,7 @@ Partial Class frmMain
         'btnCreateState
         '
         Me.btnCreateState.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCreateState.Location = New System.Drawing.Point(535, 23)
+        Me.btnCreateState.Location = New System.Drawing.Point(535, 22)
         Me.btnCreateState.Name = "btnCreateState"
         Me.btnCreateState.Size = New System.Drawing.Size(92, 32)
         Me.btnCreateState.TabIndex = 2
@@ -727,7 +732,7 @@ Partial Class frmMain
         Me.cBoxCTMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxCTMetaState.FormattingEnabled = True
         Me.cBoxCTMetaState.Items.AddRange(New Object() {"Default"})
-        Me.cBoxCTMetaState.Location = New System.Drawing.Point(341, 25)
+        Me.cBoxCTMetaState.Location = New System.Drawing.Point(341, 24)
         Me.cBoxCTMetaState.MaxDropDownItems = 100
         Me.cBoxCTMetaState.Name = "cBoxCTMetaState"
         Me.cBoxCTMetaState.Size = New System.Drawing.Size(175, 28)
@@ -741,7 +746,7 @@ Partial Class frmMain
         Me.cBoxCType.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxCType.FormattingEnabled = True
         Me.cBoxCType.IntegralHeight = False
-        Me.cBoxCType.Location = New System.Drawing.Point(15, 25)
+        Me.cBoxCType.Location = New System.Drawing.Point(15, 24)
         Me.cBoxCType.MaxDropDownItems = 30
         Me.cBoxCType.Name = "cBoxCType"
         Me.cBoxCType.Size = New System.Drawing.Size(301, 28)
@@ -751,7 +756,7 @@ Partial Class frmMain
         '
         Me.lblCData.AutoSize = True
         Me.lblCData.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCData.Location = New System.Drawing.Point(12, 58)
+        Me.lblCData.Location = New System.Drawing.Point(12, 57)
         Me.lblCData.Name = "lblCData"
         Me.lblCData.Size = New System.Drawing.Size(153, 20)
         Me.lblCData.TabIndex = 18
@@ -760,7 +765,7 @@ Partial Class frmMain
         'txtBoxCData
         '
         Me.txtBoxCData.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxCData.Location = New System.Drawing.Point(16, 79)
+        Me.txtBoxCData.Location = New System.Drawing.Point(16, 78)
         Me.txtBoxCData.Name = "txtBoxCData"
         Me.txtBoxCData.Size = New System.Drawing.Size(950, 23)
         Me.txtBoxCData.TabIndex = 3
@@ -768,7 +773,7 @@ Partial Class frmMain
         'txtBoxCData2
         '
         Me.txtBoxCData2.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxCData2.Location = New System.Drawing.Point(16, 142)
+        Me.txtBoxCData2.Location = New System.Drawing.Point(16, 141)
         Me.txtBoxCData2.Name = "txtBoxCData2"
         Me.txtBoxCData2.Size = New System.Drawing.Size(950, 23)
         Me.txtBoxCData2.TabIndex = 4
@@ -777,7 +782,7 @@ Partial Class frmMain
         '
         Me.lblCData2.AutoSize = True
         Me.lblCData2.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCData2.Location = New System.Drawing.Point(12, 119)
+        Me.lblCData2.Location = New System.Drawing.Point(12, 118)
         Me.lblCData2.Name = "lblCData2"
         Me.lblCData2.Size = New System.Drawing.Size(166, 20)
         Me.lblCData2.TabIndex = 24
@@ -787,7 +792,7 @@ Partial Class frmMain
         '
         Me.btnDeleteRule.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDeleteRule.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteRule.Location = New System.Drawing.Point(1093, 86)
+        Me.btnDeleteRule.Location = New System.Drawing.Point(1093, 85)
         Me.btnDeleteRule.Name = "btnDeleteRule"
         Me.btnDeleteRule.Size = New System.Drawing.Size(129, 32)
         Me.btnDeleteRule.TabIndex = 23
@@ -797,7 +802,7 @@ Partial Class frmMain
         'btnEditAnyAll
         '
         Me.btnEditAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnEditAnyAll.Location = New System.Drawing.Point(932, 115)
+        Me.btnEditAnyAll.Location = New System.Drawing.Point(932, 114)
         Me.btnEditAnyAll.Name = "btnEditAnyAll"
         Me.btnEditAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnEditAnyAll.TabIndex = 6
@@ -808,7 +813,7 @@ Partial Class frmMain
         'btnDeleteAnyAll
         '
         Me.btnDeleteAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDeleteAnyAll.Location = New System.Drawing.Point(932, 153)
+        Me.btnDeleteAnyAll.Location = New System.Drawing.Point(932, 152)
         Me.btnDeleteAnyAll.Name = "btnDeleteAnyAll"
         Me.btnDeleteAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnDeleteAnyAll.TabIndex = 7
@@ -820,7 +825,7 @@ Partial Class frmMain
         '
         Me.btnDown.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnDown.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnDown.Location = New System.Drawing.Point(1093, 169)
+        Me.btnDown.Location = New System.Drawing.Point(1093, 168)
         Me.btnDown.Name = "btnDown"
         Me.btnDown.Size = New System.Drawing.Size(129, 30)
         Me.btnDown.TabIndex = 27
@@ -830,7 +835,7 @@ Partial Class frmMain
         'btnAddAnyAll
         '
         Me.btnAddAnyAll.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnAddAnyAll.Location = New System.Drawing.Point(932, 79)
+        Me.btnAddAnyAll.Location = New System.Drawing.Point(932, 78)
         Me.btnAddAnyAll.Name = "btnAddAnyAll"
         Me.btnAddAnyAll.Size = New System.Drawing.Size(92, 32)
         Me.btnAddAnyAll.TabIndex = 5
@@ -842,7 +847,7 @@ Partial Class frmMain
         '
         Me.lblCData3.AutoSize = True
         Me.lblCData3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblCData3.Location = New System.Drawing.Point(12, 184)
+        Me.lblCData3.Location = New System.Drawing.Point(12, 183)
         Me.lblCData3.Name = "lblCData3"
         Me.lblCData3.Size = New System.Drawing.Size(166, 20)
         Me.lblCData3.TabIndex = 31
@@ -852,7 +857,7 @@ Partial Class frmMain
         '
         Me.btnUpdateRule.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnUpdateRule.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnUpdateRule.Location = New System.Drawing.Point(1093, 48)
+        Me.btnUpdateRule.Location = New System.Drawing.Point(1093, 47)
         Me.btnUpdateRule.Name = "btnUpdateRule"
         Me.btnUpdateRule.Size = New System.Drawing.Size(129, 32)
         Me.btnUpdateRule.TabIndex = 22
@@ -862,7 +867,7 @@ Partial Class frmMain
         'txtBoxCData3
         '
         Me.txtBoxCData3.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.txtBoxCData3.Location = New System.Drawing.Point(16, 205)
+        Me.txtBoxCData3.Location = New System.Drawing.Point(16, 204)
         Me.txtBoxCData3.Name = "txtBoxCData3"
         Me.txtBoxCData3.Size = New System.Drawing.Size(950, 23)
         Me.txtBoxCData3.TabIndex = 30
@@ -871,7 +876,7 @@ Partial Class frmMain
         '
         Me.btnCreateRule.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnCreateRule.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCreateRule.Location = New System.Drawing.Point(1093, 9)
+        Me.btnCreateRule.Location = New System.Drawing.Point(1093, 8)
         Me.btnCreateRule.Name = "btnCreateRule"
         Me.btnCreateRule.Size = New System.Drawing.Size(129, 32)
         Me.btnCreateRule.TabIndex = 15
@@ -883,7 +888,7 @@ Partial Class frmMain
         Me.btnInsertRule.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.btnInsertRule.Enabled = False
         Me.btnInsertRule.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnInsertRule.Location = New System.Drawing.Point(677, 9)
+        Me.btnInsertRule.Location = New System.Drawing.Point(677, 8)
         Me.btnInsertRule.Name = "btnInsertRule"
         Me.btnInsertRule.Size = New System.Drawing.Size(129, 32)
         Me.btnInsertRule.TabIndex = 29
@@ -893,8 +898,10 @@ Partial Class frmMain
         '
         'SplitContainer1
         '
-        Me.SplitContainer1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 367)
+        Me.SplitContainer1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 380)
         Me.SplitContainer1.Name = "SplitContainer1"
         Me.SplitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal
         '
@@ -967,7 +974,7 @@ Partial Class frmMain
         '
         Me.lblProgressBar.AutoSize = True
         Me.lblProgressBar.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblProgressBar.Location = New System.Drawing.Point(926, 33)
+        Me.lblProgressBar.Location = New System.Drawing.Point(926, 32)
         Me.lblProgressBar.Name = "lblProgressBar"
         Me.lblProgressBar.Size = New System.Drawing.Size(51, 18)
         Me.lblProgressBar.TabIndex = 33
@@ -975,7 +982,7 @@ Partial Class frmMain
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(830, 9)
+        Me.ProgressBar1.Location = New System.Drawing.Point(830, 8)
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(243, 14)
         Me.ProgressBar1.TabIndex = 32
@@ -984,7 +991,7 @@ Partial Class frmMain
         '
         Me.btnImportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.btnImportMeta.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnImportMeta.Location = New System.Drawing.Point(1093, 139)
+        Me.btnImportMeta.Location = New System.Drawing.Point(1093, 138)
         Me.btnImportMeta.Name = "btnImportMeta"
         Me.btnImportMeta.Size = New System.Drawing.Size(129, 30)
         Me.btnImportMeta.TabIndex = 48
@@ -995,7 +1002,7 @@ Partial Class frmMain
         '
         Me.lblSaveNav.AutoSize = True
         Me.lblSaveNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblSaveNav.Location = New System.Drawing.Point(791, 18)
+        Me.lblSaveNav.Location = New System.Drawing.Point(791, 17)
         Me.lblSaveNav.Name = "lblSaveNav"
         Me.lblSaveNav.Size = New System.Drawing.Size(122, 16)
         Me.lblSaveNav.TabIndex = 47
@@ -1005,7 +1012,7 @@ Partial Class frmMain
         '
         Me.rdbFalse.AutoSize = True
         Me.rdbFalse.Checked = True
-        Me.rdbFalse.Location = New System.Drawing.Point(665, 24)
+        Me.rdbFalse.Location = New System.Drawing.Point(665, 23)
         Me.rdbFalse.Name = "rdbFalse"
         Me.rdbFalse.Size = New System.Drawing.Size(50, 17)
         Me.rdbFalse.TabIndex = 46
@@ -1016,7 +1023,7 @@ Partial Class frmMain
         'rdbTrue
         '
         Me.rdbTrue.AutoSize = True
-        Me.rdbTrue.Location = New System.Drawing.Point(588, 24)
+        Me.rdbTrue.Location = New System.Drawing.Point(588, 23)
         Me.rdbTrue.Name = "rdbTrue"
         Me.rdbTrue.Size = New System.Drawing.Size(47, 17)
         Me.rdbTrue.TabIndex = 45
@@ -1027,7 +1034,7 @@ Partial Class frmMain
         '
         Me.lstBoxCommonOptions.FormattingEnabled = True
         Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "LootAllCorpses", "NavPriorityBoost", "OpenDoors"})
-        Me.lstBoxCommonOptions.Location = New System.Drawing.Point(340, 24)
+        Me.lstBoxCommonOptions.Location = New System.Drawing.Point(340, 23)
         Me.lstBoxCommonOptions.Name = "lstBoxCommonOptions"
         Me.lstBoxCommonOptions.Size = New System.Drawing.Size(175, 95)
         Me.lstBoxCommonOptions.TabIndex = 44
@@ -1036,7 +1043,7 @@ Partial Class frmMain
         '
         Me.lblATReturnToState.AutoSize = True
         Me.lblATReturnToState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.lblATReturnToState.Location = New System.Drawing.Point(338, 52)
+        Me.lblATReturnToState.Location = New System.Drawing.Point(338, 51)
         Me.lblATReturnToState.Name = "lblATReturnToState"
         Me.lblATReturnToState.Size = New System.Drawing.Size(119, 20)
         Me.lblATReturnToState.TabIndex = 32
@@ -1047,7 +1054,7 @@ Partial Class frmMain
         '
         Me.Label1.AutoSize = True
         Me.Label1.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label1.Location = New System.Drawing.Point(575, 113)
+        Me.Label1.Location = New System.Drawing.Point(575, 112)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(84, 20)
         Me.Label1.TabIndex = 31
@@ -1060,7 +1067,7 @@ Partial Class frmMain
         Me.cboxReturnMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cboxReturnMetaState.FormattingEnabled = True
         Me.cboxReturnMetaState.Items.AddRange(New Object() {"Default"})
-        Me.cboxReturnMetaState.Location = New System.Drawing.Point(342, 73)
+        Me.cboxReturnMetaState.Location = New System.Drawing.Point(342, 72)
         Me.cboxReturnMetaState.MaxDropDownItems = 100
         Me.cboxReturnMetaState.Name = "cboxReturnMetaState"
         Me.cboxReturnMetaState.Size = New System.Drawing.Size(175, 28)
@@ -1068,12 +1075,49 @@ Partial Class frmMain
         Me.cboxReturnMetaState.TabIndex = 30
         Me.cboxReturnMetaState.Visible = False
         '
+        'StatusStrip1
+        '
+        Me.StatusStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripProgressBarSave, Me.ToolStripStatusLabelInfo, Me.ToolStripStatusLabelVersion})
+        Me.StatusStrip1.Location = New System.Drawing.Point(0, 877)
+        Me.StatusStrip1.Name = "StatusStrip1"
+        Me.StatusStrip1.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.StatusStrip1.Size = New System.Drawing.Size(1234, 22)
+        Me.StatusStrip1.TabIndex = 22
+        Me.StatusStrip1.Text = "StatusStrip1"
+        '
+        'ToolStripProgressBarSave
+        '
+        Me.ToolStripProgressBarSave.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right
+        Me.ToolStripProgressBarSave.AutoSize = False
+        Me.ToolStripProgressBarSave.Name = "ToolStripProgressBarSave"
+        Me.ToolStripProgressBarSave.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.ToolStripProgressBarSave.RightToLeftLayout = True
+        Me.ToolStripProgressBarSave.Size = New System.Drawing.Size(200, 16)
+        '
+        'ToolStripStatusLabelInfo
+        '
+        Me.ToolStripStatusLabelInfo.AutoSize = False
+        Me.ToolStripStatusLabelInfo.Name = "ToolStripStatusLabelInfo"
+        Me.ToolStripStatusLabelInfo.RightToLeft = System.Windows.Forms.RightToLeft.No
+        Me.ToolStripStatusLabelInfo.Size = New System.Drawing.Size(119, 17)
+        Me.ToolStripStatusLabelInfo.Text = "ToolStripStatusLabel2"
+        Me.ToolStripStatusLabelInfo.TextAlign = System.Drawing.ContentAlignment.MiddleRight
+        '
+        'ToolStripStatusLabelVersion
+        '
+        Me.ToolStripStatusLabelVersion.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text
+        Me.ToolStripStatusLabelVersion.Name = "ToolStripStatusLabelVersion"
+        Me.ToolStripStatusLabelVersion.RightToLeft = System.Windows.Forms.RightToLeft.Yes
+        Me.ToolStripStatusLabelVersion.Size = New System.Drawing.Size(45, 17)
+        Me.ToolStripStatusLabelVersion.Text = "Version"
+        '
         'frmMain
         '
         Me.AcceptButton = Me.btnCreateRule
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1234, 861)
+        Me.ClientSize = New System.Drawing.Size(1234, 899)
+        Me.Controls.Add(Me.StatusStrip1)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.Controls.Add(Me.SplitContainer1)
@@ -1096,6 +1140,8 @@ Partial Class frmMain
         Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
+        Me.StatusStrip1.ResumeLayout(False)
+        Me.StatusStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -1103,8 +1149,8 @@ Partial Class frmMain
 
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles Me.Load
 
-
-
+        Me.ToolStripStatusLabelVersion.Text = "Version " & Me.GetType.Assembly.GetName.Version.ToString
+        Me.ToolStripStatusLabelInfo.Text = "           "
 
         Text = "Mission:Impossible - Meta Builder   FILE= NOT SAVED!"
 
@@ -1227,4 +1273,8 @@ Partial Class frmMain
     Friend WithEvents ProgressBar1 As ProgressBar
     Friend WithEvents lblSaveNav As Label
     Friend WithEvents btnImportMeta As Button
+    Friend WithEvents StatusStrip1 As StatusStrip
+    Friend WithEvents ToolStripStatusLabelVersion As ToolStripStatusLabel
+    Friend WithEvents ToolStripStatusLabelInfo As ToolStripStatusLabel
+    Friend WithEvents ToolStripProgressBarSave As ToolStripProgressBar
 End Class
