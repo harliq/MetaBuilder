@@ -2,21 +2,24 @@
     Private ActionDataType As String 'Using this to set Vars based on action data types in for Multiple Actions.   
 
     Sub MetaExport()
+        frmMain.ToolStripStatusLabelInfo.Text = "Exporting Meta..."
 
         Dim metafile As String
 
-        Dim RecordCount As Integer = frmMain.dgvMetaRules.Rows.Count - 1 ' Record Count I think.  May need to add -1 for it to match 
+        Dim RecordCount As Integer = frmMain.dgvMetaRules.Rows.Count '- 1 ' Record Count I think.  May need to add -1 for it to match 
         'rowcount = frmMain.dgvMetaRules.DisplayedRowCount(False)
         Dim tempmeta As String
         Dim cVarType As String = ""
-
+        Dim progressBar As Double = 100 / RecordCount
+        Dim progressBarValue As Double = 0
         TestingStuff.TextBoxTest.Text = Nothing
         'Meta File Header
         tempmeta = "1" & vbNewLine & "CondAct" & vbNewLine & "5" & vbNewLine & "CType" & vbNewLine & "AType" & vbNewLine & "CData" & vbNewLine & "AData" & vbNewLine & "State" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & "n" & vbNewLine & RecordCount & vbNewLine
 
 
         For Each r As DataGridViewRow In frmMain.dgvMetaRules.Rows
-
+            progressBarValue = progressBarValue + progressBar
+            frmMain.ToolStripProgressBarSave.Value = CInt(progressBarValue)
             Dim i As String = "i" + vbCrLf
             Dim s As String = "s" + vbCrLf
             Dim tCD As String = "i" 'temp var for setting the Condition Data Var type -Set when Condition Type is figured out.
@@ -288,7 +291,8 @@
             TestingStuff.Show()
         Else
         End If
-
+        frmMain.ToolStripStatusLabelInfo.Text = ""
+        frmMain.ToolStripProgressBarSave.Value = 0
 
     End Sub
 

@@ -2,6 +2,7 @@
 Imports System.Data.DataTable
 Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Window
 Imports MetToXML
+Imports Microsoft.VisualBasic.Devices
 
 Public Class frmMain
 
@@ -25,8 +26,6 @@ Public Class frmMain
         Application.Exit()
         'MessageBox.Show("after exit")
     End Sub
-
-
 
     Private Sub btnCreateState_Click(sender As Object, e As EventArgs) Handles btnCreateState.Click
 
@@ -81,7 +80,7 @@ Public Class frmMain
         Dim AData As String
 
         Select Case cBoxCType.SelectedIndex
-            Case 0, 1, 2, 7 To 10, 15, 19, 20, 27
+            Case 0, 1, 7 To 10, 15, 19, 20, 27
                 CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
@@ -114,7 +113,6 @@ Public Class frmMain
         End Select
 
         table.Rows.Add(cBoxCType.Text, cBoxAType.Text, CData, AData, cBoxCTMetaState.Text) ' Used Case to Simplify What's under this
-
 
     End Sub
 
@@ -172,8 +170,6 @@ Public Class frmMain
 
     End Sub
 
-
-
     Private Sub Add_Update_Delete_DataGridView_Row_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         ' Add columns to your datatable, 
@@ -212,9 +208,6 @@ Public Class frmMain
         dgvMetaRules.Columns(3).SortMode = DataGridViewColumnSortMode.NotSortable
         dgvMetaRules.Columns(4).SortMode = DataGridViewColumnSortMode.NotSortable
 
-
-
-
         'AnyAll Rule Table
         TableAnyAll.Columns.Add("Type", Type.GetType("System.String"))
         TableAnyAll.Columns.Add("Data", Type.GetType("System.String"))
@@ -230,7 +223,6 @@ Public Class frmMain
         dgvAnyAll.AlternatingRowsDefaultCellStyle.BackColor = Color.LightCyan
         dgvAnyAll.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
         dgvAnyAll.Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
-
 
         'AT Multiple Rule Table
         TableATMultiple.Columns.Add("Type", Type.GetType("System.String"))
@@ -258,10 +250,6 @@ Public Class frmMain
         cBoxAType.SelectedIndex = 0
         dgvMetaRules.Rows(0).Selected = True
 
-
-
-
-
         'Check if command line arguments were specified
         Dim CommandArgs() As String = Environment.GetCommandLineArgs()
         If CommandArgs.Length > 1 Then
@@ -284,29 +272,10 @@ Public Class frmMain
             End Select
 
 
-            'If CommandArgs(1) = "-c" Then 'Convert XML to Meta
-            '    'Convert XML to Meta
-
-            'Else
-            '    MsgBox("Incorrect Command Line Argument")
-            'End If
-
         Else
 
-
             '--- Nope, run the normal Windows Forms startup code
-            '    Application.EnableVisualStyles()
-            'Application.SetCompatibleTextRenderingDefault(False)
-            'Application.Run(MiMB_Test.frmMain())
-            ' Dim args = Environment.GetCommandLineArgs()
-
-            'If args.Length > 1 Then textBox1.Text = args(1)
-            'If args.Length > 2 Then textBox2.Text = args(2)
         End If
-
-
-
-
 
     End Sub
 
@@ -330,9 +299,6 @@ Public Class frmMain
         End If
     End Sub
 
-
-
-
     Private Sub btnUpdateRule_Click(sender As Object, e As EventArgs) Handles btnUpdateRule.Click
         SaveWork = True
         ' update the datagridview selected row using textbox
@@ -340,7 +306,6 @@ Public Class frmMain
         Dim newDataRow As DataGridViewRow
         Dim CData As String
         Dim AData As String
-        '
 
         newDataRow = dgvMetaRules.Rows(index)
 
@@ -349,7 +314,7 @@ Public Class frmMain
         newDataRow.Cells(1).Value = cBoxAType.Text
 
         Select Case cBoxCType.SelectedIndex
-            Case 0, 1, 2, 7 To 10, 15, 19, 20, 27
+            Case 0, 1, 7 To 10, 15, 19, 20, 27
                 CData = "0"
             Case 2, 3, 21
                 Parse.CombineAnyAll()
@@ -408,7 +373,6 @@ Public Class frmMain
         dgvMetaRules.Rows(0).Selected = True
         cBoxCTMetaState.Text = "Default"
 
-
     End Sub
 
     Private Sub btnSaveXML_Click(sender As Object, e As EventArgs) Handles btnSaveXML.Click
@@ -460,65 +424,11 @@ Public Class frmMain
     End Sub
 
     Private Sub cBoxAType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxAType.SelectedIndexChanged
+
         TableATMultiple.Clear()
         dgvATMultiple.DataSource = TableATMultiple
         SetForm.ResetAction()
         SetForm.ATSet(cBoxAType.SelectedIndex.ToString)
-        'Select Case cBoxAType.SelectedIndex
-        '    Case 0 'None
-        '        'SetForm.ATNone()
-        '        'lblAData.Text = "None"
-        '        'txtBoxAData.Text = "0"
-        '        'txtBoxAData.Enabled = False
-        '    Case 1 'SetState
-        '        SetForm.ATSetStateRule()
-        '        'txtBoxAData.Enabled = False
-        '        'cBoxATMetaState.Visible = True
-        '        'lblATMetaState.Visible = True
-        '    Case 2 'Chat Command
-        '        SetForm.ATSingleRule()
-        '        lblAData.Text = "Chat Command"
-        '    Case 3 'Mulitple
-        '        SetForm.ATMultiple()
-        '        'lblAData.Text = "Multiple"
-        '        txtBoxAData.Text = "0"
-        '        'txtBoxAData.Enabled = False
-        '        MsgBox("Not yet Implemented")
-        '    Case 4 'Embedded Nav Route
-        '        SetForm.ATSingleRule()
-        '        btnChooseNav.Visible = True
-        '        lblAData.Text = "Embedded Nav - Choose File"
-        '    Case 5 'Call State
-        '        SetForm.ATSetState()
-        '        lblAData.Text = "Call State"
-        '    Case 6 'Return from Call
-        '        'SetForm.ATReturnFromCall()
-        '        lblAData.Text = "Return From Call"
-        '        txtBoxAData.Text = "0"
-        '    Case 7 'Expression Action
-        '        SetForm.ATSingleRule()
-        '        lblAData.Text = "Expression Action"
-        '    Case 8 'Chat With Expression
-        '        SetForm.ATSingleRule()
-        '        lblAData.Text = "Chat with Expression"
-        '    Case 9 'Watchdog Set
-        '        SetForm.ATTripleRule()
-        '        lblAData.Text = "State to Call:"
-        '        lblAdata2.Text = "Movement Range (Meters):"
-        '        lblAData3.Text = "Time Span (Seconds):"
-        '    Case 10 'Watchdog Clear
-        '        'SetForm.ATWatchDogClear()
-        '        lblAData.Text = "WatchDog Clear"
-        '    Case 11 'Get VT Option
-        '        SetForm.ATDoubleRule()
-        '        lblAData.Text = "Option to Get"
-        '        lblAdata2.Text = "Expression Variable Target"
-        '    Case 12 'Set VT Option
-        '        SetForm.ATDoubleRule()
-        '        lblAData.Text = "Option to Set"
-        '        lblAdata2.Text = "Expresssion (True/False, Value)"
-
-        'End Select
 
     End Sub
 
@@ -600,18 +510,15 @@ Public Class frmMain
                 dgvMetaRules.ClearSelection()
                 dgvMetaRules.Rows(iNewRow).Selected = True
             ElseIf range = mode.top Or range = mode.bottom Then
-                'Try
+
                 reshuffleRows(sTmp, iSelectedRow, range)
-                'Catch
-                'MsgBox("You went to far")
-                'End Try
+
             End If
             dgvMetaRules.ClearSelection()
             dgvMetaRules.Rows(iNewRow).Selected = True
             dgvMetaRules.Refresh()
             index = iNewRow
-            'dgvMetaRules.CurrentCell = dgvMetaRules.Rows(iNewRow).Cells(0)
-            'dgvMetaRules.Rows(1).Selected = False
+
         End If
 
     End Sub
@@ -671,7 +578,7 @@ Public Class frmMain
         Dim optionsDialog As New Options()
         optionsDialog.txtXMLdir.Text = My.Settings.XMLOpenSave
         optionsDialog.txtMetaDir.Text = My.Settings.MetaExportDir
-        optionsDialog.txtNavDir.text = My.Settings.NavDir
+        optionsDialog.txtNavDir.Text = My.Settings.NavDir
         If optionsDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
             My.Settings.XMLOpenSave = optionsDialog.txtXMLdir.Text
             My.Settings.MetaExportDir = optionsDialog.txtMetaDir.Text
@@ -685,43 +592,13 @@ Public Class frmMain
 
     Private Sub btnInsertRule_Click(sender As Object, e As EventArgs) Handles btnInsertRule.Click
 
-
         Dim allRow As DataRow = table.NewRow
         allRow(0) = cBoxCType.Text
         allRow(1) = cBoxAType.Text
-
-
-
         allRow(2) = txtBoxCData.Text
         allRow(3) = cBoxAType.Text
         allRow(4) = cBoxCTMetaState.Text
         table.Rows.InsertAt(allRow, (dgvMetaRules.CurrentRow.Index))
-
-
-
-
-        '*************Dont think this is needed ************
-        'If cBoxAType.SelectedIndex = 1 Then
-        '    Dim allRow As DataRow = table.NewRow
-        '    allRow(0) = cBoxCType.Text
-        '    allRow(1) = cBoxAType.Text
-        '    allRow(2) = txtBoxCData.Text
-        '    allRow(3) = cBoxAType.Text
-        '    allRow(4) = cBoxCTMetaState.Text
-        '    table.Rows.InsertAt(allRow, (dgvMetaRules.CurrentRow.Index))
-
-        '    'table.Rows.InsertAt()
-        '    'table.Rows.InsertAt(cBoxCTMetaState.Text, cBoxCType.Text, txtBoxCData.Text, cBoxAType.Text, cBoxATMetaState.Text)
-        'Else
-        '    Dim allRow As DataRow = table.NewRow
-        '    allRow(0) = cBoxCType.Text
-        '    allRow(1) = cBoxAType.Text
-        '    allRow(2) = txtBoxCData.Text
-        '    allRow(3) = txtBoxAData.Text
-        '    allRow(4) = cBoxCTMetaState.Text
-        '    table.Rows.InsertAt(allRow, (dgvMetaRules.CurrentRow.Index))
-        '    'table.Rows.Add(cBoxCTMetaState.Text, cBoxCType.Text, txtBoxCData.Text, cBoxAType.Text, txtBoxAData.Text)
-        'End If
 
     End Sub
 
@@ -761,7 +638,8 @@ Public Class frmMain
         Try
             selectedRow = dgvMetaRules.Rows(index)
         Catch ex As Exception
-            MsgBox("Exception! dgvMetaRules_CellClick, dgvMetaRules.Rows index = " & index)
+            'MsgBox("Exception! dgvMetaRules_CellClick, dgvMetaRules.Rows index = " & index)
+            Return
         End Try
         'selectedRow = dgvMetaRules.Rows(index)
         SetForm.ResetAll()
@@ -942,43 +820,6 @@ Public Class frmMain
                     '-------------------Add Regex-------------
                     Dim myAllNest As New RegX(cData, RegXAnyAllNot, False)
 
-                    'Dim myAllNest As New AnyAll(cData, "(Any: ){(.*?}})|(Any){(.*?}})|(Any: ){(.*?})[A-Z]|(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?}})[A-Z]|(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-
-                    '-------
-                    'StringSplit = Split(cData, "}")
-                    'For Each s As String In StringSplit
-                    '    Dim tempstring() As String
-                    '    tempstring = Split(s, "{")
-                    '    If tempstring(0) = "" Then
-                    '        Exit For
-                    '    Else
-                    '        TableAnyAll.Rows.Add(tempstring(0), tempstring(1))
-                    '    End If
-                    'Next
-
-                    'For Each s As String In StringSplit
-                    '    Dim tempstring() As String
-                    '    tempstring = Split(s, "{")
-                    '    ' Spliting Mulitples
-                    '    If tempstring(0) = "Any" Then
-                    '        's = s.Length - 1
-                    '        TableAnyAll.Rows.Add("Any", cData.Remove(0, 4))
-                    '        Exit For
-                    '    ElseIf tempstring(0) = "All" Then
-                    '        's = s.Length - 1
-                    '        TableAnyAll.Rows.Add("All", cData.Remove(0, 4))
-                    '        Exit For
-                    '    ElseIf tempstring(0) = "Not" Then
-                    '        's = s.Length - 1
-                    '        TableAnyAll.Rows.Add("Not", cData)
-                    '        'TableAnyAll.Rows.Add("Not", cData.Remove(0, 4))
-                    '        Exit For
-                    '    ElseIf tempstring(0) = "" Then
-                    '        Exit For
-                    '    Else
-                    '        TableAnyAll.Rows.Add(tempstring(0), tempstring(1))
-                    '    End If
-                    'Next
 
                     TableAnyAll = myAllNest.MultiTable
                     dgvAnyAll.DataSource = TableAnyAll
@@ -1014,25 +855,6 @@ Public Class frmMain
                         Dim Adata As String = selectedRow.Cells(3).Value ' Complitcated way of spliting strings from XML for each subtable Probably easier way of doing this.
                         Dim myMultipleNest As New RegX(Adata, RegXMultiple, False)
 
-                        'Dim myMultipleNest As New AnyAll(Adata, RegXMultiple, False)
-
-                        'Dim StringSplit() As String
-                        'TableATMultiple.Clear()
-                        'StringSplit = Split(Adata, "}")
-                        'For Each s As String In StringSplit
-                        '    Dim tempstring() As String
-                        '    tempstring = Split(s, "{")
-                        '    ' Spliting Mulitples
-                        '    If tempstring(0) = "Multiple" Then
-                        '        's = s.Length - 1
-                        '        TableATMultiple.Rows.Add("Multiple", Adata.Remove(0, 9))
-                        '        Exit For
-                        '    ElseIf tempstring(0) = "" Then
-                        '        Exit For
-                        '    Else
-                        '        TableATMultiple.Rows.Add(tempstring(0), tempstring(1))
-                        '    End If
-                        'Next
                         TableATMultiple = myMultipleNest.MultiTable
                         dgvATMultiple.DataSource = TableATMultiple
                         dgvATMultiple.Refresh()
@@ -1123,8 +945,6 @@ Public Class frmMain
                     Next
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, tempdata)
 
-
-
                 Case Else ' Single Values
                     TableAnyAll.Rows.Add(SecondTableDialog.cBoxType.Text, SecondTableDialog.TextBox1.Text) ' Single Values
             End Select
@@ -1143,7 +963,7 @@ Public Class frmMain
 
         If dgvAnyAll.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top or bottom (blank) row... Yet")
+            MsgBox("You can not delete the top row.")
         ElseIf dgvAnyAll.CurrentRow.Index >= 0 Then
             Try
                 dgvAnyAll.Rows.RemoveAt(tAnyAllIndex)
@@ -1176,7 +996,6 @@ Public Class frmMain
                 Case "Never", "Always" ' Not USING
 
                 Case "All", "Any", "Not" ' For nested tables
-
 
                     Dim myNest As New RegX(selectedRow.Cells(1).Value.ToString(), RegXAnyAllNot, False)
                     SecondTableDialog.tableMultiple = myNest.MultiTable
@@ -1242,7 +1061,6 @@ Public Class frmMain
             'MsgBox("Click Cancel")
         End If
         SecondTableDialog.Dispose()
-        'ListBoxCTDataAnyAll.Items.Item()
 
         ' MsgBox("Ctype =" & cAnyAll.ToString() & "CData =" & cAnyAll.Category)
 
@@ -1310,9 +1128,6 @@ Public Class frmMain
         TableAnyAll.Columns.Add("Type", Type.GetType("System.String"))
         TableAnyAll.Columns.Add("Data", Type.GetType("System.String"))
 
-        ' Add row to the datatable with some data
-        'TableAnyAll.Rows.Add("ChatWithExpression", "Hello Dereth")
-
         'set data from datatable to datagridview
 
         dgvAnyAll.DataSource = TableAnyAll
@@ -1329,11 +1144,6 @@ Public Class frmMain
         dgvAnyAll.Columns(0).SortMode = DataGridViewColumnSortMode.NotSortable
         dgvAnyAll.Columns(1).SortMode = DataGridViewColumnSortMode.NotSortable
 
-
-        'DataGridView1.Rows(0).Selected = True
-        'swapRows(mode.down)
-        'DataGridView1.Rows.RemoveAt(0)
-        'dgvAnyAll.Rows(0).Selected = True
     End Sub
 
 
@@ -1555,8 +1365,6 @@ Public Class frmMain
                     SecondTableDialog.TextOne = StringSplit(0).ToString
                     SecondTableDialog.TextTwo = StringSplit(1).ToString
 
-                    'SecondTableDialog.cBoxMetaState.Text = StringSplit(0).ToString
-                    'SecondTableDialog.cBoxMetaStateTwo.Text = StringSplit(1).ToString
 
                 Case "GetVTOption", "SetVTOption", "CreateView"
                     Dim tempData As String = selectedRow.Cells(1).Value.ToString()
@@ -1584,63 +1392,8 @@ Public Class frmMain
                     SecondTableDialog.TextBox2.Text = StringSplit(1).ToString
                     SecondTableDialog.TextBox3.Text = StringSplit(2).ToString
                 Case "Multiple" ' Needs Work to finish
-                    'This Function Prepares the strings for adding into a Multiple Table - I need to figure out how to Pass Data Back, Thinking as a string array.
-                    'If selectedRow.Cells(1).Value.ToString().Contains("Multiple: ") Then
-
-                    '    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                    '    'If MultipleString.Contains("Multiple: ") Then
-                    '    '     If MultipleString.Contains("Multiple: ") Then
-                    '    'nested, need to write another parser I think
-
-                    '    'TextBox2.Text = regxMatch(multipleString, "Multiple{(.*)", True)
-
-                    'Else
-                    '    'SecondTableDialog.TableSecondaryMultiple = AnyAll.regxMatch(MultipleString, selectedRow.Cells(1).Value.ToString(), False)
-                    '    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                    '    'Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}", False)
-                    '    'With myNest
-                    '    '    .InputString = selectedRow.Cells(1).Value.ToString()
-                    '    '    .RegexPattern = "(\w+):\s{(\w+)}|(\w+):\s{(\w+;\w+)}|(\w+):\s{(\w+;\w+;\w+)}"
-                    '    '    .MultipleNested = False
-                    '    'End With
-                    '    'Set secondform datatable
-                    '    SecondTableDialog.tableMultiple = myNest.MultiTable
-                    '    SecondTableDialog.EditTable = True
-
-                    'End If
-
-                    'Dim tTest As String = selectedRow.Cells(1).Value.ToString()
-                    'Dim tMultiple() As String
-                    'Dim ttTest As String = ""
-
-                    'If selectedRow.Cells(1).Value.ToString().Contains("Multiple: ") Then
-                    '    Dim Input As String = "Multiple: "
-                    '    Dim Occurance As Integer = New AnyAll(selectedRow.Cells(1).Value.ToString(), Input, 1).Occurence
-                    '    Dim teststring As String = ""
-
-                    '    For c = 0 To Occurance
-                    '        tMultiple(c) = New AnyAll(selectedRow.Cells(1).Value.ToString(), "(Multiple: ){(.*?})}|(Multiple: ){(.*?})M").ReturnMultiple.ToString
-                    '        MsgBox(tMultiple(c))
-                    '        teststring = tMultiple(c)
-                    '        ttTest = tTest.Replace("Multiple:", " ")
-                    '    Next
-                    '    Dim myNest As New AnyAll(tTest, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                    '    For myC = 0 To tMultiple.Length()
-                    '        myNest.MultiTable.Rows.Add("Multiple: ", tMultiple(myC))
-                    '    Next
-
-                    'Else
-                    '    Dim myNest As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                    '    SecondTableDialog.tableMultiple = myNest.MultiTable
-                    'End If
-
-
-
-
-
-
+                    'This Function Prepares the strings for adding into a Multiple Table 
                     Dim myNestMultiple As New RegX(selectedRow.Cells(1).Value.ToString(), RegXNestedMultiple, False)
-                    'Dim myNestMultiple As New AnyAll(selectedRow.Cells(1).Value.ToString(), "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
 
                     SecondTableDialog.tableMultiple = myNestMultiple.MultiTable
                     SecondTableDialog.EditTable = True
@@ -1651,8 +1404,6 @@ Public Class frmMain
             MsgBox("Please select the row and try again - btnEditAnyAll SelectedRowIndex is Null")
             Exit Sub
         End If
-
-
 
         '-------After Window Closing updating Table Fields
         If SecondTableDialog.ShowDialog(Me) = System.Windows.Forms.DialogResult.OK Then
@@ -1701,8 +1452,6 @@ Public Class frmMain
 
     End Sub
 
-
-
     Private Sub dgvATMultiple_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvATMultiple.CellClick
         tATMultipleIndex = e.RowIndex
     End Sub
@@ -1710,7 +1459,7 @@ Public Class frmMain
     Private Sub btnDeleteATAnyAll_Click(sender As Object, e As EventArgs) Handles btnDeleteATAnyAll.Click
         If dgvATMultiple.CurrentRow.Index = Nothing Then
 
-            MsgBox("You can not delete the top or bottom (blank) row... Yet")
+            MsgBox("You can not delete the top row.")
 
         ElseIf dgvATMultiple.CurrentRow.Index >= 0 Then
             Try
@@ -1772,7 +1521,7 @@ Public Class frmMain
         Else
             dgvMetaRules.DataSource = ImportMeta.Load(table)
         End If
-        'xml.LoadXML(table)
+
         dgvMetaRules.Rows(0).Selected = True
         cBoxCTMetaState.Text = "Default"
 
@@ -1830,8 +1579,178 @@ Public Class frmMain
         Else
             dgvMetaRules.DataSource = ImportMeta.Load(table)
         End If
-        'xml.LoadXML(table)
+
         dgvMetaRules.Rows(0).Selected = True
         cBoxCTMetaState.Text = "Default"
+    End Sub
+
+    Private Sub dgvMetaRules_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvMetaRules.KeyDown
+
+        If e.Control And e.KeyCode = Keys.V Then
+
+            Try
+                Dim clipArray() As String
+                clipArray = Clipboard.GetText().Split(vbTab)
+                If clipArray(1) = "Condition Type" Then
+                    Dim tArray() As String
+                    tArray = clipArray(4).Split(vbCrLf)
+                    Dim tCondition As String = tArray(5).Replace(vbLf, "")
+                    Select Case tCondition
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            table.Rows.Add(clipArray(5), clipArray(7), clipArray(6), clipArray(8), tArray(1))
+                            If clipArray(7) = "SetState" Then
+                                AddMetaState(clipArray(8))
+                            End If
+                        Case Else
+                            MsgBox("The data you tried to paste is not a rule")
+                            Return
+                    End Select
+                Else
+                    Select Case clipArray(1)
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            table.Rows.Add(clipArray(1), clipArray(3), clipArray(2), clipArray(4), clipArray(0))
+                            If clipArray(3) = "SetState" Then
+                                AddMetaState(clipArray(4))
+                            End If
+                            If clipArray(4).Contains("SetState") Then
+                                MultipleAddMetaState(clipArray(4))
+                            End If
+                        Case Else
+                            MsgBox("The data you tried to paste is not a rule")
+                            Return
+                    End Select
+
+                End If
+                If cBoxCTMetaState.Items.Contains(clipArray(0)) Then
+                    'do nothing
+                Else
+                    'add meta state
+                    'Adding New Meta State to list boxes
+                    'MetaList.Add(clipArray(0))
+                    cBoxCTMetaState.Items.Add(clipArray(0))
+                    cBoxATMetaState.Items.Add(clipArray(0))
+                    cboxReturnMetaState.Items.Add(clipArray(0))
+                    cBoxCTMetaState.SelectedItem = clipArray(0)
+                End If
+            Catch ex As Exception
+                MsgBox("The data you tried to paste is not a rule")
+            End Try
+
+            'cBoxCType.Text, cBoxAType.Text, CData, AData, cBoxCTMetaState.Text
+
+        End If
+    End Sub
+
+    Private Sub dgvATMultiple_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvATMultiple.KeyDown
+
+        If e.Control And e.KeyCode = Keys.V Then
+
+            Try
+                Dim clipArray() As String
+                clipArray = Clipboard.GetText().Split(vbTab)
+
+                If clipArray(0) = "Type" Then
+                    Dim tArray() As String
+                    tArray = clipArray(1).Split(vbCrLf)
+                    Dim tAction As String = tArray(1).Replace(vbLf, "")
+                    Select Case tAction
+                        Case "None", "SetState", "ChatCommand", "Multiple", "EmbeddedNavRoute", "CallState", "ReturnFromCall", "ExpressionAct", "ChatWithExpression", "WatchdogSet", "WatchdogClear", "GetVTOption", "SetVTOption", "CreateView", "DestroyView", "DestroyAllViews"
+                            TableAnyAll.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                            If tAction = "SetState" Then
+                                AddMetaState(clipArray(2))
+                            End If
+                        Case Else
+                            MsgBox("The data you tried to paste is not an Action Type")
+                            Return
+                    End Select
+
+                    TableATMultiple.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                Else
+                    Select Case clipArray(0)
+                        Case "None", "SetState", "ChatCommand", "Multiple", "EmbeddedNavRoute", "CallState", "ReturnFromCall", "ExpressionAct", "ChatWithExpression", "WatchdogSet", "WatchdogClear", "GetVTOption", "SetVTOption", "CreateView", "DestroyView", "DestroyAllViews"
+                            TableATMultiple.Rows.Add(clipArray(0), clipArray(1))
+                            ' Adding state if not already in list
+                            If clipArray(0) = "SetState" Then
+                                AddMetaState(clipArray(1))
+                            ElseIf clipArray(1).Contains("Multiple") Then 'checking to see if there are any SetStates to add in Multiple
+
+                            End If
+                        Case Else
+                            MsgBox("The data you tried to paste is not an Action Type")
+                            Return
+                    End Select
+
+                End If
+
+            Catch ex As Exception
+                MsgBox("The data you tried to paste is not an Action Type")
+            End Try
+        End If
+        dgvATMultiple.DataSource = TableATMultiple
+        dgvATMultiple.Refresh()
+    End Sub
+
+    Private Sub dgvAnyAll_KeyDown(sender As Object, e As KeyEventArgs) Handles dgvAnyAll.KeyDown
+
+        If e.Control And e.KeyCode = Keys.V Then
+
+            Try
+                Dim clipArray() As String
+                clipArray = Clipboard.GetText().Split(vbTab)
+
+                If clipArray(0) = "Type" Then
+                    Dim tArray() As String
+                    tArray = clipArray(1).Split(vbCrLf)
+                    Dim tCondition As String = tArray(1).Replace(vbLf, "")
+                    Select Case tCondition
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            TableAnyAll.Rows.Add(tArray(1).Replace(vbLf, ""), clipArray(2))
+                        Case Else
+                            MsgBox("The data you tried to paste is not a Condition Type")
+                            Return
+                    End Select
+                Else
+                    Select Case clipArray(0)
+                        Case "Never", "Always", "All", "Any", "ChatMessage", "MainPackSlotsLE", "SecondsInStateGE", "NavrouteEmpty", "Died", "VendorOpen", "VendorClosed", "ItemCountLE", "ItemCountGE", "MonsterCountWithinDistance", "MonstersWithPriorityWithinDistance", "NeedToBuff", "NoMonstersWithinDistance", "LandBlockE", "LandCellE", "PortalspaceEnter", "PortalspaceExit", "Not", "SecondsInStatePersistGE", "TimeLeftOnSpellGE", "BurdenPercentGE", "DistanceToAnyRoutePointGE", "Expression", "ClientDialogPopup", "ChatMessageCapture"
+                            TableAnyAll.Rows.Add(clipArray(0), clipArray(1))
+                        Case Else
+                            MsgBox("The data you tried to paste is not a Condition Type")
+                            Return
+                    End Select
+
+                End If
+
+            Catch ex As Exception
+                MsgBox("The data you tried to paste is not a Condition Type")
+            End Try
+        End If
+        dgvAnyAll.DataSource = TableAnyAll
+        dgvAnyAll.Refresh()
+    End Sub
+
+    Private Sub AddMetaState(ByVal metastate)
+        If cBoxCTMetaState.Items.Contains(metastate) Then
+            'do nothing
+        Else
+            cBoxCTMetaState.Items.Add(metastate)
+            cBoxATMetaState.Items.Add(metastate)
+            cboxReturnMetaState.Items.Add(metastate)
+        End If
+    End Sub
+
+    Private Sub MultipleAddMetaState(ByVal actionMultiple)
+
+        Dim regxPatteren As String = "(SetState){(.*?)}|(SetState: ){(.*?)}"
+        Dim statesTable As New RegX(actionMultiple, regxPatteren, False)
+
+        For Each row As DataRow In statesTable.MultiTable.Rows
+
+            If row.Item(0).ToString = "SetState" Then
+                AddMetaState(row.Item(1).ToString)
+            ElseIf row.Item(0).ToString = "SetState: " Then
+                AddMetaState(row.Item(1).ToString)
+            End If
+
+        Next
     End Sub
 End Class

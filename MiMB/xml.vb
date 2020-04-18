@@ -5,18 +5,22 @@ Module xml
     'Dim loaddt As New DataTable("loaddt")
 
     Public Sub SaveXML()
+        frmMain.ToolStripStatusLabelInfo.Text = "Saving XML..."
+        frmMain.ToolStripProgressBarSave.Increment(10)
         frmMain.ProgressBar1.Value = 0
         frmMain.lblProgressBar.Text = "Saving XML"
         frmMain.Refresh()
-        frmMain.lblProgressBar.Visible = True
-        frmMain.ProgressBar1.Visible = True
+        'frmMain.lblProgressBar.Visible = False
+        'frmMain.ProgressBar1.Visible = False
         frmMain.ProgressBar1.Increment(10)
         frmMain.Cursor = Cursors.WaitCursor
         Threading.Thread.Sleep(200)
         frmMain.ProgressBar1.Increment(20)
+        frmMain.ToolStripProgressBarSave.Increment(20)
 
         If FileName = "" Then
             frmMain.ProgressBar1.Increment(40)
+            frmMain.ToolStripProgressBarSave.Increment(40)
             frmMain.Refresh()
             Threading.Thread.Sleep(300)
 
@@ -40,6 +44,7 @@ Module xml
         Else
 
             frmMain.ProgressBar1.Increment(40)
+            frmMain.ToolStripProgressBarSave.Increment(40)
             frmMain.Refresh()
             Threading.Thread.Sleep(300)
             Dim savedt As DataTable = CType(frmMain.dgvMetaRules.DataSource, DataTable)
@@ -55,18 +60,22 @@ Module xml
             'GlobalVars.FileName = Path.GetFileNameWithoutExtension(sfd.FileName)
             'GlobalVars.FileNameAndPath = sfd.FileName
         End If
-        frmMain.ProgressBar1.Increment(30)
+        frmMain.ProgressBar1.Increment(50)
+        frmMain.ToolStripProgressBarSave.Increment(60)
         frmMain.Refresh()
         Threading.Thread.Sleep(400)
         'frmMain.ProgressBar1.Increment(100)
         frmMain.ProgressBar1.Refresh()
-
+        frmMain.ToolStripProgressBarSave.Increment(100)
         Threading.Thread.Sleep(200)
-        'frmMain.ProgressBar1.Increment(80)
+        frmMain.ProgressBar1.Increment(100)
+
         frmMain.Cursor = Cursors.Default
         'MsgBox("ProgressBar = " & frmMain.ProgressBar1.Value)
         frmMain.ProgressBar1.Visible = False
         frmMain.lblProgressBar.Visible = False
+        frmMain.ToolStripStatusLabelInfo.Text = ""
+        frmMain.ToolStripProgressBarSave.Value = 0
     End Sub
 
     Public Sub SaveAsXML()
