@@ -610,8 +610,10 @@ Public Class frmMain
         txtBoxCData.Width = Me.Width - 200
         txtBoxCData2.Width = Me.Width - 200
 
-        dgvMetaRules.Height = Me.Height - 600
+        dgvMetaRules.Height = Me.Height - (SplitContainer1.Height + 120)
         dgvMetaRules.Width = Me.Width - 35
+        dgvAnyAll.Height = SplitContainer1.Panel1.Height * 0.65
+        dgvATMultiple.Height = SplitContainer1.Panel2.Height * 0.65
 
     End Sub
 
