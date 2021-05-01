@@ -39,7 +39,8 @@
 
 
         For Each row As DataRow In mytable.Rows
-            tString1 = row.Item(0).ToString.Replace(": ", "")
+            'tString1 = row.Item(0).ToString.Replace(": ", "")
+            tString1 = row.Item(0).ToString '.Replace(": ", "")
             tString2 = row.Item(1).ToString
 
             If tString1.ToString.Contains("All") Then

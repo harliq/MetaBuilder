@@ -81,6 +81,7 @@
                 Case "NeedToBuff"
                     tempmeta = tempmeta + i + "15" + vbCrLf
                 Case "NoMonstersWithinDistance"
+                    CTypeTable = 5
                     tempmeta = tempmeta + i + "16" + vbCrLf
                 Case "LandBlockE"
                     tempmeta = tempmeta + i + "17" + vbCrLf
@@ -213,6 +214,8 @@
 
                 Case 4 'Triple Record Table
                     tempmeta = tempmeta & CTypeTripleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
+                Case 5 'Monster Distance Table
+                    tempmeta = tempmeta & CTypeMonsterDistanceExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
                 Case Else
                     MsgBox("Out Of Range - Meta.MetaExport- Case CTypeTable")
             End Select
@@ -351,6 +354,30 @@
 
         Return (Rule)
     End Function
+    Function CTypeMonsterDistanceExport(Rule As String, CTypeVar As String) As String
+        Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "1"
+        Dim ExportData As String
+        Dim StringSplit() As String
+
+        ExportData = "s" ' This is always a string
+
+        StringSplit = Split(Rule, ";")
+
+        Select Case CTypeVar
+            Case "NoMonstersWithinDistance"
+                ExportData = ExportData & vbCrLf & "r" & vbCrLf & "d" & vbCrLf & Rule
+                '"s" & vbCrLf & "c" & vbCrLf & "i" & vbCrLf & StringSplit(1).ToString & vbCrLf &
+                '"s" & vbCrLf & "r" & vbCrLf & "d" & vbCrLf & StringSplit(2).ToString ' 
+            Case Else
+                MsgBox("Out of range - Meta.CTypeTripleExport - Case CTypeVar")
+        End Select
+
+        Rule = TableHeader & vbCrLf & ExportData
+
+        Return (Rule)
+    End Function
+
+
     Function ATypeZeroExport(Rule As String) As String
 
         Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf
@@ -577,7 +604,8 @@
         'Dim NestedHeader As String = "i" & vbCrLf & conditionNestVarType & vbCrLf & AnyAllNotHeader
 
         For Each row As DataRow In mytable.Rows
-            tString1 = row.Item(0).ToString.Replace(": ", "")
+            'tString1 = row.Item(0).ToString.Replace(": ", "")
+            tString1 = row.Item(0).ToString '.Replace(": ", "")
             tString2 = row.Item(1).ToString
             rc = rc + 1
 
@@ -648,6 +676,8 @@
 
     End Function
     Function ConditionTypeEncode(ByVal CTypeString As String, ByVal CTypeData As String) As String
+
+
         Dim tempmeta As String = ""
         Dim i As String = "i" + vbCrLf
         Dim s As String = "s" + vbCrLf
@@ -660,6 +690,10 @@
         'Dim cdType As MetaConditionTypeID
         'Dim cdType As Condition
         'Dim never As String
+
+        If CTypeString.Contains(":") Then
+            CTypeString = CTypeString.Replace(": ", "")
+        End If
 
         Select Case (CTypeString) ' Condition Types
             Case Nothing ' To remove blank lines
@@ -702,6 +736,7 @@
             Case "NeedToBuff"
                 tempmeta = tempmeta + i + "15" + vbCrLf
             Case "NoMonstersWithinDistance"
+                CTypeTable = 5
                 tempmeta = tempmeta + i + "16" + vbCrLf
             Case "LandBlockE"
                 tempmeta = tempmeta + i + "17" + vbCrLf
@@ -762,6 +797,8 @@
                ' tempmeta = tempmeta & vbCrLf & Header
             Case 4 'Triple Record
                 tempmeta = tempmeta & CTypeTripleExport(CTypeData, CTypeString) & vbCrLf
+            Case 5 'MonsterWithinDistance
+                tempmeta = tempmeta & CTypeMonsterDistanceExport(CTypeData, CTypeString) & vbCrLf
             Case Else
                 MsgBox("Out Of Range - Meta.MetaExport- Case CTypeTable")
         End Select
