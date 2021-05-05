@@ -36,7 +36,7 @@
 
         Dim rc As Integer = 0 'for record counts
         Dim c As Integer = 0
-
+        FinalEncode = mytable.Rows.Count.ToString
 
         For Each row As DataRow In mytable.Rows
             'tString1 = row.Item(0).ToString.Replace(": ", "")
@@ -75,7 +75,8 @@
             rc = rc + 1
         Next
 
-        FinalEncode = rc & tData
+        FinalEncode = FinalEncode & tData
+        'FinalEncode = rc & tData
         'FinalEncode = Header & vbCrLf & rc & tData
         'FinalEncode = Header & vbCrLf & rc & vbCrLf & tData
         'FinalEncode = Header & vbCrLf & rc & vbCrLf & tData
