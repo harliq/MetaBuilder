@@ -12,6 +12,7 @@ Module xml
         frmMain.Refresh()
         'frmMain.lblProgressBar.Visible = False
         'frmMain.ProgressBar1.Visible = False
+
         frmMain.ProgressBar1.Increment(10)
         frmMain.Cursor = Cursors.WaitCursor
         Threading.Thread.Sleep(200)
