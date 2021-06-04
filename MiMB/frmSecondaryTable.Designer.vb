@@ -47,6 +47,7 @@ Partial Class frmSecondaryTable
         Me.rdbTrue = New System.Windows.Forms.RadioButton()
         Me.rdbFalse = New System.Windows.Forms.RadioButton()
         Me.cBoxMetaStateTwo = New System.Windows.Forms.ComboBox()
+        Me.btnSaveNav = New System.Windows.Forms.Button()
         CType(Me.dgvMultiple, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -297,6 +298,16 @@ Partial Class frmSecondaryTable
         Me.cBoxMetaStateTwo.TabIndex = 44
         Me.cBoxMetaStateTwo.Visible = False
         '
+        'btnSaveNav
+        '
+        Me.btnSaveNav.Location = New System.Drawing.Point(548, 244)
+        Me.btnSaveNav.Name = "btnSaveNav"
+        Me.btnSaveNav.Size = New System.Drawing.Size(112, 23)
+        Me.btnSaveNav.TabIndex = 45
+        Me.btnSaveNav.Text = "Save Embeded Nav"
+        Me.btnSaveNav.UseVisualStyleBackColor = True
+        Me.btnSaveNav.Visible = False
+        '
         'frmSecondaryTable
         '
         Me.AcceptButton = Me.btnOk
@@ -304,6 +315,7 @@ Partial Class frmSecondaryTable
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.btnCancel
         Me.ClientSize = New System.Drawing.Size(672, 277)
+        Me.Controls.Add(Me.btnSaveNav)
         Me.Controls.Add(Me.cBoxMetaStateTwo)
         Me.Controls.Add(Me.rdbFalse)
         Me.Controls.Add(Me.rdbTrue)
@@ -362,4 +374,5 @@ Partial Class frmSecondaryTable
     Friend WithEvents rdbTrue As RadioButton
     Friend WithEvents rdbFalse As RadioButton
     Friend WithEvents cBoxMetaStateTwo As ComboBox
+    Friend WithEvents btnSaveNav As Button
 End Class

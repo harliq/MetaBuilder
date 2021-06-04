@@ -499,10 +499,10 @@ Partial Class frmMain
         Me.cBoxATMetaState.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxATMetaState.FormattingEnabled = True
         Me.cBoxATMetaState.Items.AddRange(New Object() {"Default"})
-        Me.cBoxATMetaState.Location = New System.Drawing.Point(341, 21)
+        Me.cBoxATMetaState.Location = New System.Drawing.Point(341, 23)
         Me.cBoxATMetaState.MaxDropDownItems = 100
         Me.cBoxATMetaState.Name = "cBoxATMetaState"
-        Me.cBoxATMetaState.Size = New System.Drawing.Size(175, 28)
+        Me.cBoxATMetaState.Size = New System.Drawing.Size(225, 28)
         Me.cBoxATMetaState.Sorted = True
         Me.cBoxATMetaState.TabIndex = 1
         Me.cBoxATMetaState.Visible = False
@@ -514,7 +514,7 @@ Partial Class frmMain
         Me.cBoxAType.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.cBoxAType.FormattingEnabled = True
         Me.cBoxAType.IntegralHeight = False
-        Me.cBoxAType.Location = New System.Drawing.Point(15, 21)
+        Me.cBoxAType.Location = New System.Drawing.Point(15, 22)
         Me.cBoxAType.Name = "cBoxAType"
         Me.cBoxAType.Size = New System.Drawing.Size(301, 28)
         Me.cBoxAType.TabIndex = 0
@@ -657,7 +657,7 @@ Partial Class frmMain
         'btnATCreateState
         '
         Me.btnATCreateState.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnATCreateState.Location = New System.Drawing.Point(535, 17)
+        Me.btnATCreateState.Location = New System.Drawing.Point(579, 21)
         Me.btnATCreateState.Name = "btnATCreateState"
         Me.btnATCreateState.Size = New System.Drawing.Size(92, 32)
         Me.btnATCreateState.TabIndex = 2
@@ -718,7 +718,7 @@ Partial Class frmMain
         'btnCreateState
         '
         Me.btnCreateState.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnCreateState.Location = New System.Drawing.Point(535, 22)
+        Me.btnCreateState.Location = New System.Drawing.Point(579, 22)
         Me.btnCreateState.Name = "btnCreateState"
         Me.btnCreateState.Size = New System.Drawing.Size(92, 32)
         Me.btnCreateState.TabIndex = 2
@@ -735,7 +735,7 @@ Partial Class frmMain
         Me.cBoxCTMetaState.Location = New System.Drawing.Point(341, 24)
         Me.cBoxCTMetaState.MaxDropDownItems = 100
         Me.cBoxCTMetaState.Name = "cBoxCTMetaState"
-        Me.cBoxCTMetaState.Size = New System.Drawing.Size(175, 28)
+        Me.cBoxCTMetaState.Size = New System.Drawing.Size(225, 28)
         Me.cBoxCTMetaState.Sorted = True
         Me.cBoxCTMetaState.TabIndex = 1
         '
@@ -1034,7 +1034,7 @@ Partial Class frmMain
         '
         Me.lstBoxCommonOptions.FormattingEnabled = True
         Me.lstBoxCommonOptions.Items.AddRange(New Object() {"EnableCombat", "EnableNav", "EnableBuffing", "EnableLooting", "IdlePeaceMode", "LootOnlyRareCorpses", "LootPriorityBoost", "LootAllCorpses", "NavPriorityBoost", "OpenDoors"})
-        Me.lstBoxCommonOptions.Location = New System.Drawing.Point(340, 23)
+        Me.lstBoxCommonOptions.Location = New System.Drawing.Point(341, 22)
         Me.lstBoxCommonOptions.Name = "lstBoxCommonOptions"
         Me.lstBoxCommonOptions.Size = New System.Drawing.Size(175, 95)
         Me.lstBoxCommonOptions.TabIndex = 44

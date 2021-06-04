@@ -15,9 +15,6 @@
     'Define a new class member named NewDataTable as follows:
 
 
-    Private Sub Add_Update_Delete_DataGridView_Row_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-    End Sub
 
     Private Sub cBoxType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cBoxType.SelectedIndexChanged
         ResetForm()
@@ -133,6 +130,7 @@
         rdbTrue.Visible = False
         rdbFalse.Visible = False
         lstBoxCommonOptions.Visible = False
+        btnSaveNav.Visible = False
 
     End Sub
 
@@ -347,6 +345,7 @@
         lblTextOne.Visible = True
         TextBox1.Visible = True
         btnEmbedNav.Visible = True
+        btnSaveNav.Visible = True
     End Sub
     Sub FormSetOptRule()
 
@@ -953,5 +952,43 @@
 
     Private Sub cBoxType_Format(sender As Object, e As ListControlConvertEventArgs) Handles cBoxType.Format
 
+    End Sub
+
+    Private Sub btnSaveNav_Click(sender As Object, e As EventArgs) Handles btnSaveNav.Click
+        Dim sfd As New SaveFileDialog()
+        sfd.Filter = "NAV Files|*.nav"
+        sfd.InitialDirectory = My.Settings.MetaExportDir
+
+        Dim navArray As String() = Split(TextBox1.Text, vbCrLf.ToCharArray)
+        Dim navroute As String
+        Dim line As Integer
+
+        For line = 0 To UBound(navArray)
+            If line = 2 Then
+                navroute = navArray(line)
+            ElseIf line > 2 Then
+                navroute = navroute & vbCrLf & navArray(line)
+
+            Else
+            End If
+        Next
+
+        If sfd.ShowDialog = DialogResult.OK Then
+            If TextBox1.Text = "" Then
+
+                MsgBox("There is no embedded nav route to save")
+
+            Else
+                Try
+                    Dim navWriter As New System.IO.StreamWriter(sfd.FileName)
+                    navWriter.Write(navroute)
+                    navWriter.Close()
+                Catch ex As Exception
+                    MsgBox("Not able to save Nav route " & FileName & ". Aborted")
+                End Try
+
+            End If
+        Else
+        End If
     End Sub
 End Class
