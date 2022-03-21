@@ -595,39 +595,21 @@
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
                 Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
 
-                'tdata = tdata & vbCrLf & Header & vbCrLf & rc & myMetaNest.OutString
-                'Dim x As Integer = c + 1
-                'tdata = tdata & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & x & vbCrLf & "i" & vbCrLf & varType & vbCrLf & myMetaNest.OutString
-                'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & rc & vbCrLf & myMetaNest.OutString
-
 
                 AnyAllNotEncode = AnyAllNotEncode + "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString & vbCrLf
-                'AnyAllNotEncode = "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString
 
-                '  Move the appending code (table header) to NestedCondition Class
-
-
-
-                'AnyAllNotEncode = AnyAllNotEncode & vbCrLf & myMetaNest.OutString
             Else
-                'make table
 
-                'Dim myTempTable As New RegX(tString2.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}", False)
-                'Dim myNestedTable = myTempTable.MultiTable
-                'For Each r As DataRow In myNestedTable.Rows
-
-                'If c = 0 Then
-                '        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString.Replace(": ", ""), r.Item(1).ToString)
-                '    Else
-                '        tempData = tempData & ConditionTypeEncode(r.Item(0).ToString, r.Item(1).ToString)
-                '    End If
-
-                'Next
                 If AnyAllNotRecordCount = 0 Then
-                    ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
+                    'Changing how encoding is put together to fix the export issuses - 3/21/2022
+                    'ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
+                    AnyAllNotEncode = AnyAllNotEncode + ConditionTypeEncode(tString1.ToString.Replace(": ", ""), tString2.ToString)
                 Else
                     'ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString).TrimEnd(vbCrLf.ToCharArray)
-                    ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString)
+
+                    'Changing how encoding is put together to fix the export issuses - 3/21/2022
+                    'ConditionEncode = ConditionEncode & ConditionTypeEncode(tString1.ToString, tString2.ToString)
+                    AnyAllNotEncode = AnyAllNotEncode + ConditionTypeEncode(tString1.ToString, tString2.ToString)
                 End If
                 ' rc = rc + 1
             End If

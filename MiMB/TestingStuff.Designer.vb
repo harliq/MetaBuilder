@@ -30,6 +30,7 @@ Partial Class TestingStuff
         '
         Me.TextBoxTest.Font = New System.Drawing.Font("Courier New", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.TextBoxTest.Location = New System.Drawing.Point(13, 13)
+        Me.TextBoxTest.MaxLength = 1000000000
         Me.TextBoxTest.Multiline = True
         Me.TextBoxTest.Name = "TextBoxTest"
         Me.TextBoxTest.ScrollBars = System.Windows.Forms.ScrollBars.Both
