@@ -914,6 +914,11 @@ Public Class frmMain
 
     Sub btnAddCdata_Click(sender As Object, e As EventArgs) Handles btnAddAnyAll.Click
 
+        If cBoxCType.SelectedIndex = 21 And dgvAnyAll.RowCount > 0 Then
+            MsgBox("You can only have one rule in a NOT Condition")
+            Return
+        End If
+
         Dim SecondTableDialog As New frmSecondaryTable()
         SecondTableDialog.cBoxAType.Visible = False
         GlobalVars.SetFormType = 1
@@ -1754,5 +1759,11 @@ Public Class frmMain
             End If
 
         Next
+    End Sub
+
+    Private Sub btnViewNav_Click(sender As Object, e As EventArgs) Handles btnViewNav.Click
+        ViewNav.txtboxViewNav.Text = txtBoxAData.Text
+        ViewNav.Show()
+
     End Sub
 End Class

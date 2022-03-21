@@ -183,6 +183,12 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Types.vb" />
+    <Compile Include="ViewNav.Designer.vb">
+      <DependentUpon>ViewNav.vb</DependentUpon>
+    </Compile>
+    <Compile Include="ViewNav.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="xml.vb" />
   </ItemGroup>
   <ItemGroup>
@@ -209,6 +215,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="TestingStuff.resx">
       <DependentUpon>TestingStuff.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewNav.resx">
+      <DependentUpon>ViewNav.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -268,7 +268,7 @@
         frmMain.txtBoxAData3.Visible = False
         'Testing for making txtboxadata multiline for emedded navs
         frmMain.btnNavSave.Visible = False
-
+        frmMain.btnViewNav.Visible = False
         frmMain.txtBoxAData.Enabled = True
         frmMain.txtBoxAData.Height = 22
         frmMain.txtBoxAData.Multiline = False
@@ -372,6 +372,7 @@
                 frmMain.txtBoxAData.Enabled = False
                 frmMain.btnChooseNav.Visible = True
                 frmMain.btnNavSave.Visible = True
+                frmMain.btnViewNav.Visible = True
                 'frmMain.lblSaveNav.Visible = True
 
                 frmMain.lblAData.Text = "Embedded Nav - Choose File"

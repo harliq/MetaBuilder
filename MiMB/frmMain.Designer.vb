@@ -122,6 +122,7 @@ Partial Class frmMain
         Me.ToolStripProgressBarSave = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusLabelInfo = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabelVersion = New System.Windows.Forms.ToolStripStatusLabel()
+        Me.btnViewNav = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -203,7 +204,7 @@ Partial Class frmMain
         'AboutToolStripMenuItem1
         '
         Me.AboutToolStripMenuItem1.Name = "AboutToolStripMenuItem1"
-        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.AboutToolStripMenuItem1.Size = New System.Drawing.Size(107, 22)
         Me.AboutToolStripMenuItem1.Text = "&About"
         '
         'FileToolStripMenuItem
@@ -937,6 +938,7 @@ Partial Class frmMain
         'SplitContainer1.Panel2
         '
         Me.SplitContainer1.Panel2.BackColor = System.Drawing.SystemColors.ControlLight
+        Me.SplitContainer1.Panel2.Controls.Add(Me.btnViewNav)
         Me.SplitContainer1.Panel2.Controls.Add(Me.btnImportMeta)
         Me.SplitContainer1.Panel2.Controls.Add(Me.lblSaveNav)
         Me.SplitContainer1.Panel2.Controls.Add(Me.rdbFalse)
@@ -1111,6 +1113,16 @@ Partial Class frmMain
         Me.ToolStripStatusLabelVersion.Size = New System.Drawing.Size(45, 17)
         Me.ToolStripStatusLabelVersion.Text = "Version"
         '
+        'btnViewNav
+        '
+        Me.btnViewNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnViewNav.Location = New System.Drawing.Point(932, 45)
+        Me.btnViewNav.Name = "btnViewNav"
+        Me.btnViewNav.Size = New System.Drawing.Size(92, 23)
+        Me.btnViewNav.TabIndex = 49
+        Me.btnViewNav.Text = "View Nav"
+        Me.btnViewNav.UseVisualStyleBackColor = True
+        '
         'frmMain
         '
         Me.AcceptButton = Me.btnCreateRule
@@ -1277,4 +1289,5 @@ Partial Class frmMain
     Friend WithEvents ToolStripStatusLabelVersion As ToolStripStatusLabel
     Friend WithEvents ToolStripStatusLabelInfo As ToolStripStatusLabel
     Friend WithEvents ToolStripProgressBarSave As ToolStripProgressBar
+    Friend WithEvents btnViewNav As Button
 End Class

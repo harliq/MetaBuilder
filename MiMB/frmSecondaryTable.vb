@@ -122,6 +122,7 @@
         cBoxMetaState.Visible = False
         cBoxMetaStateTwo.Visible = False
         btnEmbedNav.Visible = False
+        btnViewNav.Visible = False
         btnCreateMetaState.Visible = False
         dgvMultiple.Visible = False
         btnAdd.Visible = False
@@ -133,6 +134,7 @@
         rdbTrue.Visible = False
         rdbFalse.Visible = False
         lstBoxCommonOptions.Visible = False
+
 
     End Sub
 
@@ -347,6 +349,8 @@
         lblTextOne.Visible = True
         TextBox1.Visible = True
         btnEmbedNav.Visible = True
+        btnViewNav.Visible = True
+
     End Sub
     Sub FormSetOptRule()
 
@@ -953,5 +957,10 @@
 
     Private Sub cBoxType_Format(sender As Object, e As ListControlConvertEventArgs) Handles cBoxType.Format
 
+    End Sub
+
+    Private Sub btnViewNav_Click(sender As Object, e As EventArgs) Handles btnViewNav.Click
+        ViewNav.txtboxViewNav.Text = TextBox1.Text
+        ViewNav.Show()
     End Sub
 End Class
