@@ -819,8 +819,9 @@ Public Class frmMain
                     'Dim StringSplit() As String
                     TableAnyAll.Clear()
 
-                    '-------------------Add Regex-------------
-                    Dim myAllNest As New RegX(cData, RegXAnyAllNot, False)
+                    '-------------------Add Regex-------------  '
+                    'Issue with this currently  For some reason its splitting up the nested matches from deeper nests
+                    Dim myAllNest As New RegX(cData, RegXAnyAllNotSplitDataGridView, False)
 
 
                     TableAnyAll = myAllNest.MultiTable

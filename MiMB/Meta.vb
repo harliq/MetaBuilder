@@ -82,6 +82,7 @@
                     tempmeta = tempmeta + i + "15" + vbCrLf
                 Case "NoMonstersWithinDistance"
                     tempmeta = tempmeta + i + "16" + vbCrLf
+                    CTypeTable = 5
                 Case "LandBlockE"
                     tempmeta = tempmeta + i + "17" + vbCrLf
                     'tCD = "s" ''  Sets Var as string for CData Exporting
@@ -213,6 +214,8 @@
 
                 Case 4 'Triple Record Table
                     tempmeta = tempmeta & CTypeTripleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
+                Case 5 'No Monsters within Distance
+                    tempmeta = tempmeta & CTypeNoMonstersWithinExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
                 Case Else
                     MsgBox("Out Of Range - Meta.MetaExport- Case CTypeTable")
             End Select
@@ -350,6 +353,17 @@
         Rule = TableHeader & vbCrLf & ExportData
 
         Return (Rule)
+    End Function
+    Function CTypeNoMonstersWithinExport(Rule As String, CTypeVar As String) As String
+        Dim TableHeader As String = "TABLE" & vbCrLf & "2" & vbCrLf & "k" & vbCrLf & "v" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "1" & vbCrLf & "s" & vbCrLf & "r" & vbCrLf & "d"
+        Dim ExportData As String
+        Dim StringSplit() As String
+
+        StringSplit = Split(Rule, ";")
+
+        ExportData = TableHeader & vbCrLf & Rule
+
+        Return ExportData
     End Function
     Function ATypeZeroExport(Rule As String) As String
 
@@ -685,6 +699,7 @@
                 tempmeta = tempmeta + i + "15" + vbCrLf
             Case "NoMonstersWithinDistance"
                 tempmeta = tempmeta + i + "16" + vbCrLf
+                CTypeTable = 5
             Case "LandBlockE"
                 tempmeta = tempmeta + i + "17" + vbCrLf
                 'tCD = "s" ''  Sets Var as string for CData Exporting
@@ -744,6 +759,8 @@
                ' tempmeta = tempmeta & vbCrLf & Header
             Case 4 'Triple Record
                 tempmeta = tempmeta & CTypeTripleExport(CTypeData, CTypeString) & vbCrLf
+            Case 5 'No Monsters within Distance
+                tempmeta = tempmeta & CTypeNoMonstersWithinExport(CTypeData, CTypeString) & vbCrLf
             Case Else
                 MsgBox("Out Of Range - Meta.MetaExport- Case CTypeTable")
         End Select
