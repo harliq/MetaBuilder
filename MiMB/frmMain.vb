@@ -827,7 +827,7 @@ Public Class frmMain
                     TableAnyAll = myAllNest.MultiTable
                     dgvAnyAll.DataSource = TableAnyAll
                     dgvAnyAll.Refresh()
-                Case 3
+                Case 3 'MonsterDistance & MonsterPriority
                     Dim cData As String = selectedRow.Cells(2).Value
                     Dim StringSplit() As String
                     StringSplit = Split(cData, ";")
@@ -1767,4 +1767,5 @@ Public Class frmMain
         ViewNav.Show()
 
     End Sub
+
 End Class

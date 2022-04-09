@@ -110,6 +110,7 @@ Partial Class frmMain
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.lblProgressBar = New System.Windows.Forms.Label()
         Me.ProgressBar1 = New System.Windows.Forms.ProgressBar()
+        Me.btnViewNav = New System.Windows.Forms.Button()
         Me.btnImportMeta = New System.Windows.Forms.Button()
         Me.lblSaveNav = New System.Windows.Forms.Label()
         Me.rdbFalse = New System.Windows.Forms.RadioButton()
@@ -122,7 +123,6 @@ Partial Class frmMain
         Me.ToolStripProgressBarSave = New System.Windows.Forms.ToolStripProgressBar()
         Me.ToolStripStatusLabelInfo = New System.Windows.Forms.ToolStripStatusLabel()
         Me.ToolStripStatusLabelVersion = New System.Windows.Forms.ToolStripStatusLabel()
-        Me.btnViewNav = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.ToolStrip1.SuspendLayout()
         CType(Me.dgvMetaRules, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -989,6 +989,16 @@ Partial Class frmMain
         Me.ProgressBar1.Size = New System.Drawing.Size(243, 14)
         Me.ProgressBar1.TabIndex = 32
         '
+        'btnViewNav
+        '
+        Me.btnViewNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnViewNav.Location = New System.Drawing.Point(932, 45)
+        Me.btnViewNav.Name = "btnViewNav"
+        Me.btnViewNav.Size = New System.Drawing.Size(92, 23)
+        Me.btnViewNav.TabIndex = 49
+        Me.btnViewNav.Text = "View Nav"
+        Me.btnViewNav.UseVisualStyleBackColor = True
+        '
         'btnImportMeta
         '
         Me.btnImportMeta.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -1112,16 +1122,6 @@ Partial Class frmMain
         Me.ToolStripStatusLabelVersion.RightToLeft = System.Windows.Forms.RightToLeft.Yes
         Me.ToolStripStatusLabelVersion.Size = New System.Drawing.Size(45, 17)
         Me.ToolStripStatusLabelVersion.Text = "Version"
-        '
-        'btnViewNav
-        '
-        Me.btnViewNav.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnViewNav.Location = New System.Drawing.Point(932, 45)
-        Me.btnViewNav.Name = "btnViewNav"
-        Me.btnViewNav.Size = New System.Drawing.Size(92, 23)
-        Me.btnViewNav.TabIndex = 49
-        Me.btnViewNav.Text = "View Nav"
-        Me.btnViewNav.UseVisualStyleBackColor = True
         '
         'frmMain
         '

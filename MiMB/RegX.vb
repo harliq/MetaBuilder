@@ -10,6 +10,7 @@ Public Class RegX
     Public StringPattern As String
     Public Occurence As Integer
     Public NestedExport() As String
+    Private nestedRemovedText As String
 
 
 
@@ -84,23 +85,52 @@ Public Class RegX
 
     Function regxMatch(ByVal text As String, ByVal expr As String, ByVal isMultiple As Boolean) As DataTable
 
+        'Dim multipleTable As New DataTable("MultipleTable")
+        'multipleTable.Columns.Add("Type", Type.GetType("System.String"))
+        'multipleTable.Columns.Add("Data", Type.GetType("System.String"))
+
+        'Dim tColOneData As String = ""
+        'Dim tColTwoData As String = ""
+        'Dim tData As String = ""
+
+
+
+        Dim OnlyNested As New DataTable("MultiTable")
+        OnlyNested = regxMatchAll(text, RegXNestOnly, False)
+
+        Dim singleValues As New DataTable("Single Values")
+        singleValues = regxMatchAll(nestedRemovedText, RegXSingleOnly, False)
+
+        OnlyNested.Merge(singleValues)
+
+        'Form1.TextBox2.Text = tData
+        Return OnlyNested
+
+    End Function
+
+    Function regxMatchAll(ByVal textBlob As String, ByVal expr As String, ByVal isMultiple As Boolean) As DataTable
+
         Dim multipleTable As New DataTable("MultipleTable")
         multipleTable.Columns.Add("Type", Type.GetType("System.String"))
         multipleTable.Columns.Add("Data", Type.GetType("System.String"))
 
+
+
         Dim tColOneData As String = ""
         Dim tColTwoData As String = ""
         Dim tData As String = ""
-
+        'Dim nestedRemovedText = textBlob ' This is used to remove matched text.
+        nestedRemovedText = textBlob
 
         'initiate the regex object
         Dim r As Regex = New Regex(expr, RegexOptions.IgnoreCase)
 
         'match the regex pattern against string
-        Dim m As Match = r.Match(text)
+        Dim m As Match = r.Match(textBlob)
         Dim matchcount As Integer = 0
         Dim i As Integer = matchcount
         Do While m.Success ' if there is a regex match
+            nestedRemovedText.Replace(m.Value.ToString, "")
             matchcount += 1
             i = matchcount
             Dim tempC As Integer = 0
@@ -140,12 +170,11 @@ Public Class RegX
             Next
             m = m.NextMatch()
         Loop
+
+
         'Form1.TextBox2.Text = tData
         Return multipleTable
 
-
     End Function
-
-
 
 End Class

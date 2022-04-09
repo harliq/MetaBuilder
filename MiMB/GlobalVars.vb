@@ -15,6 +15,37 @@
     '                                          "(ChatMessageCapture){(.*?)}|(ChatMessageCapture: ){(.*?)}|" &
     '                                          "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
 
+    Public ReadOnly RegXNestOnly As String = "(Any){(.*?}}})|(All){(.*?}}})|(Not){(.*?}}})|(\w+){(.*?)}|(Any){(.*?}})|(All){(.*?}})|(Not){(.*?)}}|(Any){(.*?})|(All){(.*?)}}|(Not){(.*?})}"
+
+
+
+    Public ReadOnly RegXSingleOnly As String = "(Never){(.*?)}|(Never: ){(.*?)}|" &
+                                                "(Always){(.*?)}|(Always: ){(.*?)}|" &
+                                                "(ChatMessage){(.*?)}|(ChatMessage: ){(.*?)}|" &
+                                                "(MainPackSlotsLE){(.*?)}|(MainPackSlotsLE: ){(.*?)}|" &
+                                                "(SecondsInStateGE){(.*?)}|(SecondsInStateGE: ){(.*?)}|" &
+                                                "(NavrouteEmpty){(.*?)}|(NavrouteEmpty: ){(.*?)}|" &
+                                                "(Died){(.*?)}|(Died: ){(.*?)}|" &
+                                                "(VendorOpen){(.*?)}|(VendorOpen: ){(.*?)}|" &
+                                                "(VendorClosed){(.*?)}|(VendorClosed: ){(.*?)}|" &
+                                                "(ItemCountLE){(.*?)}|(ItemCountLE: ){(.*?)}|" &
+                                                "(ItemCountGE){(.*?)}|(ItemCountGE: ){(.*?)}|" &
+                                                "(MonstersWithPriorityWithinDistance){(.*?)}|(MonstersWithPriorityWithinDistance: ){(.*?)}|" &
+                                                "(NeedToBuff){(.*?)}|(NeedToBuff: ){(.*?)}|" &
+                                                "(NoMonstersWithinDistance){(.*?)}|(NoMonstersWithinDistance: ){(.*?)}|" &
+                                                "(LandBlockE){(.*?)}|(LandBlockE: ){(.*?)}|" &
+                                                "(LandCellE){(.*?)}|(LandCellE: ){(.*?)}|" &
+                                                "(PortalspaceEnter){(.*?)}|(PortalspaceEnter: ){(.*?)}|" &
+                                                "(PortalspaceExit){(.*?)}|(PortalspaceExit: ){(.*?)}|" &
+                                                "(SecondsInStatePersistGE){(.*?)}|(SecondsInStatePersistGE: ){(.*?)}|" &
+                                                "(TimeLeftOnSpellGE){(.*?)}|(TimeLeftOnSpellGE: ){(.*?)}|" &
+                                                "(BurdenPercentGE){(.*?)}|(BurdenPercentGE: ){(.*?)}|" &
+                                                "(DistanceToAnyRoutePointGE){(.*?)}|(DistanceToAnyRoutePointGE: ){(.*?)}|" &
+                                                "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
+                                                "(ClientDialogPopup){(.*?)}|(ClientDialogPopup: ){(.*?)}|" &
+                                                "(ChatMessageCapture){(.*?)}|(ChatMessageCapture: ){(.*?)}"
+
+
     Public ReadOnly RegXAnyAllNot As String = "(Any){(.*?}})|(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|" &
                                               "(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|" &
                                               "(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?})[A-Z]|" &
