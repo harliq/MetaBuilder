@@ -15,11 +15,11 @@ Public Class RegX
 
 
 
-    Public Sub New(ByVal input As String, ByVal regex As String, ByVal multipleNested As Boolean)
+    Public Sub New(ByVal input As String, ByVal regex As String, ByVal ActionType As Boolean)
         InputString = input
         RegexPattern = regex
-        multipleNested = multipleNested
-        MultiTable = regxMatch(input, regex, multipleNested)
+        MultipleNested = MultipleNested
+        MultiTable = regxMatch(input, regex, MultipleNested)
     End Sub
 
     Public Sub New(ByVal input As String, ByVal regex As String)
@@ -83,7 +83,7 @@ Public Class RegX
     End Function
 
 
-    Function regxMatch(ByVal text As String, ByVal expr As String, ByVal isMultiple As Boolean) As DataTable
+    Function regxMatch(ByVal text As String, ByVal expr As String, ByVal ActionType As Boolean) As DataTable
 
         'Dim multipleTable As New DataTable("MultipleTable")
         'multipleTable.Columns.Add("Type", Type.GetType("System.String"))
@@ -92,14 +92,19 @@ Public Class RegX
         'Dim tColOneData As String = ""
         'Dim tColTwoData As String = ""
         'Dim tData As String = ""
-
-
-
         Dim OnlyNested As New DataTable("MultiTable")
-        OnlyNested = regxMatchAll(text, RegXNestOnly, False)
-
         Dim singleValues As New DataTable("Single Values")
-        singleValues = regxMatchAll(nestedRemovedText, RegXSingleOnly, False)
+
+        If ActionType = True Then
+            OnlyNested = regxMatchAll(text, RegXNestOnly, False)
+            singleValues = regxMatchAll(nestedRemovedText, RegXActionMultiple, False)
+        Else
+            OnlyNested = regxMatchAll(text, RegXNestOnly, False)
+            singleValues = regxMatchAll(nestedRemovedText, RegXActionSingle, False)
+
+        End If
+
+
 
         OnlyNested.Merge(singleValues)
 
@@ -130,7 +135,7 @@ Public Class RegX
         Dim matchcount As Integer = 0
         Dim i As Integer = matchcount
         Do While m.Success ' if there is a regex match
-            nestedRemovedText.Replace(m.Value.ToString, "")
+            nestedRemovedText = nestedRemovedText.Replace(m.Value.ToString, "")
             matchcount += 1
             i = matchcount
             Dim tempC As Integer = 0

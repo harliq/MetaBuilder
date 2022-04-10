@@ -15,7 +15,12 @@
     '                                          "(ChatMessageCapture){(.*?)}|(ChatMessageCapture: ){(.*?)}|" &
     '                                          "(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
 
-    Public ReadOnly RegXNestOnly As String = "(Any){(.*?}}})|(All){(.*?}}})|(Not){(.*?}}})|(\w+){(.*?)}|(Any){(.*?}})|(All){(.*?}})|(Not){(.*?)}}|(Any){(.*?})|(All){(.*?)}}|(Not){(.*?})}"
+    'Public ReadOnly RegXNestOnly As String = "(Any){(.*?}}})|(All){(.*?}}})|(Not){(.*?}}})|(\w+){(.*?)}|(Any){(.*?}})|(All){(.*?}})|(Not){(.*?)}}|(Any){(.*?})|(All){(.*?)}}|(Not){(.*?})}"
+
+    Public ReadOnly RegXNestOnly As String = "(Any)⸨(.*?}⸩)|(Any: )⸨(.*?}⸩)|(All)⸨(.*?}⸩)|(All: )⸨(.*?}⸩)|(Not)⸨(.*?}⸩)|(Not: )⸨(.*?}⸩)|" &
+                                                "(Any){(.*?}})|(Any: ){(.*?}})|(Any: ){(.*?})[A-Z]|" &
+                                                "(All){(.*?}})|(All: ){(.*?}})|(All: ){(.*?})[A-Z]|" &
+                                                "(Not){(.*?}})|(Not: ){(.*?}})|(Not: ){(.*?})[A-Z]"
 
 
 
@@ -30,6 +35,7 @@
                                                 "(VendorClosed){(.*?)}|(VendorClosed: ){(.*?)}|" &
                                                 "(ItemCountLE){(.*?)}|(ItemCountLE: ){(.*?)}|" &
                                                 "(ItemCountGE){(.*?)}|(ItemCountGE: ){(.*?)}|" &
+                                                "(MonsterCountWithinDistance){(.*?)}|(MonsterCountWithinDistance: ){(.*?)}|" &
                                                 "(MonstersWithPriorityWithinDistance){(.*?)}|(MonstersWithPriorityWithinDistance: ){(.*?)}|" &
                                                 "(NeedToBuff){(.*?)}|(NeedToBuff: ){(.*?)}|" &
                                                 "(NoMonstersWithinDistance){(.*?)}|(NoMonstersWithinDistance: ){(.*?)}|" &
@@ -71,6 +77,33 @@
 
     '"(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}"
 
+    'Public ReadOnly RegXMultiple As String = "(Multiple: ){(.*?})[A-Z]|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
+    '                                         "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
+    '                                         "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
+    '                                         "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
+    '                                         "(ChatCommand){(.*?)}|(ChatCommand: ){(.*?)}|" &
+    '                                         "(EmbeddedNavRoute){([^}]*)}|(EmbeddedNavRoute: ){([^}]*)}|" &
+    '                                         "(\w+){(.*?)}|" &
+    '                                         "(\w+: ){(.*?)}|" &
+    '                                         "(\w+: ){(.*?;\.*?)}|" &
+    '                                         "(\w+){(.*?;.*?)}|" &
+    '                                         "(\w+: ){(.*?;.*?;.*?)}|" &
+    '                                         "(\w+){(.*?;.*?;.*?)}|" &
+    '                                         "(\w+){(.*?;.*?;.*?)}"
+
+    Public ReadOnly RegXActionMultiple As String = "(Multiple: ){(.*?})[A-Z]|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?})[A-Z]|(Multiple: ){(.*?}})|"
+
+    Public ReadOnly RegXActionSingle As String = "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
+                                             "(ExpressionAct){(.*?)}|(ExpressionAct: ){(.*?)}|" &
+                                             "(ChatCommand){(.*?)}|(ChatCommand: ){(.*?)}|" &
+                                             "(EmbeddedNavRoute){([^}]*)}|(EmbeddedNavRoute: ){([^}]*)}|" &
+                                             "(\w+){(.*?)}|" &
+                                             "(\w+: ){(.*?)}|" &
+                                             "(\w+: ){(.*?;\.*?)}|" &
+                                             "(\w+){(.*?;.*?)}|" &
+                                             "(\w+: ){(.*?;.*?;.*?)}|" &
+                                             "(\w+){(.*?;.*?;.*?)}|" &
+                                             "(\w+){(.*?;.*?;.*?)}"
     Public ReadOnly RegXMultiple As String = "(Multiple: ){(.*?})[A-Z]|(Multiple){(.*?}})|(Multiple){(.*?})[A-Z]|(Multiple: ){(.*?})[A-Z]|(Multiple: ){(.*?}})|" &
                                              "(Expression){(.*?)}|(Expression: ){(.*?)}|" &
                                              "(ChatWithExpression){(.*?)}|(ChatWithExpression: ){(.*?)}|" &
@@ -84,7 +117,6 @@
                                              "(\w+: ){(.*?;.*?;.*?)}|" &
                                              "(\w+){(.*?;.*?;.*?)}|" &
                                              "(\w+){(.*?;.*?;.*?)}"
-
     '"(\w+){(\w+)}|(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|" &
     '"(\w+){(.*?;.*?)}|(\w+){(\w+;.*?;.*?)}"
 

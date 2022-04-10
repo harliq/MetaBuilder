@@ -53,7 +53,9 @@
 
 
             If tString1.ToString.Contains("Any") Or tString1.ToString.Contains("All") Or tString1.ToString.Contains("Not") Then
-                Dim myMetaNest As New NestedConditionMetaExport(tString2, regx)
+                'Dim myMetaNest As New NestedConditionMetaExport(tString2, regx)
+                Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXNestOnly)
+
                 'tData = tData & vbCrLf & myMetaNest.OutString
                 tPeekData = myMetaNest.OutString
                 'tData = tData & rc & vbCrLf & "i" & vbCrLf & varType & vbCrLf & Header & vbCrLf & myMetaNest.OutString

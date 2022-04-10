@@ -569,7 +569,8 @@
         Dim tString2 As String = ""
         'Dim regX As String = RegXAnyAllNot
         'Dim regX As String = "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]"
-        Dim myExportConditionNest As New RegX(ConditionData, RegXAnyAllNot, False)
+        'Dim myExportConditionNest As New RegX(ConditionData, RegXAnyAllNot, False)
+        Dim myExportConditionNest As New RegX(ConditionData, RegXNestOnly, False)
 
         Dim mytable As New DataTable
         mytable = myExportConditionNest.MultiTable
@@ -607,7 +608,10 @@
                 End If
                 'rc = rc + 1
                 'Dim myExportActionNestMultiple As New RegX(tString1.ToString, "(\w+: ){(\w+)}|(\w+: ){(\w+;\w+)}|(\w+: ){(\w+;\w+;\w+)}|(Multiple: ){(.*?}})|(Multiple: ){(.*?})[A-Z]", False)
-                Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
+                'Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXAnyAllNot)
+                Dim myMetaNest As New NestedConditionMetaExport(tString2, RegXNestOnly)
+
+
 
 
                 AnyAllNotEncode = AnyAllNotEncode + "i" & vbCrLf & varType & vbCrLf & AnyAllNotHeader & vbCrLf & myMetaNest.OutString & vbCrLf
