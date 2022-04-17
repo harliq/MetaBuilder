@@ -317,7 +317,7 @@
                 ExportData = ExportData & vbCrLf & "sid" & vbCrLf & "i" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "sec" & vbCrLf & "i" & vbCrLf & StringSplit(1).ToString
 
             Case "ChatMessageCapture"
-                ExportData = ExportData & vbCrLf & "p" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "c" & vbCrLf & "s" & vbCrLf & StringSplit(1).ToString ' next part, p = pattern of text of chat capture, and s = var type of name (string)
+                ExportData = ExportData & vbCrLf & "p" & vbCrLf & "s" & vbCrLf & StringSplit(0).ToString & vbCrLf & "s" & vbCrLf & "c" & vbCrLf & "s" & vbCrLf '& StringSplit(1).ToString ' next part, p = pattern of text of chat capture, and s = var type of name (string)
 
             Case Else
                 MsgBox("Out of range - Meta.CTypeDoubleExport - Case CTypeVar")

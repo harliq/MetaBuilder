@@ -63,12 +63,22 @@
             Else
                 If c = 0 Then
                     'Dim tConditionEncode = ConditionTypeEncode(tString1, tString2)
-                    tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
-                    'tData = "i" & vbCrLf & varType & vbCrLf & tData & ConditionTypeEncode(tString1, tString2)
-                    Dim x As Integer = 0
+                    If tString1.ToString.Contains("ChatMessageCapture") Then
+                        tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2)
+                    Else
+                        'tData = "i" & vbCrLf & varType & vbCrLf & tData & ConditionTypeEncode(tString1, tString2)
+                        tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
+                    End If
+
                 Else
                     'tData = tData & rc & vbCrLf & ConditionTypeEncode(tString1, tString2)
-                    tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
+                    'tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
+                    If tString1.ToString.Contains("ChatMessageCapture") Then
+                        tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2)
+                    Else
+                        'tData = "i" & vbCrLf & varType & vbCrLf & tData & ConditionTypeEncode(tString1, tString2)
+                        tData = tData & vbCrLf & ConditionTypeEncode(tString1, tString2).TrimEnd(vbCrLf.ToCharArray)
+                    End If
                 End If
                 c = c + 1
 
