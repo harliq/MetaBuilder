@@ -203,7 +203,16 @@
                 Case 1 ' Single Record Table
                     tempmeta = tempmeta & SingleExport(r.Cells(2).Value & vbCrLf, sCDataTableVarOne)
                 Case 2 ' Double Record Table
-                    tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
+
+                    If r.Cells(1).Value = "ChatMessageCapture" Then
+                        tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString)
+                    Else
+                        tempmeta = tempmeta & CTypeDoubleExport(r.Cells(2).Value.ToString, r.Cells(0).Value.ToString) & vbCrLf
+                    End If
+
+
+
+
                 Case 3 'Any/All/Not Sub Table
                     If r.Cells(2).Value = "" Then ' Find out if Any/All/Not Table is blank/zero records
                         tempmeta = tempmeta & "TABLE" & vbCrLf & "2" & vbCrLf & "K" & vbCrLf & "V" & vbCrLf & "n" & vbCrLf & "n" & vbCrLf & "0" & vbCrLf
@@ -758,7 +767,11 @@
             Case 1 ' Single Record Table
                 tempmeta = tempmeta & SingleExport(CTypeData & vbCrLf, sCDataTableVarOne)
             Case 2 ' Double Record Table
-                tempmeta = tempmeta & CTypeDoubleExport(CTypeData, CTypeString) & vbCrLf
+                If CTypeString = "ChatMessageCapture" Then
+                    tempmeta = tempmeta & CTypeDoubleExport(CTypeData, CTypeString)
+                Else
+                    tempmeta = tempmeta & CTypeDoubleExport(CTypeData, CTypeString) & vbCrLf
+                End If
             Case 3 'Any/All/Not Sub Table
                ' tempmeta = tempmeta & vbCrLf & Header
             Case 4 'Triple Record
